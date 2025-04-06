@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqe14863y36km"]
+
+[ext_resource type="Texture2D" uid="uid://365lw2wsmahw" path="res://assets/sprites/GrayBridge.png" id="1_xtnrb"]
+
+[node name="GrayBridge" type="Sprite2D"]
+texture = ExtResource("1_xtnrb")
