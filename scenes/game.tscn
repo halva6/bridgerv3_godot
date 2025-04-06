@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://scgxsjpv21pd"]
+[gd_scene load_steps=7 format=3 uid="uid://scgxsjpv21pd"]
+
+[ext_resource type="Script" uid="uid://b8as4sxeuf38i" path="res://scripts/logic/matrix_visualizer.gd" id="1_p57ef"]
+[ext_resource type="PackedScene" uid="uid://b3isui05wbdo5" path="res://gameobjects/green_pier.tscn" id="2_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://cpe345fa3kxki" path="res://gameobjects/red_pier.tscn" id="3_gee14"]
+[ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/green_bridge.tscn" id="4_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://dkwqx5sqoaoh2" path="res://gameobjects/red_bridge.tscn" id="5_vtaks"]
+[ext_resource type="PackedScene" uid="uid://dfu3t87m7imk7" path="res://gameobjects/wall.tscn" id="6_kvpfn"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_p57ef")
+green_pier_scene = ExtResource("2_u5sy4")
+red_pier_scene = ExtResource("3_gee14")
+green_bridge_scene = ExtResource("4_0tnpc")
+red_bridge_scene = ExtResource("5_vtaks")
+wall_scene = ExtResource("6_kvpfn")
