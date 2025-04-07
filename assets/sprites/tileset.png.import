@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://365lw2wsmahw"
-path="res://.godot/imported/GrayBridge.png-2e4f2fda6546e1eee440ec112fa30e0b.ctex"
+uid="uid://bq17hhmn6ti75"
+path="res://.godot/imported/tileset.png-b50fc1806457686cf91872f682d34a54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/GrayBridge.png"
-dest_files=["res://.godot/imported/GrayBridge.png-2e4f2fda6546e1eee440ec112fa30e0b.ctex"]
+source_file="res://assets/sprites/tileset.png"
+dest_files=["res://.godot/imported/tileset.png-b50fc1806457686cf91872f682d34a54.ctex"]
 
 [params]
 
