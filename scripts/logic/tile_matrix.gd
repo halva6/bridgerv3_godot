@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 # Zuordnung der Atlas-Koordinaten zu Zahlenwerten (gemäß deiner Vorgabe)
 const ATLAS_TO_NUMBER = {
