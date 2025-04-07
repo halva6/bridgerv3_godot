@@ -1,5 +1,6 @@
-extends Node2D
+extends Node
 
+@export var tilemap_layer: TileMapLayer
 # Zuordnung der Atlas-Koordinaten zu Zahlenwerten (gemäß deiner Vorgabe)
 const ATLAS_TO_NUMBER = {
 	Vector2i(0, 0): 3,
@@ -11,7 +12,6 @@ const ATLAS_TO_NUMBER = {
 }
 
 func generate_tile_matrix() -> Array:
-	var tilemap_layer: TileMapLayer = $TileMapLayer  # Anpassen, falls der Node anders heißt
 	var matrix = []
 	
 	# Matrix-Größe: (0,0) bis einschließlich (24, 24) → 25x25 Felder
@@ -53,7 +53,5 @@ func print_matrix(matrix: Array) -> void:
 # Beispielaufruf
 func _ready():
 	var tile_matrix = generate_tile_matrix()
-	print("Ergebnis-Matrix (25x25): ")
-	print_matrix(tile_matrix)
-	print("\nErgebnis-Matrix transformed: ")
+	print("\nErgebnis-Matrix:")
 	print_matrix(transform_matrix(tile_matrix))
