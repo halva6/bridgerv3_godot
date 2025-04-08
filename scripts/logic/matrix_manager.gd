@@ -19,15 +19,15 @@ func delete_temp_bridges(big_matrix: Array)->void:
 	for i in range(len(big_matrix)):
 		for j in range(len(big_matrix[i])):
 			if big_matrix[i][j] == 5:
+				print(i,j)
 				big_matrix[i][j] = 0
-				tilemap_layer.set_cell(Vector2i(i,j),-1)
+				tilemap_layer.set_cell(Vector2i(j,i))
 
 func evaluate_and_place_bridges(atlas_coords, tile_coords) -> void:
 		if !valid_player(atlas_coords):
 			return
 		var big_matrix = matrix_script.get_big_matrix()
-		delete_temp_bridges(big_matrix)
-		
+		delete_temp_bridges(big_matrix)		
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

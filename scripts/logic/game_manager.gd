@@ -23,7 +23,10 @@ func check_game_over(matrix : Array) -> void:
 		is_game_over = true
 
 func handle_multiplayer_logic(matrix: Array) -> void:
-	pass
+	if current_player == "green":
+		pass
+	elif current_player == "red":
+		pass
 
 func handle_singleplayer_logic(matrix: Array) -> void:
 	pass
