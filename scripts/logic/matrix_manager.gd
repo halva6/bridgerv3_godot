@@ -27,7 +27,8 @@ func evaluate_and_place_bridges(atlas_coords, tile_coords) -> void:
 		if !valid_player(atlas_coords):
 			return
 		var big_matrix = matrix_script.get_big_matrix()
-		delete_temp_bridges(big_matrix)		
+		delete_temp_bridges(big_matrix)
+		#set the temp bridges right here		
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
