@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3isui05wbdo5"]
+[gd_scene load_steps=5 format=3 uid="uid://b3isui05wbdo5"]
 
 [ext_resource type="Texture2D" uid="uid://6dyu18gfkss7" path="res://assets/sprites/GreenPier.png" id="1_85352"]
+[ext_resource type="PackedScene" uid="uid://c7auql0pgufcs" path="res://gameobjects/nodes/clickable_object.tscn" id="2_4grgv"]
+[ext_resource type="Script" uid="uid://yrqmd77jxeee" path="res://scripts/node_scripts/properties.gd" id="2_7rjsh"]
+[ext_resource type="PackedScene" uid="uid://dhf4od2j77fp2" path="res://gameobjects/nodes/pier_collsion.tscn" id="4_82j8w"]
 
 [node name="GreenPier" type="Sprite2D"]
 texture = ExtResource("1_85352")
+script = ExtResource("2_7rjsh")
+object_name = "green_pier"
+
+[node name="ClickableObject" parent="." instance=ExtResource("2_4grgv")]
+
+[node name="PierCollsion" parent="ClickableObject" instance=ExtResource("4_82j8w")]

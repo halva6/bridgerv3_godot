@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7auql0pgufcs"]
+
+[ext_resource type="Script" uid="uid://ckdsbbo2m87l8" path="res://scripts/node_scripts/clickable_pier.gd" id="1_ahmlj"]
+
+[node name="ClickableObject" type="Area2D"]
+script = ExtResource("1_ahmlj")

@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://4tgf3hmpuww2"]
+[gd_scene load_steps=5 format=3 uid="uid://4tgf3hmpuww2"]
 
 [ext_resource type="Texture2D" uid="uid://cvwfim6uxu2jv" path="res://assets/sprites/GreenBridge.png" id="1_53rtv"]
+[ext_resource type="Script" uid="uid://yrqmd77jxeee" path="res://scripts/node_scripts/properties.gd" id="2_1lduk"]
+[ext_resource type="PackedScene" uid="uid://c7auql0pgufcs" path="res://gameobjects/nodes/clickable_object.tscn" id="2_ef71l"]
+[ext_resource type="PackedScene" uid="uid://b3mtti32xdou" path="res://gameobjects/nodes/bridge_collision.tscn" id="3_co12l"]
 
 [node name="GreenBridge" type="Sprite2D"]
 texture = ExtResource("1_53rtv")
+script = ExtResource("2_1lduk")
+object_name = "green_bridge"
+
+[node name="ClickableObject" parent="." instance=ExtResource("2_ef71l")]
+
+[node name="BridgeCollision" parent="ClickableObject" instance=ExtResource("3_co12l")]
