@@ -3,4 +3,5 @@
 [ext_resource type="Texture2D" uid="uid://qpl06wd1uoit" path="res://assets/sprites/Wall.png" id="1_w46dn"]
 
 [node name="Wall" type="Sprite2D"]
+scale = Vector2(1.5, 1.6)
 texture = ExtResource("1_w46dn")
