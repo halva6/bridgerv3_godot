@@ -11,5 +11,7 @@ script = ExtResource("2_h2dk2")
 object_name = "red_bridge"
 
 [node name="ClickableObject" parent="." instance=ExtResource("2_rkwq3")]
+visible = false
 
 [node name="BridgeCollision" parent="ClickableObject" instance=ExtResource("3_2fvor")]
+visible = false

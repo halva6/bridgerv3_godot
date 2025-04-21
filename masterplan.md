@@ -1,13 +1,15 @@
 # the masterplan for bridges_v3
 A simple collection of ideas of the programmer of this game, has no great public significance.
 Since English is not my native language, I apologize for any mistakes, but this is only a sheet of the overview, nothing big.
-  
+
+---
+
 ### steps
--  **camera movement**
+-  ~~**camera movement**~~
     -   zoom in and out
     -   move left, right, up, down   
 
-- **game board**
+- ~~**game board**~~
   - Tilemap
     - bridges (green, red, temp)
     - piers (green, red)
