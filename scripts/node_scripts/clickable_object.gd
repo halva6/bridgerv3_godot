@@ -19,8 +19,8 @@ func try_and_place(matrix: Array, matrix_x: int, matrix_y: int, x: int, y: int, 
 	var bridge_scene = preload("res://gameobjects/red_bridge.tscn")
 	var bridge_instance = bridge_scene.instantiate()
 	bridge_instance.rotation = calculate_rotation(direction)
-	bridge_instance.position.x = x - 40
-	bridge_instance.position.y = y - 328
+	bridge_instance.position.x = x
+	bridge_instance.position.y = y
 	
 	add_child(bridge_instance)
 	var temp_bridge_list = GlobalGame.get_temp_bridge_list()
