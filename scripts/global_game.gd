@@ -2,7 +2,7 @@ extends Node
 
 @onready var _finish_turn: bool = false
 var _current_player: String = "green"
-var _temp_bridge_list: Array = []
+var _TILE_DICT: Dictionary = {"green_pier": 1, "red_pier": 2, "green_bridge": 3, "red_bridge": 4, "temp_bridge": 5}
 
 # game board matrix
 #   -1 ≙ not placeable space (e.g. walls/corners)
@@ -38,9 +38,9 @@ func get_finish_turn() -> bool:
 
 func get_current_player() -> String:
 	return _current_player
-
-func get_temp_bridge_list() -> Array:
-	return _temp_bridge_list
+	
+func get_TILE_DICT()-> Dictionary:
+	return _TILE_DICT
 
 # setter
 func set_matrix(matrix: Array) -> void:
@@ -52,17 +52,3 @@ func set_finish_turn(finish_turn: bool) -> void:
 func set_current_player(current_player: String) -> void:
 	_current_player = current_player
 	
-func set_temp_bridge_list(temp_bridge_list: Array) -> void:
-	_temp_bridge_list = temp_bridge_list
-
-
-func clear_temp_bridges():
-	for temp_bridge in _temp_bridge_list:
-		if is_instance_valid(temp_bridge):
-			temp_bridge.queue_free()
-	_temp_bridge_list
-	
-	for y in range(len(_matrix)):
-		for x in range(len(_matrix[0])):
-			if _matrix[y][x] == 5:
-				_matrix[y][x] = 0

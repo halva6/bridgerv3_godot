@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkwqx5sqoaoh2"]
+
+[ext_resource type="Texture2D" uid="uid://ch0ki841rioc7" path="res://assets/sprites/RedBridge.png" id="1_ji8wq"]
+
+[node name="RedBridge" type="Sprite2D"]
+texture = ExtResource("1_ji8wq")
+metadata/_edit_group_ = true

@@ -1,60 +1,79 @@
 extends Area2D
 
+@export var temp_bridge: PackedScene
 var input_name: String
 
+# Check if the position in the matrix is valid
 func is_position_valid(matrix: Array, matrix_x: int, matrix_y: int) -> bool:
-	print("")
 	return matrix_y >= 0 && matrix_x >= 0 && matrix_y < len(matrix) && matrix_x < len(matrix[matrix_y]) && matrix[matrix_y][matrix_x] == 0
 
-func calculate_rotation(direction: String)-> float:
-	if (direction == "up" || direction == "down"):
+# Calculate rotation for the bridge based on direction
+func calculate_rotation(direction: String) -> float:
+	if direction == "up" or direction == "down":
 		return deg_to_rad(90)
-	else:
-		return deg_to_rad(0)
-	
-func try_and_place(matrix: Array, matrix_x: int, matrix_y: int, x: int, y: int, direction:String) -> void:
-	if !is_position_valid(matrix, matrix_x, matrix_y): 
+	return deg_to_rad(0)
+
+# Try to place a temporary bridge at a specific position
+func try_and_place(temp_bridge_group_name: String, matrix: Array, matrix_x: int, matrix_y: int, x: int, y: int, direction: String) -> void:
+	if !is_position_valid(matrix, matrix_x, matrix_y):
 		return
 	
-	var bridge_scene = preload("res://gameobjects/red_bridge.tscn")
-	var bridge_instance = bridge_scene.instantiate()
-	bridge_instance.rotation = calculate_rotation(direction)
-	bridge_instance.position.x = x
-	bridge_instance.position.y = y
-	
-	add_child(bridge_instance)
-	var temp_bridge_list = GlobalGame.get_temp_bridge_list()
-	temp_bridge_list.append(bridge_instance)
-	GlobalGame.set_temp_bridge_list(temp_bridge_list)
-	
-func temp_bridges(matrix_x: int, matrix_y: int, x: int, y: int):
-	var matrix = GlobalGame.get_matrix()
-	GlobalGame.clear_temp_bridges()
-	try_and_place(matrix, matrix_x, matrix_y - 1, x, y - 32, "up")
-	try_and_place(matrix, matrix_x, matrix_y + 1, x, y + 32, "down")
-	try_and_place(matrix, matrix_x - 1, matrix_y, x - 32, y, "left")
-	try_and_place(matrix, matrix_x + 1, matrix_y, x + 32, y, "right")
-	#print(GlobalGame.get_matrix())
+	var bridge_instance = temp_bridge.instantiate()
+	get_parent().get_parent().add_child(bridge_instance)
 
-func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:	
+	bridge_instance.rotation = calculate_rotation(direction)	
+	bridge_instance.position = Vector2(x, y)
+	bridge_instance.name = temp_bridge_group_name + "_" + str(x)+str(y)
+	bridge_instance.add_to_group(temp_bridge_group_name)
+
+func clear_temp_bridges(group_name: String, matrix: Array):
+	for node in get_tree().get_nodes_in_group(group_name):
+		node.queue_free()
+	
+	for y in range(len(matrix)):
+		for x in range(len(matrix[0])):
+			if matrix[y][x] == 5:
+				matrix[y][x] = 0
+
+# Place temporary bridges in all valid directions
+func temp_bridges(temp_bridge_group_name: String, matrix: Array, matrix_x: int, matrix_y: int, x: int, y: int):
+	clear_temp_bridges(temp_bridge_group_name, matrix)
+	
+	# Try placing bridges in all four directions
+	try_and_place(temp_bridge_group_name, matrix, matrix_x, matrix_y - 1, x, y - 32, "up")    # Up
+	try_and_place(temp_bridge_group_name, matrix, matrix_x, matrix_y + 1, x, y + 32, "down")  # Down
+	try_and_place(temp_bridge_group_name, matrix, matrix_x - 1, matrix_y, x - 32, y, "left")  # Left
+	try_and_place(temp_bridge_group_name, matrix, matrix_x + 1, matrix_y, x + 32, y, "right") # Right
+
+func print_scene_tree(node: Node, indent: int = 0):
+	var indentation = "    ".repeat(indent)  # Einrückung für Hierarchie
+	print("%s%s (%s)" % [indentation, node.name, node.get_class()])
+	
+	# Rekursiv alle Kinder durchgehen
+	for child in node.get_children():
+		print_scene_tree(child, indent + 1)	
+
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
-		var x: int = get_parent().position.x
-		var y: int = get_parent().position.y
+		# Get the global position of the parent (Pier)
+		var x: int = int(round(get_parent().global_position.x))
+		var y: int = int(round(get_parent().global_position.y))
 		
-		var matrix_x: int = int(round(abs(x)/32))
-		var matrix_y: int = int(round((y)/32))
+		# Convert global position to matrix coordinates
+		var matrix_x: int = int(round(abs(x) / 32))
+		var matrix_y: int = int(round(abs(y) / 32))
 		
-		var object_name = ""
+		var matrix = GlobalGame.get_matrix()
+		var temp_bridge_group_name: String = "tempbridge"
 		
-		if (get_parent() is Properties):
-			print("matrix X: " + str(matrix_x) + "; matrix Y: " + str(matrix_y) + " x: " + str(x) + " y: " + str(y) + "; Name: " + get_parent().object_name)
-			object_name = get_parent().object_name
-			get_parent().position_x = matrix_x
-			get_parent().position_y = matrix_y
-			
-		var current_player: String = GlobalGame.get_current_player()
+		#print("Global Position: " + str(get_parent().global_position) + "; Position: " + str(get_parent().position))		
+		#print("=== Scene Tree ===")
+		#print_scene_tree(get_tree().root)
 		
-		#print("Current Player: " +  current_player + " is true: " + str(current_player.to_lower() in object_name.to_lower()))
-		if object_name.containsn(current_player):
-			temp_bridges(matrix_x, matrix_y, y, x)
-			#y; x
+		# Verify the player owns the clicked object
+		if get_parent().is_in_group(GlobalGame.get_current_player()+"pier"):
+			# Place temporary bridges
+			temp_bridges(temp_bridge_group_name, matrix, matrix_x, matrix_y, x, y)
+		elif(get_parent().is_in_group("tempbridge")):
+			clear_temp_bridges(temp_bridge_group_name, matrix)

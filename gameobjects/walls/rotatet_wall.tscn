@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dec8rujwdku8i"]
 
-[ext_resource type="PackedScene" uid="uid://dfu3t87m7imk7" path="res://gameobjects/wall.tscn" id="1_ev4a7"]
+[ext_resource type="PackedScene" uid="uid://dfu3t87m7imk7" path="res://gameobjects/walls/wall.tscn" id="1_ev4a7"]
 
 [node name="RotatetWall" type="Sprite2D"]
 

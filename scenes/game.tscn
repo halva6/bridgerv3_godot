@@ -1,45 +1,42 @@
-[gd_scene load_steps=13 format=4 uid="uid://scgxsjpv21pd"]
+[gd_scene load_steps=8 format=3 uid="uid://scgxsjpv21pd"]
 
 [ext_resource type="Script" uid="uid://c5jjky3dnodd" path="res://scripts/node_scripts/game.gd" id="1_0tnpc"]
-[ext_resource type="PackedScene" uid="uid://cqe14863y36km" path="res://gameobjects/gray_bridge.tscn" id="1_p57ef"]
-[ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/green_bridge.tscn" id="2_u5sy4"]
-[ext_resource type="PackedScene" uid="uid://b3isui05wbdo5" path="res://gameobjects/green_pier.tscn" id="3_gee14"]
-[ext_resource type="PackedScene" uid="uid://dkwqx5sqoaoh2" path="res://gameobjects/red_bridge.tscn" id="4_0tnpc"]
-[ext_resource type="PackedScene" uid="uid://cpe345fa3kxki" path="res://gameobjects/red_pier.tscn" id="5_vtaks"]
-[ext_resource type="PackedScene" uid="uid://dfu3t87m7imk7" path="res://gameobjects/wall.tscn" id="6_kvpfn"]
-[ext_resource type="PackedScene" uid="uid://dec8rujwdku8i" path="res://gameobjects/rotatet_wall.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/bridges/green_bridge.tscn" id="2_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://b3isui05wbdo5" path="res://gameobjects/piers/green_pier.tscn" id="3_gee14"]
+[ext_resource type="PackedScene" uid="uid://dkwqx5sqoaoh2" path="res://gameobjects/bridges/red_bridge.tscn" id="4_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://cpe345fa3kxki" path="res://gameobjects/piers/red_pier.tscn" id="5_vtaks"]
 [ext_resource type="Script" uid="uid://ctxlx6l24fmun" path="res://scripts/camera/camera_movement.gd" id="8_gee14"]
-[ext_resource type="Script" uid="uid://ckwcspomuq1xs" path="res://scenes/node.gd" id="10_vtaks"]
+[ext_resource type="Script" uid="uid://ckwcspomuq1xs" path="res://scripts/node_scripts/spawn.gd" id="10_vtaks"]
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_dinhu"]
-resource_name = "GameElements"
-scenes/1/scene = ExtResource("1_p57ef")
-scenes/2/scene = ExtResource("2_u5sy4")
-scenes/3/scene = ExtResource("3_gee14")
-scenes/4/scene = ExtResource("4_0tnpc")
-scenes/5/scene = ExtResource("5_vtaks")
-scenes/6/scene = ExtResource("6_kvpfn")
-scenes/7/scene = ExtResource("7_u5sy4")
-
-[sub_resource type="TileSet" id="TileSet_8cj0n"]
-sources/0 = SubResource("TileSetScenesCollectionSource_dinhu")
-
-[node name="GameRoot" type="Node2D"]
+[node name="GameRoot" type="Node"]
 script = ExtResource("1_0tnpc")
 start_player = "red"
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-visible = false
-tile_map_data = PackedByteArray("AAAAAAQAAAAAAAAABwAAAAgAAAAAAAAABwAAAAwAAAAAAAAABwAAABAAAAAAAAAABwAAABQAAAAAAAAABwACABgAAAAAAAAAAwAEAAAAAAAAAAAABgAEABgAAAAAAAAABgAGAAAAAAAAAAAAAwAGABgAAAAAAAAAAwAIAAAAAAAAAAAABgAIABgAAAAAAAAABgAKAAAAAAAAAAAAAwAKABgAAAAAAAAAAwAMAAAAAAAAAAAABgAMABgAAAAAAAAABgAOAAAAAAAAAAAAAwAOABgAAAAAAAAAAwAQAAAAAAAAAAAABgAQABgAAAAAAAAABgASAAAAAAAAAAAAAwASABgAAAAAAAAAAwAUAAAAAAAAAAAABgAUABgAAAAAAAAABgAWAAQAAAAAAAAAAwAWAAgAAAAAAAAAAwAWAAwAAAAAAAAAAwAWABAAAAAAAAAAAwAWABQAAAAAAAAAAwAAAAIAAAAAAAAABQAAAAYAAAAAAAAABQAAAAoAAAAAAAAABQAAAA4AAAAAAAAABQAAABIAAAAAAAAABQAAABYAAAAAAAAABQACAAQAAAAAAAAAAwACAAgAAAAAAAAAAwACAAwAAAAAAAAAAwACABAAAAAAAAAAAwACABQAAAAAAAAAAwAEAAIAAAAAAAAABQAEAAYAAAAAAAAABQAEAAoAAAAAAAAABQAEAA4AAAAAAAAABQAEABIAAAAAAAAABQAEABYAAAAAAAAABQAGAAQAAAAAAAAAAwAGAAgAAAAAAAAAAwAGAAwAAAAAAAAAAwAGABAAAAAAAAAAAwAGABQAAAAAAAAAAwAIAAIAAAAAAAAABQAIAAYAAAAAAAAABQAIAAoAAAAAAAAABQAIAA4AAAAAAAAABQAIABIAAAAAAAAABQAIABYAAAAAAAAABQAKAAQAAAAAAAAAAwAKAAgAAAAAAAAAAwAKAAwAAAAAAAAAAwAKABAAAAAAAAAAAwAKABQAAAAAAAAAAwAMAAIAAAAAAAAABQAMAAYAAAAAAAAABQAMAAoAAAAAAAAABQAMAA4AAAAAAAAABQAMABIAAAAAAAAABQAMABYAAAAAAAAABQAOAAQAAAAAAAAAAwAOAAgAAAAAAAAAAwAOAAwAAAAAAAAAAwAOABAAAAAAAAAAAwAOABQAAAAAAAAAAwAQAAIAAAAAAAAABQAQAAYAAAAAAAAABQAQAAoAAAAAAAAABQAQAA4AAAAAAAAABQAQABIAAAAAAAAABQAQABYAAAAAAAAABQASAAQAAAAAAAAAAwASAAgAAAAAAAAAAwASAAwAAAAAAAAAAwASABAAAAAAAAAAAwASABQAAAAAAAAAAwAUAAIAAAAAAAAABQAUAAYAAAAAAAAABQAUAAoAAAAAAAAABQAUAA4AAAAAAAAABQAUABIAAAAAAAAABQAUABYAAAAAAAAABQAWAAAAAAAAAAAAAwAWABgAAAAAAAAAAwAYAAIAAAAAAAAABQAYAAQAAAAAAAAABwAYAAYAAAAAAAAABQAYAAgAAAAAAAAABwAYAAoAAAAAAAAABQAYAAwAAAAAAAAABwAYAA4AAAAAAAAABQAYABAAAAAAAAAABwAYABIAAAAAAAAABQAYABQAAAAAAAAABwAYABYAAAAAAAAABQAIABQAAAAAAAAAAgAKABIAAAAAAAAABAAIABAAAAAAAAAAAQACAAIAAAAAAAAAAQAGAAIAAAAAAAAABAAIAAQAAAAAAAAAAgAMAAwAAAAAAAAAAgACAAAAAAAAAAAAAwA=")
-tile_set = SubResource("TileSet_8cj0n")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(200, 200)
-script = ExtResource("8_gee14")
-
-[node name="Node" type="Node" parent="."]
+[node name="Spawner" type="Node" parent="."]
 script = ExtResource("10_vtaks")
 green_pier_scene = ExtResource("3_gee14")
 red_pier_scene = ExtResource("5_vtaks")
 green_bridge_scene = ExtResource("2_u5sy4")
 red_bridge_scene = ExtResource("4_0tnpc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(200, 200)
+script = ExtResource("8_gee14")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
+position = Vector2(200, 200)
+motion_mirroring = Vector2(1080, 1920)
+
+[node name="Node" type="Node" parent="Camera2D/ParallaxBackground/ParallaxLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/ParallaxBackground/ParallaxLayer/Node"]
+visible = false
+texture_repeat = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101423, 0.434171, 0.585813, 1)

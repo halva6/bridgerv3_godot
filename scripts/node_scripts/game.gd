@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 @export var is_multiplayer: bool = true
 @export var start_player: String = "green"
