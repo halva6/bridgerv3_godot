@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhf4od2j77fp2"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hw7sc"]
-size = Vector2(18, 20)
-
-[node name="PierCollsion" type="CollisionShape2D"]
-shape = SubResource("RectangleShape2D_hw7sc")

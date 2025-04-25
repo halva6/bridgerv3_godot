@@ -1,7 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3mtti32xdou"]
+[gd_scene load_steps=5 format=3 uid="uid://cmu6ft34tbqog"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkwq3"]
-size = Vector2(50, 18)
+[ext_resource type="Script" uid="uid://bemhc8sbsl43w" path="res://scripts/node_scripts/temp_bridge_click.gd" id="1_x0g7u"]
+[ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/bridges/green_bridge.tscn" id="2_y265s"]
+[ext_resource type="PackedScene" uid="uid://dkwqx5sqoaoh2" path="res://gameobjects/bridges/red_bridge.tscn" id="3_1jwca"]
 
-[node name="BridgeCollision" type="CollisionShape2D"]
-shape = SubResource("RectangleShape2D_rkwq3")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whkpr"]
+size = Vector2(48, 16)
+
+[node name="BridgeCollision" type="Area2D"]
+script = ExtResource("1_x0g7u")
+green_bridge = ExtResource("2_y265s")
+red_bridge = ExtResource("3_1jwca")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_whkpr")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

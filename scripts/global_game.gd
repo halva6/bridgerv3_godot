@@ -2,7 +2,7 @@ extends Node
 
 @onready var _finish_turn: bool = false
 var _current_player: String = "green"
-var _TILE_DICT: Dictionary = {"green_pier": 1, "red_pier": 2, "green_bridge": 3, "red_bridge": 4, "temp_bridge": 5}
+var _TILE_DICT: Dictionary = {"greenpier": 1, "redpier": 2, "greenbridge": 3, "redbridge": 4, "tempbridge": 5}
 
 # game board matrix
 #   -1 ≙ not placeable space (e.g. walls/corners)
@@ -16,17 +16,17 @@ var _TILE_DICT: Dictionary = {"green_pier": 1, "red_pier": 2, "green_bridge": 3,
 @onready var _matrix: Array = [
 	[ -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1 ], #12
 	[  2,  0,  2,  0,  2,  0,  2,  3,  2,  0,  2,  0,  2 ],
-	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1, -1 ],
+	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1 ],
 	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1, -1 ],
+	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1 ],
 	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1, -1 ],
+	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1 ],
 	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1, -1 ],
+	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1 ],
 	[  2,  0,  2,  0,  2,  0,  2,  4,  2,  0,  2,  0,  2 ],
-	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1,  1, -1 ],
+	[ -1,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -1 ],
 	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1 ] 
+	[ -1,  1, -1,  1, -1,  1, -1,  1, -1,  1,  0,  1, -1 ] 
 	]# 12
 		
 # getter

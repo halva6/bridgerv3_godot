@@ -1,12 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://djw56yj41o3wc"]
+[gd_scene load_steps=3 format=3 uid="uid://bkwmvcbj73bwg"]
 
 [ext_resource type="Texture2D" uid="uid://365lw2wsmahw" path="res://assets/sprites/GrayBridge.png" id="1_whkpr"]
-[ext_resource type="PackedScene" uid="uid://covw00ur5bcp6" path="res://gameobjects/nodes/clickable_object.tscn" id="2_nxbmt"]
-[ext_resource type="PackedScene" uid="uid://b3mtti32xdou" path="res://gameobjects/nodes/bridge_collision.tscn" id="3_txjto"]
+[ext_resource type="PackedScene" uid="uid://cmu6ft34tbqog" path="res://gameobjects/nodes/bridge_collision.tscn" id="3_txjto"]
 
 [node name="TempBridge" type="Sprite2D"]
 texture = ExtResource("1_whkpr")
 
-[node name="ClickableObject" parent="." instance=ExtResource("2_nxbmt")]
-
-[node name="BridgeCollision" parent="ClickableObject" instance=ExtResource("3_txjto")]
+[node name="BridgeCollision" parent="." instance=ExtResource("3_txjto")]
