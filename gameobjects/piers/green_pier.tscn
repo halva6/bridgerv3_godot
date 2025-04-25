@@ -8,4 +8,3 @@ texture = ExtResource("1_85352")
 metadata/_edit_group_ = true
 
 [node name="PierCollision" parent="." instance=ExtResource("3_hm2y8")]
-temp_bridge = null

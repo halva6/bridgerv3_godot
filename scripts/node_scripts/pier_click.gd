@@ -35,38 +35,13 @@ func place_temp_bridges(group_name: String, matrix: Array, util: ClickUtil) -> v
 	util.clear_temp_bridges(get_tree(), group_name, matrix)
 	for direction in ["up", "down", "left", "right"]:
 		try_place_bridge(group_name, matrix, util, direction)
-	
-	print_matrix(matrix)
-
+		
 # Print the scene tree structure (for debugging purposes)
 func print_scene_tree(node: Node, indent: int = 0) -> void:
 	var indentation = "    ".repeat(indent)
 	print("%s%s (%s)" % [indentation, node.name, node.get_class()])
 	for child in node.get_children():
 		print_scene_tree(child, indent + 1)
-
-# Gibt eine 2D-Matrix lesbar in der Konsole aus
-func print_matrix(matrix: Array) -> void:
-	if matrix.is_empty():
-		print("[] (Leere Matrix)")
-		return
-	
-	# Bestimme die maximale Länge eines Elements für saubere Formatierung
-	var max_length := 0
-	for row in matrix:
-		for element in row:
-			var element_str := str(element)
-			if element_str.length() > max_length:
-				max_length = element_str.length()
-	
-	# Ausgabe jeder Zeile mit Formatierung
-	print("Matrix [", matrix.size(), "x", matrix[0].size(), "]:")
-	for row in matrix:
-		var row_str := "| "
-		for element in row:
-			row_str += str(element).rpad(max_length) + " "  # Rechtsbündige Ausrichtung
-		row_str += "|"
-		print(row_str)
 
 # Handle input events
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:

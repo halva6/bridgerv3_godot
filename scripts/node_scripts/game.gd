@@ -22,14 +22,16 @@ func _process(delta: float) -> void:
 
 #changes the players, returns a array of the current_player and finishturn
 func _switch_player(player1: String, player2: String, current_player: String, finish_turn: bool) -> Array:
-	if(current_player == player1):
-		if(finish_turn):
-			current_player = player2
-			finish_turn = false
-	else: # if current_player == player2
-		if(finish_turn):
-			current_player = player1
-			finish_turn = false
+	if(finish_turn):
+		if(!_game_over()):
+			if (current_player == player1):
+				current_player = player2
+				finish_turn = false
+			else:
+				current_player = player1
+				finish_turn = false
+		else:
+			return["", false]
 			
 	return [current_player, finish_turn]
 	
@@ -42,7 +44,8 @@ func _game_over() -> bool:
 		print("red wins")
 		return true
 	return false
-	
+
+
 	
 	
 func check_winner(matrix: Array, player: int):

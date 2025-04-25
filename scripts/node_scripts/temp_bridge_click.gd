@@ -22,8 +22,9 @@ func instantiate_bridge(util: ClickUtil) -> void:
 		
 		matrix[util.get_pos()[3]][util.get_pos()[2]] = GlobalGame.get_TILE_DICT()[current_player+"bridge"]
 		GlobalGame.set_matrix(matrix)
+		#GlobalGame.print_matrix(matrix, "===== matrix ====")
+		GlobalGame.set_finish_turn(true)
 		
-
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
