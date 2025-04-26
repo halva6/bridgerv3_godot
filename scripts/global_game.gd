@@ -7,13 +7,13 @@ var _TILE_DICT: Dictionary = {"greenpier": 1, "redpier": 2, "greenbridge": 3, "r
 var _count_turn: int = 0
 
 # game board matrix
-#   -1 ≙ not placeable space (e.g. walls/corners)
-#    0 ≙ placeable space
-#    1 ≙ green pier
-#    2 ≙ red pier
-#    3 ≙ green bridge
-#    4 ≙ red bridge
-#    5 ≙ temp bridge
+#	-1 ≙ not placeable space (e.g. walls/corners)
+#	 0 ≙ placeable space
+#	 1 ≙ green pier
+#	 2 ≙ red pier
+#	 3 ≙ green bridge
+#	 4 ≙ red bridge
+#	 5 ≙ temp bridge
 
 var _matrix: Array = [
 	[ -3,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -3 ], #12

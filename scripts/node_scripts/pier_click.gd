@@ -37,7 +37,7 @@ func place_temp_bridges(group_name: String, matrix: Array, util: ClickUtil) -> v
 		
 # Print the scene tree structure (for debugging purposes)
 func print_scene_tree(node: Node, indent: int = 0) -> void:
-	var indentation = "    ".repeat(indent)
+	var indentation = "%09".repeat(indent)
 	print("%s%s (%s)" % [indentation, node.name, node.get_class()])
 	for child in node.get_children():
 		print_scene_tree(child, indent + 1)

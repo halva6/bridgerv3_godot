@@ -3,6 +3,7 @@ extends Node
 # Exported variables (editable in Godot editor)
 @onready var is_multiplayer: bool = GlobalGame.get_local_multiplayer()  # Toggle between multiplayer vs AI mode
 @export var start_player: String = "green"  # Which player starts the game
+@export var simulation_number = 100
 
 signal update_player_label(player: String)
 
@@ -20,6 +21,12 @@ func _process(delta: float) -> void:
 		player_n_move = _switch_player("green", "red", GlobalGame.get_current_player(), GlobalGame.get_finish_turn())
 	else:
 		player_n_move = _switch_player("green", "computer", GlobalGame.get_current_player(), GlobalGame.get_finish_turn())
+		if(player_n_move[0] == "computer"):
+			var matrix_logic = MatrixLogic.new()
+			var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
+			print(matrix_logic.get_best_mcts(transform_matrix, simulation_number))
+			GlobalGame.set_finish_turn(true)
+			player_n_move[1] = true
 	
 	# Update global game state
 	GlobalGame.set_current_player(player_n_move[0])
@@ -48,19 +55,18 @@ func _switch_player(player1: String, player2: String, current_player: String, fi
 			
 	return [current_player, finish_turn]
 
-	
 
 # Determines if the game has been won
 # Returns: bool - true if a player has won, false otherwise
 func _game_over() -> bool:
 	# Create a transformed copy of the game matrix for analysis
-	var transformed_matrix: Array = transform_matrix(GlobalGame.get_matrix().duplicate(true))
+	var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
 	
 	# Check for both possible winners
-	if (check_winner(transformed_matrix, 1)):  # Player 1 (green)
+	if (check_winner(transform_matrix, 1)):  # Player 1 (green)
 		print("green wins")
 		return true
-	elif (check_winner(transformed_matrix, 2)):  # Player 2 (red/computer)
+	elif (check_winner(transform_matrix, 2)):  # Player 2 (red/computer)
 		print("red wins")
 		return true
 	return false
@@ -69,7 +75,7 @@ func _game_over() -> bool:
 # Parameters:
 #   matrix: The game board matrix to transform
 # Returns: Transformed matrix where 3→1 and 4→2
-func transform_matrix(matrix: Array) -> Array:
+func _transform_matrix(matrix: Array) -> Array:
 	for i in range(len(matrix)):
 		for j in range(len(matrix[i])):
 			if(matrix[i][j] == 3):

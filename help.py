@@ -118,8 +118,8 @@ if __name__ == "__main__":
     fix_assignment_spacing_in_gd_files(target_directory)
 
 
-    search_query = input("Enter the text or regex pattern to search for: ")
+    #search_query = input("Enter the text or regex pattern to search for: ")
     # Start the search
-    print(f"\nSearching for '{search_query}' in .gd files under '{target_directory}'...\n")
-    search_in_gd_files(target_directory, search_query)
+    #print(f"\nSearching for '{search_query}' in .gd files under '{target_directory}'...\n")
+    #search_in_gd_files(target_directory, search_query)
 
