@@ -11,14 +11,13 @@ config_version=5
 [application]
 
 config/name="bridgerv3_godot"
-run/main_scene="uid://scgxsjpv21pd"
+run/main_scene="uid://2ntaa6fu6286"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GlobalGame="*res://scripts/global_game.gd"
-LocalDebug="*res://scripts/local_debug.gd"
 
 [display]
 

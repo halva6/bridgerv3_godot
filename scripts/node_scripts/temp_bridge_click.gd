@@ -24,8 +24,8 @@ func instantiate_bridge(util: ClickUtil) -> void:
 		GlobalGame.set_matrix(matrix)
 		GlobalGame.increase_count_turn()
 		print("Placing: " + group_name + "; Turn: " +  str(GlobalGame.get_count_turn()))
-		LocalDebug.print_matrix(matrix, "----- matrix -----")
-		LocalDebug.print_count_numbers(matrix)
+		#LocalDebug.print_matrix(matrix, "----- matrix -----")
+		#LocalDebug.print_count_numbers(matrix)
 		
 		GlobalGame.set_finish_turn(true)
 		

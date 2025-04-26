@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dbylv5gcihdj3" path="res://gameobjects/nodes/pier_collision.tscn" id="3_cy46c"]
 
 [node name="RedPier" type="Sprite2D"]
+z_index = 1
 texture = ExtResource("1_hw7sc")
 metadata/_edit_group_ = true
 

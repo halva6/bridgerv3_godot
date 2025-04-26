@@ -1,6 +1,8 @@
 extends Node
 
 # Scenes for the objects to spawn
+@export var wall: PackedScene
+@export var rotatet_wall: PackedScene
 @export var green_pier_scene: PackedScene
 @export var red_pier_scene: PackedScene
 @export var green_bridge_scene: PackedScene
@@ -23,6 +25,10 @@ func generate_from_matrix():
 			var position = Vector2(x, y) * tile_spacing
 			
 			match value:
+				-2:
+					spawn_object(rotatet_wall, position, "wall")
+				-1:
+					spawn_object(wall, position, "wall")
 				1:
 					spawn_object(green_pier_scene, position, "greenpier")
 				2:

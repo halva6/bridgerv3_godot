@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://d21chmllupuu2"]
+
+[ext_resource type="Script" uid="uid://b0v2r16h541re" path="res://scripts/ui/game_ui.gd" id="1_tqpfq"]
+[ext_resource type="Texture2D" uid="uid://clqy1whg17vsd" path="res://assets/ui/waterbackground.png" id="3_2hodu"]
+[ext_resource type="Texture2D" uid="uid://buslqd7likxjb" path="res://assets/ui/Pause.png" id="3_k4eh0"]
+[ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_k4eh0"]
+
+[node name="GameUI" type="Control"]
+z_index = -1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_tqpfq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
+texture = ExtResource("3_2hodu")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 100
+
+[node name="PauseButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = ExtResource("3_k4eh0")
+flat = true
+
+[node name="PlayerLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Player"
+label_settings = ExtResource("4_k4eh0")
+
+[connection signal="pressed" from="MarginContainer/PauseButton" to="." method="_on_pause_button_pressed"]

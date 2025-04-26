@@ -1,0 +1,107 @@
+[gd_scene load_steps=9 format=3 uid="uid://c47cxenchwann"]
+
+[ext_resource type="Texture2D" uid="uid://clqy1whg17vsd" path="res://assets/ui/waterbackground.png" id="1_06re7"]
+[ext_resource type="Script" uid="uid://c0h741vqbcgm" path="res://scripts/ui/pause_ui.gd" id="1_jdk4y"]
+[ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_slbg8"]
+[ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_jdk4y"]
+[ext_resource type="Texture2D" uid="uid://cpcmw753skrlu" path="res://assets/ui/Redo.png" id="5_06re7"]
+[ext_resource type="Texture2D" uid="uid://bun553o816k0e" path="res://assets/ui/Play.png" id="5_nmfwn"]
+[ext_resource type="Texture2D" uid="uid://nojpp04mdnn5" path="res://assets/ui/Gear.png" id="6_ddrxt"]
+[ext_resource type="Texture2D" uid="uid://d2584bmafjxj7" path="res://assets/ui/Exit.png" id="6_slbg8"]
+
+[node name="PauseUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jdk4y")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_06re7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pause"
+label_settings = ExtResource("2_slbg8")
+
+[node name="Continue" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/Continue"]
+layout_mode = 2
+icon = ExtResource("5_nmfwn")
+flat = true
+
+[node name="ContinueLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/Continue"]
+layout_mode = 2
+text = "Continue"
+label_settings = ExtResource("4_jdk4y")
+
+[node name="Redo" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="RedoButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/Redo"]
+layout_mode = 2
+icon = ExtResource("5_06re7")
+flat = true
+
+[node name="redoLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/Redo"]
+layout_mode = 2
+text = "Redo"
+label_settings = ExtResource("4_jdk4y")
+
+[node name="Exit" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="ExitButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/Exit"]
+layout_mode = 2
+icon = ExtResource("6_slbg8")
+flat = true
+
+[node name="ExitLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/Exit"]
+layout_mode = 2
+text = "exit"
+label_settings = ExtResource("4_jdk4y")
+
+[node name="SettingsButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = ExtResource("6_ddrxt")
+flat = true
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/Continue/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/Redo/RedoButton" to="." method="_on_redo_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/Exit/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

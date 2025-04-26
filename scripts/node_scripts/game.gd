@@ -1,13 +1,15 @@
 extends Node
 
 # Exported variables (editable in Godot editor)
-@export var is_multiplayer: bool = true  # Toggle between multiplayer vs AI mode
+@onready var is_multiplayer: bool = GlobalGame.get_local_multiplayer()  # Toggle between multiplayer vs AI mode
 @export var start_player: String = "green"  # Which player starts the game
+
+signal update_player_label(player: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Initialize the first player in global game state
 	GlobalGame.set_current_player(start_player)
+	emit_signal("update_player_label", start_player)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -35,15 +37,19 @@ func _switch_player(player1: String, player2: String, current_player: String, fi
 		if(!_game_over()):  # Only switch if game isn't over
 			if (current_player == player1):
 				current_player = player2
+				emit_signal("update_player_label", current_player)
 				finish_turn = false
 			else:
 				current_player = player1
+				emit_signal("update_player_label", current_player)
 				finish_turn = false
 		else:
 			return["", false]  # Empty string indicates game over
 			
 	return [current_player, finish_turn]
+
 	
+
 # Determines if the game has been won
 # Returns: bool - true if a player has won, false otherwise
 func _game_over() -> bool:

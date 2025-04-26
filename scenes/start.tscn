@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://2ntaa6fu6286"]
+[gd_scene load_steps=2 format=3 uid="uid://2ntaa6fu6286"]
 
-[node name="start" type="Node"]
+[ext_resource type="PackedScene" uid="uid://ckg6j1nwmecv" path="res://gameobjects/ui/start_screen_ui.tscn" id="1_jaeev"]
+
+[node name="StartScreenRoot" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StartScreenUI" parent="CanvasLayer" instance=ExtResource("1_jaeev")]
+z_index = -1

@@ -1,19 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://scgxsjpv21pd"]
+[gd_scene load_steps=12 format=3 uid="uid://scgxsjpv21pd"]
 
 [ext_resource type="Script" uid="uid://c5jjky3dnodd" path="res://scripts/node_scripts/game.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/bridges/green_bridge.tscn" id="2_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://b3isui05wbdo5" path="res://gameobjects/piers/green_pier.tscn" id="3_gee14"]
+[ext_resource type="PackedScene" uid="uid://dfu3t87m7imk7" path="res://gameobjects/walls/wall.tscn" id="3_vtaks"]
 [ext_resource type="PackedScene" uid="uid://dkwqx5sqoaoh2" path="res://gameobjects/bridges/red_bridge.tscn" id="4_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://dec8rujwdku8i" path="res://gameobjects/walls/rotatet_wall.tscn" id="4_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://cpe345fa3kxki" path="res://gameobjects/piers/red_pier.tscn" id="5_vtaks"]
+[ext_resource type="PackedScene" uid="uid://d21chmllupuu2" path="res://gameobjects/ui/game_ui.tscn" id="8_0tnpc"]
 [ext_resource type="Script" uid="uid://ctxlx6l24fmun" path="res://scripts/camera/camera_movement.gd" id="8_gee14"]
+[ext_resource type="PackedScene" uid="uid://c47cxenchwann" path="res://gameobjects/ui/pause_ui.tscn" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://ckwcspomuq1xs" path="res://scripts/node_scripts/spawn.gd" id="10_vtaks"]
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_0tnpc")
-start_player = "red"
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("10_vtaks")
+wall = ExtResource("3_vtaks")
+rotatet_wall = ExtResource("4_kvpfn")
 green_pier_scene = ExtResource("3_gee14")
 red_pier_scene = ExtResource("5_vtaks")
 green_bridge_scene = ExtResource("2_u5sy4")
@@ -22,3 +27,15 @@ red_bridge_scene = ExtResource("4_0tnpc")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(200, 200)
 script = ExtResource("8_gee14")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="game_ui" parent="CanvasLayer" instance=ExtResource("8_0tnpc")]
+light_mask = 2
+visibility_layer = 2
+
+[node name="pause_ui" parent="CanvasLayer" instance=ExtResource("9_0tnpc")]
+visible = false
+
+[connection signal="update_player_label" from="." to="CanvasLayer/game_ui" method="_on_game_root_update_player_label"]
