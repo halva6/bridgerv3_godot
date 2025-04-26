@@ -6,12 +6,6 @@ func clear_temp_bridges(tree: SceneTree, group_name: String, matrix: Array) -> v
 	for node in tree.get_nodes_in_group(group_name):
 		node.queue_free()
 		call_deferred("queue_free")
-	
-	for y in range(len(matrix)):
-		for x in range(len(matrix[0])):
-			if matrix[y][x] == 5:
-				matrix[y][x] = 0
-	GlobalGame.set_matrix(matrix)
 
 func instantiate_scene(parent: Sprite2D, instance: Sprite2D, new_pos: Vector2, object_rotation: float, object_name: String, group_name: String):
 		parent.get_parent().add_child(instance)

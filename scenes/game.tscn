@@ -22,21 +22,3 @@ red_bridge_scene = ExtResource("4_0tnpc")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(200, 200)
 script = ExtResource("8_gee14")
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D"]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
-position = Vector2(200, 200)
-motion_mirroring = Vector2(1080, 1920)
-
-[node name="Node" type="Node" parent="Camera2D/ParallaxBackground/ParallaxLayer"]
-
-[node name="ColorRect" type="ColorRect" parent="Camera2D/ParallaxBackground/ParallaxLayer/Node"]
-visible = false
-texture_repeat = 2
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.101423, 0.434171, 0.585813, 1)

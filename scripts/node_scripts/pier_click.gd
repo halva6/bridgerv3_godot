@@ -12,7 +12,6 @@ func calculate_rotation(direction: String) -> float:
 	return deg_to_rad(90) if direction in ["up", "down"] else deg_to_rad(0)
 	#print("[VALID] matrix len: " + str(len(matrix[y])) + ";" + str(len(matrix)) + " x;y: " + str(Vector2(x,y)) + " Matrix[x][y]: " + str(matrix[x][y]))
 
-
 # Get offset for a given direction
 func get_offset(direction: String) -> Array:
 	match direction:

@@ -18,12 +18,14 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalGame="*res://scripts/global_game.gd"
+LocalDebug="*res://scripts/local_debug.gd"
 
 [display]
 
 window/size/viewport_width=1080
 window/size/viewport_height=1920
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [input]
 
