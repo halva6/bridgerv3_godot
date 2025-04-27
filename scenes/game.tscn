@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://scgxsjpv21pd"]
+[gd_scene load_steps=11 format=3 uid="uid://scgxsjpv21pd"]
 
 [ext_resource type="Script" uid="uid://c5jjky3dnodd" path="res://scripts/node_scripts/game.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/bridges/green_bridge.tscn" id="2_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://b3isui05wbdo5" path="res://gameobjects/piers/green_pier.tscn" id="3_gee14"]
 [ext_resource type="PackedScene" uid="uid://dfu3t87m7imk7" path="res://gameobjects/walls/wall.tscn" id="3_vtaks"]
 [ext_resource type="PackedScene" uid="uid://dkwqx5sqoaoh2" path="res://gameobjects/bridges/red_bridge.tscn" id="4_0tnpc"]
-[ext_resource type="PackedScene" uid="uid://dec8rujwdku8i" path="res://gameobjects/walls/rotatet_wall.tscn" id="4_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://cpe345fa3kxki" path="res://gameobjects/piers/red_pier.tscn" id="5_vtaks"]
 [ext_resource type="PackedScene" uid="uid://d21chmllupuu2" path="res://gameobjects/ui/game_ui.tscn" id="8_0tnpc"]
 [ext_resource type="Script" uid="uid://ctxlx6l24fmun" path="res://scripts/camera/camera_movement.gd" id="8_gee14"]
@@ -14,11 +13,11 @@
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_0tnpc")
+simulation_number = 20
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("10_vtaks")
 wall = ExtResource("3_vtaks")
-rotatet_wall = ExtResource("4_kvpfn")
 green_pier_scene = ExtResource("3_gee14")
 red_pier_scene = ExtResource("5_vtaks")
 green_bridge_scene = ExtResource("2_u5sy4")
@@ -38,4 +37,5 @@ visibility_layer = 2
 [node name="pause_ui" parent="CanvasLayer" instance=ExtResource("9_0tnpc")]
 visible = false
 
+[connection signal="set_computers_bridge" from="." to="Spawner" method="_on_game_root_set_computers_bridge"]
 [connection signal="update_player_label" from="." to="CanvasLayer/game_ui" method="_on_game_root_update_player_label"]

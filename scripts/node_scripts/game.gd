@@ -6,6 +6,7 @@ extends Node
 @export var simulation_number = 100
 
 signal update_player_label(player: String)
+signal set_computers_bridge(matrix_position: Vector2)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,8 +25,8 @@ func _process(delta: float) -> void:
 		if(player_n_move[0] == "computer"):
 			var matrix_logic = MatrixLogic.new()
 			var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
-			print(matrix_logic.get_best_mcts(transform_matrix, simulation_number))
-			GlobalGame.set_finish_turn(true)
+			var matrix_position: Vector2 = matrix_logic.get_best_mcts(transform_matrix, simulation_number)
+			emit_signal("set_computers_bridge", matrix_position)
 			player_n_move[1] = true
 	
 	# Update global game state

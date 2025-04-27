@@ -18,7 +18,7 @@ func instantiate_bridge(util: ClickUtil) -> void:
 			
 		var matrix = GlobalGame.get_matrix()
 		util.pos = get_parent().position
-		util.instantiate_scene(get_parent(),bridge_instance, get_parent().position, get_parent().rotation, "temp_bridge", group_name)
+		util.instantiate_scene(get_parent(),bridge_instance, get_parent().position, get_parent().rotation, current_player+"bridge", group_name)
 		
 		matrix[util.get_pos()[3]][util.get_pos()[2]] = GlobalGame.get_TILE_DICT()[current_player+"bridge"]
 		GlobalGame.set_matrix(matrix)
