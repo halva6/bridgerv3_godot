@@ -53,12 +53,12 @@ func is_position_valid(matrix: Array, x: int, y: int) -> bool:
 func calculate_computer_bridge_rotation(matrix: Array, x: int, y: int) -> float:
 	if is_position_valid(matrix,x,y-1):
 		if matrix[y-1][x] == 2:
-			return deg_to_rad(90)
+			return deg_to_rad(0)
 	if is_position_valid(matrix,x,y+1):
 		if matrix[y+1][x] == 2:
-			return deg_to_rad(90)
+			return deg_to_rad(0)
 			
-	return deg_to_rad(0)
+	return deg_to_rad(90)
 
 func _on_game_root_set_computers_bridge(matrix_position: Vector2) -> void:
 	print(matrix_position)

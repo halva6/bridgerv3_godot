@@ -23,9 +23,11 @@ func _process(delta: float) -> void:
 	else:
 		player_n_move = _switch_player("green", "computer", GlobalGame.get_current_player(), GlobalGame.get_finish_turn())
 		if(player_n_move[0] == "computer"):
-			var matrix_logic = MatrixLogic.new()
+			#var matrix_logic = MatrixLogic.new()
+			var best_move = MCTS.new()
 			var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
-			var matrix_position: Vector2 = matrix_logic.get_best_mcts(transform_matrix, simulation_number)
+			var matrix_position = best_move.find_best_move(transform_matrix,2) #matrix_logic.get_best_mcts(transform_matrix, simulation_number)
+			print(matrix_position)
 			emit_signal("set_computers_bridge", matrix_position)
 			player_n_move[1] = true
 	
