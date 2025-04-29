@@ -1,7 +1,8 @@
 extends Control
 
 func _on_settings_button_pressed() -> void:
-	pass # Replace with function body.
+	visible = false
+	get_parent().get_node("settings_ui").visible = true
 
 func _on_continue_button_pressed() -> void:
 	visible = false

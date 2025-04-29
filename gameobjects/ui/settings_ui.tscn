@@ -1,0 +1,121 @@
+[gd_scene load_steps=9 format=3 uid="uid://4atvarwgl0aa"]
+
+[ext_resource type="Script" uid="uid://br5uv0qtt4f07" path="res://scripts/ui/settings_ui.gd" id="1_5h6fy"]
+[ext_resource type="Texture2D" uid="uid://clqy1whg17vsd" path="res://assets/ui/waterbackground.png" id="1_rw21k"]
+[ext_resource type="Texture2D" uid="uid://diqkeq55ijm38" path="res://assets/ui/Speaker-0.png" id="2_kxunk"]
+[ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_p0ha5"]
+[ext_resource type="Texture2D" uid="uid://dwguutoijnoy5" path="res://assets/ui/Music-0.png" id="3_pn2aq"]
+[ext_resource type="Texture2D" uid="uid://d1efr8rnnb7mf" path="res://assets/ui/Info.png" id="5_5ppve"]
+[ext_resource type="Texture2D" uid="uid://blvpqa5qevlwo" path="res://assets/ui/Question-Mark.png" id="6_14fav"]
+[ext_resource type="Texture2D" uid="uid://c545ofvvc4qux" path="res://assets/ui/Left-Arrow.png" id="7_fomxv"]
+
+[node name="settings_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5h6fy")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rw21k")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 350
+alignment = 1
+
+[node name="Heading" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+label_settings = ExtResource("2_p0ha5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="VolumeVBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/VolumeVBox"]
+layout_mode = 2
+
+[node name="SpeakerRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/VolumeVBox/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_kxunk")
+
+[node name="VolumeSoundSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/VolumeVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="MusicVBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="MusicRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicVBox/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_pn2aq")
+
+[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="ImpressumButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("5_5ppve")
+flat = true
+
+[node name="TutorialButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("6_14fav")
+flat = true
+
+[node name="BackButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = ExtResource("7_fomxv")
+flat = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/ImpressumButton" to="." method="_on_impressum_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
