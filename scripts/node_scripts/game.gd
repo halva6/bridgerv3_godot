@@ -23,17 +23,47 @@ func _process(delta: float) -> void:
 	else:
 		player_n_move = _switch_player("green", "computer", GlobalGame.get_current_player(), GlobalGame.get_finish_turn())
 		if(player_n_move[0] == "computer"):
-			#var matrix_logic = MatrixLogic.new()
-			var best_move = BetBestMove2.new()
 			var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
-			var matrix_position = best_move.get_best_move(transform_matrix,2) #matrix_logic.get_best_mcts(transform_matrix, simulation_number)
-			print(matrix_position)
+			var knots = Knots.new()
+			var mcts = knots.Knot.new(transform_matrix)
+			LocalDebug.print_matrix(transform_matrix)
+			var enemy_matrix = knots.monte_carlo_tree_search(mcts).state
+			LocalDebug.print_matrix(enemy_matrix)
+			var matrix_position = finde_diffrence(transform_matrix,enemy_matrix)
 			emit_signal("set_computers_bridge", matrix_position)
 			player_n_move[1] = true
 	
 	# Update global game state
 	GlobalGame.set_current_player(player_n_move[0])
 	GlobalGame.set_finish_turn(player_n_move[1])
+
+
+func finde_diffrence(matrix1: Array, matrix2: Array):
+	for i in range(len(matrix1)):
+		for j in range(len(matrix1[i])):
+			if matrix2[j][i] != matrix1[j][i]:
+				return Vector2(i,j)
+			
+	print("[ERROR] no diffrences in matrixes")
+	return Vector2(-100,-100)
+	
+func to_packed_array_1d(matrix: Array):
+	var pool_array: PackedInt32Array = []
+	for e in matrix:
+		for i in e:
+			pool_array.append(i)
+	return pool_array
+
+func to_normal_array_2d(matrix: PackedInt32Array):
+	var normal_array: Array = []
+	var normal_array_row: Array = []
+	for i in range(len(matrix)):
+		normal_array_row.append(matrix[i])
+		if (i+1) % 13 == 0:
+			normal_array.append(normal_array_row.duplicate(true))
+			normal_array_row.clear()
+	return normal_array
+	
 
 # Handles player switching logic
 # Parameters:

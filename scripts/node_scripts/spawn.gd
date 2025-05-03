@@ -47,18 +47,14 @@ func spawn_object(scene: PackedScene, position: Vector2, rotaion: float, group_n
 		instance.name = group_name + "_" + str(position.x)+str(position.y)
 		instance.add_to_group(group_name)
 
-func is_position_valid(matrix: Array, x: int, y: int) -> bool:
-	return y >= 0 and x >= 0 and y < len(matrix) and x < len(matrix[y]) and matrix[y][x] == 0
+func is_position_valid(matrix: Array, x: int, y: int, valid_number = 0) -> bool:
+	return y >= 0 and x >= 0 and y < len(matrix) and x < len(matrix[y]) and matrix[y][x] == valid_number
 
 func calculate_computer_bridge_rotation(matrix: Array, x: int, y: int) -> float:
-	if is_position_valid(matrix,x,y-1):
-		if matrix[y-1][x] == 2:
-			return deg_to_rad(0)
-	if is_position_valid(matrix,x,y+1):
-		if matrix[y+1][x] == 2:
-			return deg_to_rad(0)
+	if is_position_valid(matrix,x,y+1,2) or is_position_valid(matrix,x,y-1,2):
+			return deg_to_rad(90)
 			
-	return deg_to_rad(90)
+	return deg_to_rad(0)
 
 func _on_game_root_set_computers_bridge(matrix_position: Vector2) -> void:
 	print(matrix_position)
@@ -67,4 +63,4 @@ func _on_game_root_set_computers_bridge(matrix_position: Vector2) -> void:
 	LocalDebug.print_matrix(matrix)
 	var rotation = calculate_computer_bridge_rotation(matrix, matrix_position.x, matrix_position.y)
 	spawn_object(red_bridge_scene, position, rotation, "computerbridge")
-	matrix[matrix_position.y][matrix_position.x] = 2
+	matrix[matrix_position.y][matrix_position.x] = 4

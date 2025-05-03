@@ -14,7 +14,6 @@
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_0tnpc")
-simulation_number = 20
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("10_vtaks")
