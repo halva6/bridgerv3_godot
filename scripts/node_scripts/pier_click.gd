@@ -23,31 +23,24 @@ func get_offset(direction: String) -> Array:
 
 # Place a temporary bridge at a position if valid
 func try_place_bridge(group_name: String, matrix: Array, util: ClickUtil, direction: String) -> void:
-	var pos = util.get_pos()
-	var offset = get_offset(direction)
+	var pos: Array = util.get_pos()
+	var offset: Array = get_offset(direction)
 	if is_position_valid(matrix, (pos[2] + offset[0]), (pos[3] + offset[1])):
-		var bridge_instance = temp_bridge.instantiate()
+		var bridge_instance: Node = temp_bridge.instantiate()
 		util.instantiate_scene(get_parent(), bridge_instance, Vector2((pos[0] + offset[2]), (pos[1] + offset[3])), calculate_rotation(direction), "temp_bridge", group_name)
 
 # Place temporary bridges in all directions
 func place_temp_bridges(group_name: String, matrix: Array, util: ClickUtil) -> void:
 	util.clear_temp_bridges(get_tree(), group_name, matrix)
-	for direction in ["up", "down", "left", "right"]:
+	for direction: String in ["up", "down", "left", "right"]:
 		try_place_bridge(group_name, matrix, util, direction)
-		
-# Print the scene tree structure (for debugging purposes)
-func print_scene_tree(node: Node, indent: int = 0) -> void:
-	var indentation = "%09".repeat(indent)
-	print("%s%s (%s)" % [indentation, node.name, node.get_class()])
-	for child in node.get_children():
-		print_scene_tree(child, indent + 1)
 
 # Handle input events
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("click") and get_parent().is_in_group(GlobalGame.get_current_player() + "pier"):
-		var matrix = GlobalGame.get_matrix()
+		var matrix: Array = GlobalGame.get_matrix()
 		var group_name: String = "tempbridge"
-		var util = ClickUtil.new()
+		var util: ClickUtil = ClickUtil.new()
 		
 		util.pos = get_parent().position
 		place_temp_bridges(group_name, matrix, util)

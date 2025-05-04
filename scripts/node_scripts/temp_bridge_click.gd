@@ -16,7 +16,7 @@ func instantiate_bridge(util: ClickUtil) -> void:
 		else:
 			return
 			
-		var matrix = GlobalGame.get_matrix()
+		var matrix: Array = GlobalGame.get_matrix()
 		util.pos = get_parent().position
 		util.instantiate_scene(get_parent(),bridge_instance, get_parent().position, get_parent().rotation, current_player+"bridge", group_name)
 		
@@ -32,6 +32,6 @@ func instantiate_bridge(util: ClickUtil) -> void:
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
-		var util = ClickUtil.new()
+		var util: ClickUtil = ClickUtil.new()
 		instantiate_bridge(util)
 		util.clear_temp_bridges(get_tree(),"tempbridge", GlobalGame.get_matrix())

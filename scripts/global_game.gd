@@ -1,7 +1,7 @@
 extends Node
 
 var _finish_turn: bool = false
-var _multiplayer = true
+var _multiplayer: bool = true
 var _current_player: String = "green"
 var _TILE_DICT: Dictionary = {"greenpier": 1, "redpier": 2, "greenbridge": 3, "redbridge": 4, "tempbridge": 5}
 var _count_turn: int = 0
@@ -50,7 +50,7 @@ func get_TILE_DICT()-> Dictionary:
 func get_count_turn() -> int:
 	return _count_turn
 
-func get_start_matrix():
+func get_start_matrix() -> Array:
 	return [
 	[ -3,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -3 ], #12
 	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],

@@ -4,21 +4,21 @@ extends Camera2D
 
 var zoomTarget :Vector2
 
-var dragStartMousePos = Vector2.ZERO
-var dragStartCameraPos = Vector2.ZERO
+var dragStartMousePos: Vector2 = Vector2.ZERO
+var dragStartCameraPos: Vector2 = Vector2.ZERO
 var isDragging : bool = false
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	zoomTarget = zoom
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float) -> void:
 	Zoom(delta)
 	SimplePan(delta)
 	ClickAndDrag()
 	
-func Zoom(delta):
+func Zoom(delta: float) -> void:
 	if Input.is_action_just_pressed("camera_zoom_in"):
 		zoomTarget *= 1.1
 		
@@ -28,8 +28,8 @@ func Zoom(delta):
 	zoom = zoom.slerp(zoomTarget, zoomSpeed * delta)
 	
 	
-func SimplePan(delta):
-	var moveAmount = Vector2.ZERO
+func SimplePan(delta: float) -> void:
+	var moveAmount: Vector2 = Vector2.ZERO
 	if Input.is_action_pressed("camera_move_right"):
 		moveAmount.x += 1
 		
@@ -45,7 +45,7 @@ func SimplePan(delta):
 	moveAmount = moveAmount.normalized()
 	position += moveAmount * delta * 1000 * (1/zoom.x)
 	
-func ClickAndDrag():
+func ClickAndDrag() -> void:
 	if !isDragging and Input.is_action_just_pressed("camera_pan"):
 		dragStartMousePos = get_viewport().get_mouse_position()
 		dragStartCameraPos = position
@@ -55,7 +55,7 @@ func ClickAndDrag():
 		isDragging = false
 		
 	if isDragging:
-		var moveVector = get_viewport().get_mouse_position() - dragStartMousePos
+		var moveVector: Vector2 = get_viewport().get_mouse_position() - dragStartMousePos
 		position = dragStartCameraPos - moveVector * 1/zoom.x	
 		
 	

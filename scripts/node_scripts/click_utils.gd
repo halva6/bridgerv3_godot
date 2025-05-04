@@ -7,7 +7,7 @@ func clear_temp_bridges(tree: SceneTree, group_name: String, matrix: Array) -> v
 		node.queue_free()
 		call_deferred("queue_free")
 
-func instantiate_scene(parent: Sprite2D, instance: Sprite2D, new_pos: Vector2, object_rotation: float, object_name: String, group_name: String):
+func instantiate_scene(parent: Sprite2D, instance: Sprite2D, new_pos: Vector2, object_rotation: float, object_name: String, group_name: String) -> void:
 		parent.get_parent().add_child(instance)
 		instance.position = new_pos
 		instance.rotation = object_rotation

@@ -24,7 +24,7 @@ func count_numbers_in_matrix(matrix: Array, num: int) -> int:
 # Returns: Nothing (void) - only prints results
 func print_count_numbers(matrix: Array, numbers: Array = [-1,0,1,2,3,4]) -> void:
 	# Process each number in the numbers array
-	for number in numbers:
+	for number:int in numbers:
 		# Print formatted count result for current number
 		print("Count of number " + str(number) + " in matrix: " + 
 			  str(count_numbers_in_matrix(matrix, number)))
@@ -51,8 +51,8 @@ func print_matrix(matrix: Array, header: String = "") -> void:
 	var max_length := 1  # Minimum length is 1 (for '-')
 	
 	# Iterate through all elements to find the maximum length
-	for row in matrix:
-		for element in row:
+	for row: Array in matrix:
+		for element: int in row:
 			var element_str := "-" if _is_negative(element) else str(element)
 			if element_str.length() > max_length:
 				max_length = element_str.length()
@@ -61,11 +61,11 @@ func print_matrix(matrix: Array, header: String = "") -> void:
 	print_rich("[color=white]Matrix [", matrix.size(), "x", matrix[0].size(), "]:[/color]")
 	
 	# --- Print each row with formatting ---
-	for row in matrix:
+	for row: Array in matrix:
 		var row_str := "[color=white]| [/color]"  # Start row with a boundary
 		
 		# Add each element (right-padded for alignment)
-		for element in row:
+		for element:int in row:
 			var display_str := "-" if _is_negative(element) else str(element)
 			var colored_element: String
 			
@@ -87,7 +87,15 @@ func print_matrix(matrix: Array, header: String = "") -> void:
 		print_rich(row_str)   # Print the formatted row
 
 # Helper function to check if a value is negative
-func _is_negative(value) -> bool:
+func _is_negative(value:int) -> bool:
 	if typeof(value) == TYPE_INT or typeof(value) == TYPE_FLOAT:
 		return value < 0
 	return false
+
+
+# Print the scene tree structure (for debugging purposes)
+func print_scene_tree(node: Node, indent: int = 0) -> void:
+	var indentation: String = "%09".repeat(indent)
+	print("%s%s (%s)" % [indentation, node.name, node.get_class()])
+	for child in node.get_children():
+		print_scene_tree(child, indent + 1)

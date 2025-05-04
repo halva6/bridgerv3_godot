@@ -3,7 +3,6 @@ extends Node
 # Exported variables (editable in Godot editor)
 @onready var is_multiplayer: bool = GlobalGame.get_local_multiplayer()  # Toggle between multiplayer vs AI mode
 @export var start_player: String = "green"  # Which player starts the game
-@export var simulation_number = 100
 
 #-------------- signals -------------------
 signal update_player_label(player: String)
@@ -13,7 +12,7 @@ signal set_win_ui(winner: String)
 
 #-------------- for computer ai ------------------
 var thread1: Thread
-var best_knot
+var best_knot: Knots.Knot
 var visits: int = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -35,11 +34,11 @@ func _process(delta: float) -> void:
 		if(player_n_move[0] == "computer"):
 			var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
 			var knots: Knots = Knots.new()
-			var mcts = knots.Knot.new(transform_matrix)
+			var mcts: Knots.Knot = knots.Knot.new(transform_matrix)
 			thread1.start(async_computer_calculation.bind(knots,mcts))
 			
 			if !thread1.is_alive():
-				var matrix_position = finde_diffrence(transform_matrix,best_knot.state)
+				var matrix_position: Vector2 = finde_diffrence(transform_matrix,best_knot.state)
 				emit_signal("set_computers_bridge", matrix_position)
 				emit_signal("update_visit_label", str(visits))
 				player_n_move[1] = true
@@ -50,11 +49,11 @@ func _process(delta: float) -> void:
 	GlobalGame.set_current_player(player_n_move[0])
 	GlobalGame.set_finish_turn(player_n_move[1])
 	
-func async_computer_calculation(knots:Knots, mcts):
+func async_computer_calculation(knots:Knots, mcts: Knots.Knot) -> void:
 	best_knot = knots.monte_carlo_tree_search(mcts)
 	visits = mcts.visits
 
-func finde_diffrence(matrix1: Array, matrix2: Array):
+func finde_diffrence(matrix1: Array, matrix2: Array) -> Vector2:
 	for i in range(len(matrix1)):
 		for j in range(len(matrix1[i])):
 			if matrix2[j][i] != matrix1[j][i]:
@@ -123,7 +122,7 @@ func _transform_matrix(matrix: Array) -> Array:
 #   matrix: Transformed game board
 #   player: Which player to check (1 or 2)
 # Returns: bool - true if player has winning path
-func check_winner(matrix: Array, player: int):
+func check_winner(matrix: Array, player: int) -> bool:
 	if player == 1:
 		# Player 1 (green) wins by connecting top to bottom
 		for start_col in range(len(matrix[0])):
@@ -146,7 +145,7 @@ func check_winner(matrix: Array, player: int):
 #   player: Which player's path we're checking
 #   visited: Dictionary tracking visited positions
 # Returns: bool - true if winning path found
-func dfs(matrix: Array, row: int, col: int, player: int, visited):
+func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary) -> bool:
 	# Win conditions for each player
 	if player == 1 and row == len(matrix) - 1:  # Green reached bottom
 		return true
@@ -156,7 +155,7 @@ func dfs(matrix: Array, row: int, col: int, player: int, visited):
 	visited[Vector2(row, col)] = true  # Mark current position as visited
 
 	# Possible movement directions (4-way connectivity)
-	var directions = [
+	var directions: Array = [
 		Vector2(1, 0),   # Down
 		Vector2(0, 1),   # Right
 		Vector2(-1, 0),  # Up
@@ -164,14 +163,14 @@ func dfs(matrix: Array, row: int, col: int, player: int, visited):
 	]
 
 	# Check all adjacent cells
-	for direction in directions:
-		var new_row = row + int(direction.x)
-		var new_col = col + int(direction.y)
+	for direction:Vector2 in directions:
+		var new_row: int = row + int(direction.x)
+		var new_col: int = col + int(direction.y)
 		
 		# Check if new position is valid and unvisited
 		if (new_row >= 0 and new_row < len(matrix) and 
 			new_col >= 0 and new_col < len(matrix[0])):
-			var new_pos = Vector2(new_row, new_col)
+			var new_pos: Vector2 = Vector2(new_row, new_col)
 			if not visited.has(new_pos) and matrix[new_row][new_col] == player:
 				if dfs(matrix, new_row, new_col, player, visited):
 					return true  # Found winning path

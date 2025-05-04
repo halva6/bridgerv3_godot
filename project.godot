@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 GlobalGame="*res://scripts/global_game.gd"
 LocalDebug="*res://scripts/local_debug.gd"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+
 [display]
 
 window/size/viewport_width=1080
@@ -69,6 +73,10 @@ click={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(50, 6),"global_position":Vector2(59, 54),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[physics]
+
+common/physics_ticks_per_second=30
 
 [rendering]
 
