@@ -146,15 +146,30 @@ func backpropagate(node: Knot, result: int) -> void:
 func monte_carlo_tree_search(root: Knot) -> Knot:
 	var loop: int = 0
 	var start_time: float = Time.get_unix_time_from_system()
+	#var mess = []
 	while Time.get_unix_time_from_system() - start_time < TIME_LIMIT:
 	#for i in range(2000):
 		var node = root
+
 		while node.fully_expanded() and not node.children.is_empty():
 			node = node.best_uct()
 		if not node.untried_moves.is_empty():
 			node = node.expand()
+
 		var result = simulate_random_game(node.state.duplicate(true), node.player)
+		#var mes: float = Time.get_unix_time_from_system()
 		backpropagate(node, result)
+		#mess.append(str(Time.get_unix_time_from_system()-mes) + "," + str(loop))
 		loop += 1
+	#write_to_csv("res://messurements/uct.csv", mess)
+	#write_to_csv("res://messurements/simulate.csv", mess)
+	#write_to_csv("res://messurements/backpropagate.csv", mess)
 	print("[DEBUG] Visits: " + str(root.visits))
 	return root.best_child()
+
+func write_to_csv(file_path: String, data: Array) -> void:
+	var file = FileAccess.open(file_path, FileAccess.WRITE_READ)
+
+	for row in data:
+		file.store_line(row)
+	file.close()

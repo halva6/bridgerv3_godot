@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://scgxsjpv21pd"]
+[gd_scene load_steps=13 format=3 uid="uid://scgxsjpv21pd"]
 
 [ext_resource type="Script" uid="uid://c5jjky3dnodd" path="res://scripts/node_scripts/game.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/bridges/green_bridge.tscn" id="2_u5sy4"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c47cxenchwann" path="res://gameobjects/ui/pause_ui.tscn" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://ckwcspomuq1xs" path="res://scripts/node_scripts/spawn.gd" id="10_vtaks"]
 [ext_resource type="PackedScene" uid="uid://4atvarwgl0aa" path="res://gameobjects/ui/settings_ui.tscn" id="11_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://bem0f7ts41hp0" path="res://gameobjects/ui/win_ui.tscn" id="12_dinhu"]
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_0tnpc")
@@ -40,5 +41,10 @@ visible = false
 [node name="settings_ui" parent="CanvasLayer" instance=ExtResource("11_kvpfn")]
 visible = false
 
+[node name="win_ui" parent="CanvasLayer" instance=ExtResource("12_dinhu")]
+visible = false
+
 [connection signal="set_computers_bridge" from="." to="Spawner" method="_on_game_root_set_computers_bridge"]
+[connection signal="set_win_ui" from="." to="CanvasLayer/game_ui" method="_on_game_root_set_win_ui"]
+[connection signal="set_win_ui" from="." to="CanvasLayer/win_ui" method="_on_game_root_set_win_ui"]
 [connection signal="update_player_label" from="." to="CanvasLayer/game_ui" method="_on_game_root_update_player_label"]

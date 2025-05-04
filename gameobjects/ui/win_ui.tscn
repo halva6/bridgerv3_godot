@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://bem0f7ts41hp0"]
+
+[ext_resource type="Script" uid="uid://ldt8jttl72bq" path="res://scripts/ui/win_ui.gd" id="1_87ifj"]
+[ext_resource type="Texture2D" uid="uid://clqy1whg17vsd" path="res://assets/ui/waterbackground.png" id="1_sk8ut"]
+[ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_rmb3o"]
+[ext_resource type="Texture2D" uid="uid://cpcmw753skrlu" path="res://assets/ui/Redo.png" id="3_7j6qc"]
+[ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_87ifj"]
+[ext_resource type="Texture2D" uid="uid://d2584bmafjxj7" path="res://assets/ui/Exit.png" id="5_u5wjt"]
+
+[node name="win_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_87ifj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_sk8ut")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="CenterContainer" type="CenterContainer" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="WinLabel" type="Label" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "you win"
+label_settings = ExtResource("2_rmb3o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="Restart" type="HBoxContainer" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="RestartButton" type="Button" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart"]
+layout_mode = 2
+icon = ExtResource("3_7j6qc")
+flat = true
+
+[node name="RestartLabel" type="Label" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart"]
+layout_mode = 2
+text = "restart"
+label_settings = ExtResource("4_87ifj")
+
+[node name="Exit" type="HBoxContainer" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="ExitButton" type="Button" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit"]
+layout_mode = 2
+icon = ExtResource("5_u5wjt")
+flat = true
+
+[node name="ExitLabel" type="Label" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit"]
+layout_mode = 2
+text = "Exit"
+label_settings = ExtResource("4_87ifj")
+
+[connection signal="pressed" from="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit/ExitButton" to="." method="_on_exit_button_pressed"]

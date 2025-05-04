@@ -7,6 +7,7 @@ extends Node
 
 signal update_player_label(player: String)
 signal set_computers_bridge(matrix_position: Vector2)
+signal set_win_ui(winner: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,23 +48,6 @@ func finde_diffrence(matrix1: Array, matrix2: Array):
 	print("[ERROR] no diffrences in matrixes")
 	return Vector2(-100,-100)
 	
-func to_packed_array_1d(matrix: Array):
-	var pool_array: PackedInt32Array = []
-	for e in matrix:
-		for i in e:
-			pool_array.append(i)
-	return pool_array
-
-func to_normal_array_2d(matrix: PackedInt32Array):
-	var normal_array: Array = []
-	var normal_array_row: Array = []
-	for i in range(len(matrix)):
-		normal_array_row.append(matrix[i])
-		if (i+1) % 13 == 0:
-			normal_array.append(normal_array_row.duplicate(true))
-			normal_array_row.clear()
-	return normal_array
-	
 
 # Handles player switching logic
 # Parameters:
@@ -98,9 +82,11 @@ func _game_over() -> bool:
 	# Check for both possible winners
 	if (check_winner(transform_matrix, 1)):  # Player 1 (green)
 		print("green wins")
+		emit_signal("set_win_ui",GlobalGame.get_current_player())
 		return true
 	elif (check_winner(transform_matrix, 2)):  # Player 2 (red/computer)
 		print("red wins")
+		emit_signal("set_win_ui", GlobalGame.get_current_player())
 		return true
 	return false
 
