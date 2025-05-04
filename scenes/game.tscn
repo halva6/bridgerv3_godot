@@ -15,8 +15,6 @@
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_0tnpc")
-start_player = null
-simulation_number = null
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("10_vtaks")
@@ -42,6 +40,7 @@ visible = false
 
 [node name="settings_ui" parent="CanvasLayer" instance=ExtResource("11_kvpfn")]
 visible = false
+hide_mcts_speed = true
 
 [node name="win_ui" parent="CanvasLayer" instance=ExtResource("12_dinhu")]
 visible = false

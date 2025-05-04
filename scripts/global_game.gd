@@ -6,6 +6,8 @@ var _current_player: String = "green"
 var _TILE_DICT: Dictionary = {"greenpier": 1, "redpier": 2, "greenbridge": 3, "redbridge": 4, "tempbridge": 5}
 var _count_turn: int = 0
 
+var _smmiulation_time: int = 5
+
 # game board matrix
 #	-1 ≙ not placeable space (e.g. walls/corners)
 #	 0 ≙ placeable space
@@ -67,20 +69,25 @@ func get_start_matrix() -> Array:
 	[ -3,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -3 ] 
 	]
 
+func get_simulation_time() -> int:
+	return _smmiulation_time
+
+
 # setter
 func set_matrix(matrix: Array) -> void:
 	self._matrix = matrix
 	
 func set_local_multiplayer(mulitplayer: bool) -> void:
-	_multiplayer = mulitplayer
+	self._multiplayer = mulitplayer
 
 func set_finish_turn(finish_turn: bool) -> void:
 	self._finish_turn = finish_turn
 
 func set_current_player(current_player: String) -> void:
-	_current_player = current_player
+	self._current_player = current_player
 
 func increase_count_turn() -> void:
 	_count_turn += 1
-	
-	
+
+func set_simulation_time(time: int) -> void:
+	self._smmiulation_time = time

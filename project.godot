@@ -22,7 +22,7 @@ LocalDebug="*res://scripts/local_debug.gd"
 
 [debug]
 
-gdscript/warnings/untyped_declaration=2
+gdscript/physics_ticks_per_second=60
 
 [display]
 
@@ -76,7 +76,7 @@ click={
 
 [physics]
 
-common/physics_ticks_per_second=30
+common/physics_ticks_per_second=15
 
 [rendering]
 

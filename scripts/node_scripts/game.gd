@@ -14,6 +14,7 @@ signal set_win_ui(winner: String)
 var thread1: Thread
 var best_knot: Knots.Knot
 var visits: int = 0
+var knots: Knots = Knots.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,9 +34,9 @@ func _process(delta: float) -> void:
 		player_n_move = _switch_player("green", "computer", GlobalGame.get_current_player(), GlobalGame.get_finish_turn())
 		if(player_n_move[0] == "computer"):
 			var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
-			var knots: Knots = Knots.new()
-			var mcts: Knots.Knot = knots.Knot.new(transform_matrix)
-			thread1.start(async_computer_calculation.bind(knots,mcts))
+			if !thread1.is_started():
+				var mcts: Knots.Knot = knots.Knot.new(transform_matrix)
+				thread1.start(async_computer_calculation.bind(knots,mcts, GlobalGame.get_simulation_time()))
 			
 			if !thread1.is_alive():
 				var matrix_position: Vector2 = finde_diffrence(transform_matrix,best_knot.state)
@@ -49,11 +50,11 @@ func _process(delta: float) -> void:
 	GlobalGame.set_current_player(player_n_move[0])
 	GlobalGame.set_finish_turn(player_n_move[1])
 	
-func async_computer_calculation(knots:Knots, mcts: Knots.Knot) -> void:
-	best_knot = knots.monte_carlo_tree_search(mcts)
+func async_computer_calculation(knots:Knots, mcts: Knots.Knot, simulation_time:int) -> void:
+	best_knot = knots.monte_carlo_tree_search(mcts, simulation_time)
 	visits = mcts.visits
 
-func finde_diffrence(matrix1: Array, matrix2: Array) -> Vector2:
+func finde_diffrence(matrix1: Array, matrix2:Array) -> Vector2:
 	for i in range(len(matrix1)):
 		for j in range(len(matrix1[i])):
 			if matrix2[j][i] != matrix1[j][i]:
@@ -117,62 +118,41 @@ func _transform_matrix(matrix: Array) -> Array:
 				matrix[i][j] = 2  # Convert type 4 to player 2
 	return matrix
 
-# Checks if specified player has a winning path
-# Parameters:
-#   matrix: Transformed game board
-#   player: Which player to check (1 or 2)
-# Returns: bool - true if player has winning path
-func check_winner(matrix: Array, player: int) -> bool:
-	if player == 1:
-		# Player 1 (green) wins by connecting top to bottom
-		for start_col in range(len(matrix[0])):
-			if matrix[0][start_col] == player:
-				if dfs(matrix, 0, start_col, player, {}):
-					return true
-	elif player == 2:
-		# Player 2 (red) wins by connecting left to right
-		for start_row in range(len(matrix)):
-			if matrix[start_row][0] == player:
-				if dfs(matrix, start_row, 0, player, {}):
-					return true
-	return false
-
-# Depth-first search for path checking
-# Parameters:
-#   matrix: Game board
-#   row: Current row position
-#   col: Current column position
-#   player: Which player's path we're checking
-#   visited: Dictionary tracking visited positions
-# Returns: bool - true if winning path found
-func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary) -> bool:
-	# Win conditions for each player
-	if player == 1 and row == len(matrix) - 1:  # Green reached bottom
-		return true
-	if player == 2 and col == len(matrix[0]) - 1:  # Red reached right edge
-		return true
-
-	visited[Vector2(row, col)] = true  # Mark current position as visited
-
-	# Possible movement directions (4-way connectivity)
-	var directions: Array = [
-		Vector2(1, 0),   # Down
-		Vector2(0, 1),   # Right
-		Vector2(-1, 0),  # Up
-		Vector2(0, -1)   # Left
-	]
-
-	# Check all adjacent cells
-	for direction:Vector2 in directions:
-		var new_row: int = row + int(direction.x)
-		var new_col: int = col + int(direction.y)
+func check_winner(state: Array, player: int) -> bool:
+	var visited: Dictionary = {}
+	var stack: Array = []
+	var directions: Array[Vector2] = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
+	
+	# Startpunkte setzen
+	var starts := range(13) if player == 1 else range(13)
+	for i: int in starts:
+		var r := 0 if player == 1 else i
+		var c := i if player == 1 else 0
+		if state[r][c] == player and not visited.has(Vector2(r, c)):
+			stack.append(Vector2(r, c))
 		
-		# Check if new position is valid and unvisited
-		if (new_row >= 0 and new_row < len(matrix) and 
-			new_col >= 0 and new_col < len(matrix[0])):
-			var new_pos: Vector2 = Vector2(new_row, new_col)
-			if not visited.has(new_pos) and matrix[new_row][new_col] == player:
-				if dfs(matrix, new_row, new_col, player, visited):
-					return true  # Found winning path
-
-	return false  # No winning path found from this position
+		while stack.size() > 0:
+			var current:Vector2 = stack.pop_back()
+			if visited.has(current):
+				continue
+			visited[current] = true
+			
+			var cr: int = int(current.x)
+			var cc: int = int(current.y)
+			
+			# Gewinnbedingungen prüfen
+			if player == 1 and cr == 13 - 1:
+				return true
+			if player == 2 and cc == 13 - 1:
+				return true
+			
+			# Nachbarn hinzufügen
+			for direction in directions:
+				var nr: int = cr + int(direction.x)
+				var nc: int = cc + int(direction.y)
+				var neighbor: Vector2 = Vector2(nr, nc)
+				if nr >= 0 and nr < 13 and nc >= 0 and nc < 13 and not visited.has(neighbor):
+					if state[nr][nc] == player:
+						stack.append(neighbor)
+	
+	return false

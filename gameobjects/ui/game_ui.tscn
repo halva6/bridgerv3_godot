@@ -1,10 +1,14 @@
 [gd_scene load_steps=7 format=3 uid="uid://d21chmllupuu2"]
 
 [ext_resource type="Script" uid="uid://b0v2r16h541re" path="res://scripts/ui/game_ui.gd" id="1_tqpfq"]
-[ext_resource type="Texture2D" uid="uid://clqy1whg17vsd" path="res://assets/ui/waterbackground.png" id="3_2hodu"]
-[ext_resource type="Texture2D" uid="uid://buslqd7likxjb" path="res://assets/ui/Pause.png" id="3_k4eh0"]
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_k4eh0"]
 [ext_resource type="FontFile" uid="uid://dmmrlach1m52i" path="res://assets/fonts/Kenney Future.ttf" id="5_rswll"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ochby"]
+load_path = "res://.godot/imported/waterbackground.png-950c63e35318a5b820a4a9ed9ae1702c.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2hodu"]
+load_path = "res://.godot/imported/Pause.png-93dd5505e75105ba65636b7ec88c56ce.ctex"
 
 [sub_resource type="LabelSettings" id="LabelSettings_686bk"]
 font = ExtResource("5_rswll")
@@ -28,7 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_2hodu")
+texture = SubResource("CompressedTexture2D_ochby")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -46,7 +50,7 @@ theme_override_constants/margin_bottom = 100
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-icon = ExtResource("3_k4eh0")
+icon = SubResource("CompressedTexture2D_2hodu")
 flat = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]

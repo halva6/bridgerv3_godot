@@ -1,14 +1,18 @@
 [gd_scene load_steps=10 format=3 uid="uid://ckg6j1nwmecv"]
 
-[ext_resource type="Texture2D" uid="uid://nojpp04mdnn5" path="res://assets/ui/Gear.png" id="1_4d8xo"]
 [ext_resource type="Script" uid="uid://ba0q8v50nhrve" path="res://scripts/ui/start_screen_ui.gd" id="1_15ej8"]
-[ext_resource type="Texture2D" uid="uid://clqy1whg17vsd" path="res://assets/ui/waterbackground.png" id="1_mxjfq"]
 [ext_resource type="FontFile" uid="uid://dmmrlach1m52i" path="res://assets/fonts/Kenney Future.ttf" id="2_cki8d"]
 [ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="3_qcay1"]
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_15ej8"]
 [ext_resource type="StyleBox" uid="uid://bwscc4sfje2gs" path="res://gameobjects/ui/styles/button_style.tres" id="6_15ej8"]
 [ext_resource type="StyleBox" uid="uid://b1rbnh4llhdsp" path="res://gameobjects/ui/styles/button_style_hover.tres" id="6_lctjc"]
 [ext_resource type="StyleBox" uid="uid://boira5n6y07rn" path="res://gameobjects/ui/styles/button_style_press.tres" id="7_x2vcs"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ochby"]
+load_path = "res://.godot/imported/waterbackground.png-950c63e35318a5b820a4a9ed9ae1702c.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_15ej8"]
+load_path = "res://.godot/imported/Gear.png-56b3c0c60d3bd121de6ebaec1e91ae13.ctex"
 
 [node name="StartScreenUI" type="Control"]
 layout_mode = 3
@@ -26,7 +30,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_mxjfq")
+texture = SubResource("CompressedTexture2D_ochby")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -97,7 +101,7 @@ text = "👤 vs 🤖"
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-icon = ExtResource("1_4d8xo")
+icon = SubResource("CompressedTexture2D_15ej8")
 flat = true
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]

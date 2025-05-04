@@ -1,13 +1,23 @@
 [gd_scene load_steps=9 format=3 uid="uid://c47cxenchwann"]
 
-[ext_resource type="Texture2D" uid="uid://clqy1whg17vsd" path="res://assets/ui/waterbackground.png" id="1_06re7"]
 [ext_resource type="Script" uid="uid://c0h741vqbcgm" path="res://scripts/ui/pause_ui.gd" id="1_jdk4y"]
 [ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_slbg8"]
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_jdk4y"]
-[ext_resource type="Texture2D" uid="uid://cpcmw753skrlu" path="res://assets/ui/Redo.png" id="5_06re7"]
-[ext_resource type="Texture2D" uid="uid://bun553o816k0e" path="res://assets/ui/Play.png" id="5_nmfwn"]
-[ext_resource type="Texture2D" uid="uid://nojpp04mdnn5" path="res://assets/ui/Gear.png" id="6_ddrxt"]
-[ext_resource type="Texture2D" uid="uid://d2584bmafjxj7" path="res://assets/ui/Exit.png" id="6_slbg8"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ochby"]
+load_path = "res://.godot/imported/waterbackground.png-950c63e35318a5b820a4a9ed9ae1702c.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1qnmu"]
+load_path = "res://.godot/imported/Play.png-0dcad0b61bde07b16070d01cb9de7107.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1d5ep"]
+load_path = "res://.godot/imported/Redo.png-e7456b8a9dc0186b77c4e30184656cb3.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pgv2b"]
+load_path = "res://.godot/imported/Exit.png-d1bf68b1d3c5947b3c2f89f0563772ee.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_15ej8"]
+load_path = "res://.godot/imported/Gear.png-56b3c0c60d3bd121de6ebaec1e91ae13.ctex"
 
 [node name="PauseUI" type="Control"]
 layout_mode = 3
@@ -25,7 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_06re7")
+texture = SubResource("CompressedTexture2D_ochby")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -58,7 +68,7 @@ theme_override_constants/separation = 100
 
 [node name="ContinueButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/Continue"]
 layout_mode = 2
-icon = ExtResource("5_nmfwn")
+icon = SubResource("CompressedTexture2D_1qnmu")
 flat = true
 
 [node name="ContinueLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/Continue"]
@@ -72,7 +82,7 @@ theme_override_constants/separation = 100
 
 [node name="RedoButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/Redo"]
 layout_mode = 2
-icon = ExtResource("5_06re7")
+icon = SubResource("CompressedTexture2D_1d5ep")
 flat = true
 
 [node name="redoLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/Redo"]
@@ -86,7 +96,7 @@ theme_override_constants/separation = 100
 
 [node name="ExitButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/Exit"]
 layout_mode = 2
-icon = ExtResource("6_slbg8")
+icon = SubResource("CompressedTexture2D_pgv2b")
 flat = true
 
 [node name="ExitLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/Exit"]
@@ -98,7 +108,7 @@ label_settings = ExtResource("4_jdk4y")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-icon = ExtResource("6_ddrxt")
+icon = SubResource("CompressedTexture2D_15ej8")
 flat = true
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/Continue/ContinueButton" to="." method="_on_continue_button_pressed"]

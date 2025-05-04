@@ -7,17 +7,14 @@ const PLAYER_HUMAN: int = 1
 const ROWS: int = 13
 const COLS: int = 13
 
-#------- Time -------
-const TIME_LIMIT: float = 5.0
-
 class Knot:
 	var state: Array
 	var parent: Knot = null
-	var children: Array = []
+	var children: Array[Knot] = []
 	var visits: int = 0
 	var wins: int = 0
 	var player: int
-	var untried_moves: Array
+	var untried_moves: Array[Vector2]
 
 	func _init(state: Array, parent: Knot = null, player: int = PLAYER_AI) -> void:
 		self.state = state
@@ -25,8 +22,8 @@ class Knot:
 		self.player = player
 		self.untried_moves = get_legal_moves()
 
-	func get_legal_moves() -> Array:
-		var moves: Array = []
+	func get_legal_moves() -> Array[Vector2]:
+		var moves: Array[Vector2] = []
 		for r in range(ROWS):
 			for c in range(COLS):
 				if state[r][c] == 0:
@@ -84,11 +81,58 @@ func check_win(matrix: Array, player: int) -> bool:
 					return true
 	return false
 
+#func iterative_dfs(matrix: Array, start_row: int, start_col: int, player: int) -> bool:
+	#var stack: Dictionary = {}  # Stack for DFS as Dictionary
+	#var visited: Dictionary = {}  # Visited cells
+#
+	## Add the starting position to the stack
+	#stack[Vector2(start_row, start_col)] = true
+#
+	## Possible movement directions (4-way connectivity)
+	#var directions: Array[Vector2] = [
+		#Vector2(1, 0),   # Down
+		#Vector2(0, 1),   # Right
+		#Vector2(-1, 0),  # Up
+		#Vector2(0, -1)   # Left
+	#]
+#
+	#while stack.size() > 0:
+		## Retrieve and remove a position from the stack
+		#var current_pos: Vector2 = stack.keys()[0]
+		#stack.erase(current_pos)
+		#var row: int = int(current_pos.x)
+		#var col: int = int(current_pos.y)
+#
+		## Mark the current position as visited
+		#visited[current_pos] = true
+#
+		## Win conditions for each player
+		#if player == 1 and row == len(matrix) - 1:  # Green reached bottom
+			#return true
+		#if player == 2 and col == len(matrix[0]) - 1:  # Red reached right edge
+			#return true
+#
+		## Check all adjacent cells
+		#for direction in directions:
+			#var new_row: int = row + int(direction.x)
+			#var new_col: int = col + int(direction.y)
+			#var new_pos: Vector2 = Vector2(new_row, new_col)
+#
+			## Check if new position is valid, unvisited, and contains the player's marker
+			#if (new_row >= 0 and new_row < len(matrix) and 
+				#new_col >= 0 and new_col < len(matrix[0]) and
+				#not visited.has(new_pos) and 
+				#not stack.has(new_pos) and 
+				#matrix[new_row][new_col] == player):
+				#stack[new_pos] = true
+#
+	#return false  # No winning path found
+
 func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary) -> bool:
 	# Win conditions for each player
-	if player == 1 and row == len(matrix) - 1:  # Green reached bottom
+	if player == 1 and row == ROWS - 1:  # Green reached bottom
 		return true
-	if player == 2 and col == len(matrix[0]) - 1:  # Red reached right edge
+	if player == 2 and col == COLS - 1:  # Red reached right edge
 		return true
 
 	visited[Vector2(row, col)] = true  # Mark current position as visited
@@ -107,25 +151,29 @@ func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary) ->
 		var new_col: int = col + int(direction.y)
 		
 		# Check if new position is valid and unvisited
-		if (new_row >= 0 and new_row < len(matrix) and 
-			new_col >= 0 and new_col < len(matrix[0])):
+		if (new_row >= 0 and new_row < ROWS and 
+			new_col >= 0 and new_col < COLS):
 			var new_pos: Vector2 = Vector2(new_row, new_col)
 			if not visited.has(new_pos) and matrix[new_row][new_col] == player:
 				if dfs(matrix, new_row, new_col, player, visited):
 					return true  # Found winning path
 
 	return false  # No winning path found from this position
-
+	
 func simulate_random_game(state: Array, player: int) -> int:
 	var current_player: int = player
 	while true:
-		var moves: Array = []
+		var moves: Array[Vector2] = []
 		for r in range(ROWS):
 			for c in range(COLS):
 				if state[r][c] == 0:
 					moves.append(Vector2(r, c))
-		if moves.is_empty() or check_win(state, PLAYER_HUMAN) or check_win(state, PLAYER_AI):
+		if moves.is_empty():
 			break
+		elif check_win(state, PLAYER_HUMAN):
+			return -1
+		elif check_win(state, PLAYER_AI):
+			return 1
 		var move: Vector2 = moves[randi() % moves.size()]
 		state[move.x][move.y] = current_player
 		current_player = PLAYER_HUMAN if current_player == PLAYER_AI else PLAYER_AI
@@ -144,10 +192,10 @@ func backpropagate(node: Knot, result: int) -> void:
 		node = node.parent
 
 		
-func monte_carlo_tree_search(root: Knot) -> Knot:
+func monte_carlo_tree_search(root: Knot, simulation_time: int) -> Knot:
 	var start_time: float = Time.get_unix_time_from_system()
 	#var mess = []
-	while Time.get_unix_time_from_system() - start_time < TIME_LIMIT:
+	while Time.get_unix_time_from_system() - start_time < simulation_time:
 	#for i in range(2000):
 		var node: Knot = root
 
@@ -166,7 +214,7 @@ func monte_carlo_tree_search(root: Knot) -> Knot:
 	print("[DEBUG] Visits: " + str(root.visits))
 	return root.best_child()
 
-func write_to_csv(file_path: String, data: Array) -> void:
+func write_to_csv(file_path: String, data: Array[String]) -> void:
 	var file:FileAccess = FileAccess.open(file_path, FileAccess.WRITE_READ)
 
 	for row: String in data:
