@@ -5,14 +5,23 @@ extends Node
 @export var start_player: String = "green"  # Which player starts the game
 @export var simulation_number = 100
 
+#-------------- signals -------------------
 signal update_player_label(player: String)
+signal update_visit_label(visits: String)
 signal set_computers_bridge(matrix_position: Vector2)
 signal set_win_ui(winner: String)
+
+#-------------- for computer ai ------------------
+var thread1: Thread
+var best_knot
+var visits: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalGame.set_current_player(start_player)
 	emit_signal("update_player_label", start_player)
+	
+	thread1 = Thread.new()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,19 +34,25 @@ func _process(delta: float) -> void:
 		player_n_move = _switch_player("green", "computer", GlobalGame.get_current_player(), GlobalGame.get_finish_turn())
 		if(player_n_move[0] == "computer"):
 			var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
-			var knots = Knots.new()
+			var knots: Knots = Knots.new()
 			var mcts = knots.Knot.new(transform_matrix)
-			LocalDebug.print_matrix(transform_matrix)
-			var enemy_matrix = knots.monte_carlo_tree_search(mcts).state
-			LocalDebug.print_matrix(enemy_matrix)
-			var matrix_position = finde_diffrence(transform_matrix,enemy_matrix)
-			emit_signal("set_computers_bridge", matrix_position)
-			player_n_move[1] = true
-	
+			thread1.start(async_computer_calculation.bind(knots,mcts))
+			
+			if !thread1.is_alive():
+				var matrix_position = finde_diffrence(transform_matrix,best_knot.state)
+				emit_signal("set_computers_bridge", matrix_position)
+				emit_signal("update_visit_label", str(visits))
+				player_n_move[1] = true
+				thread1.wait_to_finish()
+				
+
 	# Update global game state
 	GlobalGame.set_current_player(player_n_move[0])
 	GlobalGame.set_finish_turn(player_n_move[1])
-
+	
+func async_computer_calculation(knots:Knots, mcts):
+	best_knot = knots.monte_carlo_tree_search(mcts)
+	visits = mcts.visits
 
 func finde_diffrence(matrix1: Array, matrix2: Array):
 	for i in range(len(matrix1)):

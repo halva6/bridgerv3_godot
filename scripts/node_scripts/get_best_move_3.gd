@@ -143,8 +143,8 @@ func backpropagate(node: Knot, result: int) -> void:
 			node.wins += 1
 		node = node.parent
 
+		
 func monte_carlo_tree_search(root: Knot) -> Knot:
-	var loop: int = 0
 	var start_time: float = Time.get_unix_time_from_system()
 	#var mess = []
 	while Time.get_unix_time_from_system() - start_time < TIME_LIMIT:
@@ -160,7 +160,6 @@ func monte_carlo_tree_search(root: Knot) -> Knot:
 		#var mes: float = Time.get_unix_time_from_system()
 		backpropagate(node, result)
 		#mess.append(str(Time.get_unix_time_from_system()-mes) + "," + str(loop))
-		loop += 1
 	#write_to_csv("res://messurements/uct.csv", mess)
 	#write_to_csv("res://messurements/simulate.csv", mess)
 	#write_to_csv("res://messurements/backpropagate.csv", mess)

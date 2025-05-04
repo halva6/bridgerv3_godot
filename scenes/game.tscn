@@ -48,3 +48,4 @@ visible = false
 [connection signal="set_win_ui" from="." to="CanvasLayer/game_ui" method="_on_game_root_set_win_ui"]
 [connection signal="set_win_ui" from="." to="CanvasLayer/win_ui" method="_on_game_root_set_win_ui"]
 [connection signal="update_player_label" from="." to="CanvasLayer/game_ui" method="_on_game_root_update_player_label"]
+[connection signal="update_visit_label" from="." to="CanvasLayer/game_ui" method="_on_game_root_update_visit_label"]
