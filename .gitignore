@@ -19,4 +19,6 @@ mono_crash.*.json
 #csv files for efficiency messurement
 messurements/
 
-cpp_code_extension/
+cpp_code_extension/.vscode/
+cpp_code_extension/build/
+cpp_code_extension/godot-cpp/
