@@ -1,0 +1,83 @@
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://cyrk6xompqnrs"]
+
+[ext_resource type="Texture2D" uid="uid://dodaeifi4s3et" path="res://assets/ui/SpinBox/Chevron-Arrow-Down.png" id="1_foa84"]
+[ext_resource type="Texture2D" uid="uid://bxy7x6fo5k51p" path="res://assets/ui/SpinBox/Chevron-Arrow-Disable.png" id="2_70kpi"]
+[ext_resource type="Texture2D" uid="uid://cypqw57i0fq1p" path="res://assets/ui/SpinBox/Chevron-Arrow-Down-Hover.png" id="3_g5tr4"]
+[ext_resource type="Texture2D" uid="uid://b84blayqdltuq" path="res://assets/ui/SpinBox/Chevron-Arrow-Down-Pressed.png" id="4_7kps6"]
+[ext_resource type="Texture2D" uid="uid://0x05piune2ja" path="res://assets/ui/SpinBox/Chevron-Arrow-Up.png" id="5_hwxa5"]
+[ext_resource type="Texture2D" uid="uid://blmp7xx2vait4" path="res://assets/ui/SpinBox/Chevron-Arrow-Up-Hover.png" id="6_klb40"]
+[ext_resource type="Texture2D" uid="uid://dig8fa0cbqa37" path="res://assets/ui/SpinBox/Chevron-Arrow-Up-Pressed.png" id="7_5c4ci"]
+[ext_resource type="FontFile" uid="uid://dmmrlach1m52i" path="res://assets/fonts/Kenney Future.ttf" id="8_qgpkf"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_foa84"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_70kpi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g5tr4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7kps6"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hwxa5"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_klb40"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5c4ci"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qgpkf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_urhko"]
+
+[resource]
+default_font = ExtResource("8_qgpkf")
+default_font_size = 44
+SpinBox/colors/down_disabled_icon_modulate = Color(0.875, 0.875, 0.875, 0.5)
+SpinBox/colors/down_hover_icon_modulate = Color(0.95, 0.95, 0.95, 1)
+SpinBox/colors/down_icon_modulate = Color(0.875, 0.875, 0.875, 1)
+SpinBox/colors/down_pressed_icon_modulate = Color(0.95, 0.95, 0.95, 1)
+SpinBox/colors/up_disabled_icon_modulate = Color(0.875, 0.875, 0.875, 0.5)
+SpinBox/colors/up_hover_icon_modulate = Color(0.95, 0.95, 0.95, 1)
+SpinBox/colors/up_icon_modulate = Color(0.875, 0.875, 0.875, 1)
+SpinBox/colors/up_pressed_icon_modulate = Color(0.95, 0.95, 0.95, 1)
+SpinBox/constants/buttons_vertical_separation = 50
+SpinBox/constants/buttons_width = 20
+SpinBox/constants/field_and_buttons_separation = 20
+SpinBox/constants/set_min_buttons_width_from_icons = 20
+SpinBox/icons/down = ExtResource("1_foa84")
+SpinBox/icons/down_disabled = ExtResource("2_70kpi")
+SpinBox/icons/down_hover = ExtResource("3_g5tr4")
+SpinBox/icons/down_pressed = ExtResource("4_7kps6")
+SpinBox/icons/up = ExtResource("5_hwxa5")
+SpinBox/icons/up_disabled = ExtResource("2_70kpi")
+SpinBox/icons/up_hover = ExtResource("6_klb40")
+SpinBox/icons/up_pressed = ExtResource("7_5c4ci")
+SpinBox/icons/updown = SubResource("ImageTexture_foa84")
+SpinBox/styles/down_background = SubResource("StyleBoxEmpty_70kpi")
+SpinBox/styles/down_background_disabled = SubResource("StyleBoxEmpty_g5tr4")
+SpinBox/styles/down_background_hovered = SubResource("StyleBoxFlat_7kps6")
+SpinBox/styles/down_background_pressed = SubResource("StyleBoxFlat_hwxa5")
+SpinBox/styles/field_and_buttons_separator = SubResource("StyleBoxEmpty_klb40")
+SpinBox/styles/up_background = SubResource("StyleBoxEmpty_5c4ci")
+SpinBox/styles/up_background_disabled = SubResource("StyleBoxEmpty_qgpkf")
+SpinBox/styles/up_background_hovered = SubResource("StyleBoxFlat_7kps6")
+SpinBox/styles/up_background_pressed = SubResource("StyleBoxFlat_hwxa5")
+SpinBox/styles/up_down_buttons_separator = SubResource("StyleBoxEmpty_urhko")

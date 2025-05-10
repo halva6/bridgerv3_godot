@@ -1,16 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://4atvarwgl0aa"]
+[gd_scene load_steps=13 format=3 uid="uid://4atvarwgl0aa"]
 
 [ext_resource type="Script" uid="uid://br5uv0qtt4f07" path="res://scripts/ui/settings_ui.gd" id="1_5h6fy"]
 [ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_p0ha5"]
+[ext_resource type="Theme" uid="uid://c5x4dg1u0suun" path="res://gameobjects/ui/styles/slidebar_theme.tres" id="3_14fav"]
 [ext_resource type="Script" uid="uid://bkbprclk7lljr" path="res://scripts/ui/audio_slider.gd" id="3_tnk7c"]
-[ext_resource type="Texture2D" uid="uid://bxy7x6fo5k51p" path="res://assets/ui/SpinBox/Chevron-Arrow-Disable.png" id="4_h1tr1"]
-[ext_resource type="Texture2D" uid="uid://dodaeifi4s3et" path="res://assets/ui/SpinBox/Chevron-Arrow-Down.png" id="5_tnk7c"]
-[ext_resource type="Texture2D" uid="uid://cypqw57i0fq1p" path="res://assets/ui/SpinBox/Chevron-Arrow-Down-Hover.png" id="6_hhtd5"]
+[ext_resource type="Theme" uid="uid://cyrk6xompqnrs" path="res://gameobjects/ui/styles/spin_box_theme.tres" id="6_14fav"]
 [ext_resource type="FontFile" uid="uid://dmmrlach1m52i" path="res://assets/fonts/Kenney Future.ttf" id="6_lk2nf"]
-[ext_resource type="Texture2D" uid="uid://b84blayqdltuq" path="res://assets/ui/SpinBox/Chevron-Arrow-Down-Pressed.png" id="7_0pj3m"]
-[ext_resource type="Texture2D" uid="uid://dig8fa0cbqa37" path="res://assets/ui/SpinBox/Chevron-Arrow-Up-Pressed.png" id="8_73mbb"]
-[ext_resource type="Texture2D" uid="uid://blmp7xx2vait4" path="res://assets/ui/SpinBox/Chevron-Arrow-Up-Hover.png" id="9_jx8o3"]
-[ext_resource type="Texture2D" uid="uid://0x05piune2ja" path="res://assets/ui/SpinBox/Chevron-Arrow-Up.png" id="10_000ic"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aw7an"]
 load_path = "res://.godot/imported/Speaker-0.png-f314d2861633c9014be841cec07f6736.ctex"
@@ -21,10 +16,6 @@ load_path = "res://.godot/imported/Music-0.png-7ae548fcd6826fe5455dd42d331bcace.
 [sub_resource type="LabelSettings" id="LabelSettings_h1tr1"]
 font = ExtResource("6_lk2nf")
 font_size = 48
-
-[sub_resource type="Theme" id="Theme_lk2nf"]
-default_font = ExtResource("6_lk2nf")
-default_font_size = 44
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kyjsj"]
 load_path = "res://.godot/imported/Info.png-18c34f3ce9efd8ee0374d0f8ee58493f.ctex"
@@ -89,6 +80,7 @@ texture = SubResource("CompressedTexture2D_aw7an")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("3_14fav")
 max_value = 1.0
 step = 0.001
 script = ExtResource("3_tnk7c")
@@ -111,6 +103,7 @@ texture = SubResource("CompressedTexture2D_8ttg8")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme = ExtResource("3_14fav")
 max_value = 1.0
 step = 0.001
 script = ExtResource("3_tnk7c")
@@ -131,19 +124,7 @@ clip_contents = true
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 tooltip_text = "How long should the MCTS algorithm think? The shorter the time, the easier it is to play against it."
-theme = SubResource("Theme_lk2nf")
-theme_override_constants/set_min_buttons_width_from_icons = 20
-theme_override_constants/buttons_width = 20
-theme_override_constants/field_and_buttons_separation = 20
-theme_override_constants/buttons_vertical_separation = 50
-theme_override_icons/up_disabled = ExtResource("4_h1tr1")
-theme_override_icons/down = ExtResource("5_tnk7c")
-theme_override_icons/down_hover = ExtResource("6_hhtd5")
-theme_override_icons/down_pressed = ExtResource("7_0pj3m")
-theme_override_icons/down_disabled = ExtResource("4_h1tr1")
-theme_override_icons/up_pressed = ExtResource("8_73mbb")
-theme_override_icons/up_hover = ExtResource("9_jx8o3")
-theme_override_icons/up = ExtResource("10_000ic")
+theme = ExtResource("6_14fav")
 min_value = 1.0
 max_value = 60.0
 value = 5.0
