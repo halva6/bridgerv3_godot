@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2gl3ta3fs2l8"
-path="res://.godot/imported/RedPierIcon.png-b9078592e44af4ab93ad7811995f9bd1.ctex"
+uid="uid://cyaxm7xqwhadj"
+path="res://.godot/imported/Grabber.png-779cba82bb1dbefbc8a484c188c2e35f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/icons/RedPierIcon.png"
-dest_files=["res://.godot/imported/RedPierIcon.png-b9078592e44af4ab93ad7811995f9bd1.ctex"]
+source_file="res://assets/ui/Slidbar/Grabber.png"
+dest_files=["res://.godot/imported/Grabber.png-779cba82bb1dbefbc8a484c188c2e35f.ctex"]
 
 [params]
 

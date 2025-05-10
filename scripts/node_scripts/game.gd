@@ -98,10 +98,12 @@ func _game_over() -> bool:
 	if (check_winner(transform_matrix, 1)):  # Player 1 (green)
 		print("green wins")
 		emit_signal("set_win_ui",GlobalGame.get_current_player())
+		GlobalAudio.emit_signal("play_win_sound")
 		return true
 	elif (check_winner(transform_matrix, 2)):  # Player 2 (red/computer)
 		print("red wins")
 		emit_signal("set_win_ui", GlobalGame.get_current_player())
+		GlobalAudio.emit_signal("play_win_sound")
 		return true
 	return false
 

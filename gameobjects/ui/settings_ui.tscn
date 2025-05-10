@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://br5uv0qtt4f07" path="res://scripts/ui/settings_ui.gd" id="1_5h6fy"]
 [ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_p0ha5"]
+[ext_resource type="Script" uid="uid://bkbprclk7lljr" path="res://scripts/ui/audio_slider.gd" id="3_tnk7c"]
 [ext_resource type="Texture2D" uid="uid://bxy7x6fo5k51p" path="res://assets/ui/SpinBox/Chevron-Arrow-Disable.png" id="4_h1tr1"]
 [ext_resource type="Texture2D" uid="uid://dodaeifi4s3et" path="res://assets/ui/SpinBox/Chevron-Arrow-Down.png" id="5_tnk7c"]
 [ext_resource type="Texture2D" uid="uid://cypqw57i0fq1p" path="res://assets/ui/SpinBox/Chevron-Arrow-Down-Hover.png" id="6_hhtd5"]
@@ -10,9 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://dig8fa0cbqa37" path="res://assets/ui/SpinBox/Chevron-Arrow-Up-Pressed.png" id="8_73mbb"]
 [ext_resource type="Texture2D" uid="uid://blmp7xx2vait4" path="res://assets/ui/SpinBox/Chevron-Arrow-Up-Hover.png" id="9_jx8o3"]
 [ext_resource type="Texture2D" uid="uid://0x05piune2ja" path="res://assets/ui/SpinBox/Chevron-Arrow-Up.png" id="10_000ic"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ochby"]
-load_path = "res://.godot/imported/waterbackground.png-950c63e35318a5b820a4a9ed9ae1702c.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aw7an"]
 load_path = "res://.godot/imported/Speaker-0.png-f314d2861633c9014be841cec07f6736.ctex"
@@ -46,15 +44,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5h6fy")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_ochby")
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -84,22 +73,26 @@ layout_mode = 2
 theme_override_constants/separation = 100
 alignment = 1
 
-[node name="VolumeVBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="SoundBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 150
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/VolumeVBox"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/SoundBox"]
 layout_mode = 2
 
-[node name="SpeakerRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/VolumeVBox/MarginContainer"]
+[node name="SpeakerRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/SoundBox/MarginContainer"]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_aw7an")
 
-[node name="VolumeSoundSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/VolumeVBox"]
+[node name="SoundSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/SoundBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+script = ExtResource("3_tnk7c")
+audio_bus_name = "Sound"
 
 [node name="MusicVBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -114,10 +107,14 @@ theme_override_constants/margin_left = 10
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_8ttg8")
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicVBox"]
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/VBoxContainer/VBoxContainer/MusicVBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+max_value = 1.0
+step = 0.001
+script = ExtResource("3_tnk7c")
+audio_bus_name = "Music"
 
 [node name="MCTSSpeedBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2

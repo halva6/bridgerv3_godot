@@ -1,11 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bem0f7ts41hp0"]
+[gd_scene load_steps=6 format=3 uid="uid://bem0f7ts41hp0"]
 
 [ext_resource type="Script" uid="uid://ldt8jttl72bq" path="res://scripts/ui/win_ui.gd" id="1_87ifj"]
 [ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_rmb3o"]
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_87ifj"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ochby"]
-load_path = "res://.godot/imported/waterbackground.png-950c63e35318a5b820a4a9ed9ae1702c.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1d5ep"]
 load_path = "res://.godot/imported/Redo.png-e7456b8a9dc0186b77c4e30184656cb3.ctex"
@@ -22,16 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_87ifj")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_ochby")
-
-[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,53 +31,53 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="CenterContainer" type="CenterContainer" parent="TextureRect/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
 layout_mode = 2
 theme_override_constants/separation = 200
 alignment = 1
 
-[node name="WinLabel" type="Label" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="WinLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "you win"
 label_settings = ExtResource("2_rmb3o")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 100
 alignment = 1
 
-[node name="Restart" type="HBoxContainer" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Restart" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 100
 
-[node name="RestartButton" type="Button" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart"]
+[node name="RestartButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart"]
 layout_mode = 2
 icon = SubResource("CompressedTexture2D_1d5ep")
 flat = true
 
-[node name="RestartLabel" type="Label" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart"]
+[node name="RestartLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart"]
 layout_mode = 2
 text = "restart"
 label_settings = ExtResource("4_87ifj")
 
-[node name="Exit" type="HBoxContainer" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Exit" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 100
 
-[node name="ExitButton" type="Button" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit"]
+[node name="ExitButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit"]
 layout_mode = 2
 icon = SubResource("CompressedTexture2D_pgv2b")
 flat = true
 
-[node name="ExitLabel" type="Label" parent="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit"]
+[node name="ExitLabel" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit"]
 layout_mode = 2
 text = "Exit"
 label_settings = ExtResource("4_87ifj")
 
-[connection signal="pressed" from="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="TextureRect/MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Restart/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Exit/ExitButton" to="." method="_on_exit_button_pressed"]

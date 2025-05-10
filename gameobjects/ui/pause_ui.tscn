@@ -1,11 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://c47cxenchwann"]
+[gd_scene load_steps=8 format=3 uid="uid://c47cxenchwann"]
 
 [ext_resource type="Script" uid="uid://c0h741vqbcgm" path="res://scripts/ui/pause_ui.gd" id="1_jdk4y"]
 [ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_slbg8"]
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_jdk4y"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ochby"]
-load_path = "res://.godot/imported/waterbackground.png-950c63e35318a5b820a4a9ed9ae1702c.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1qnmu"]
 load_path = "res://.godot/imported/Play.png-0dcad0b61bde07b16070d01cb9de7107.ctex"
@@ -27,15 +24,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jdk4y")
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("CompressedTexture2D_ochby")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

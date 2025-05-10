@@ -42,5 +42,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 		var group_name: String = "tempbridge"
 		var util: ClickUtil = ClickUtil.new()
 		
+		GlobalAudio.emit_signal("play_click_sound") #Sound
+		
 		util.pos = get_parent().position
 		place_temp_bridges(group_name, matrix, util)

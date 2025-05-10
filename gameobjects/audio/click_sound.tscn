@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://duvt3gkjm6ufj"]
+
+[ext_resource type="AudioStream" uid="uid://bujo3uklv64m4" path="res://assets/sounds/click.wav" id="1_lwmx2"]
+[ext_resource type="Script" uid="uid://r2lj3gs77yv1" path="res://scripts/audio/click_sound.gd" id="2_71k2f"]
+
+[node name="ClickSound" type="AudioStreamPlayer"]
+stream = ExtResource("1_lwmx2")
+bus = &"Sound"
+script = ExtResource("2_71k2f")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://scgxsjpv21pd"]
+[gd_scene load_steps=20 format=3 uid="uid://scgxsjpv21pd"]
 
 [ext_resource type="Script" uid="uid://c5jjky3dnodd" path="res://scripts/node_scripts/game.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/bridges/green_bridge.tscn" id="2_u5sy4"]
@@ -12,8 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://sqse3ldfd8n5" path="res://gameobjects/cameras/camera_2d_mobile.tscn" id="9_trtic"]
 [ext_resource type="Script" uid="uid://dynlhuu8m864x" path="res://scripts/camera/camera_mobile_movement.gd" id="10_trtic"]
 [ext_resource type="Script" uid="uid://ckwcspomuq1xs" path="res://scripts/node_scripts/spawn.gd" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://digb6qc50hwuh" path="res://gameobjects/ui/background_ui.tscn" id="11_ir15t"]
 [ext_resource type="PackedScene" uid="uid://4atvarwgl0aa" path="res://gameobjects/ui/settings_ui.tscn" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://bem0f7ts41hp0" path="res://gameobjects/ui/win_ui.tscn" id="12_dinhu"]
+[ext_resource type="PackedScene" uid="uid://dyajx4nwhlghq" path="res://gameobjects/audio/game_music.tscn" id="16_rysoc"]
+[ext_resource type="PackedScene" uid="uid://duvt3gkjm6ufj" path="res://gameobjects/audio/click_sound.tscn" id="17_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://cvw1ayvkb2ow2" path="res://gameobjects/audio/bridge_sound.tscn" id="18_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://dtef501ibusxb" path="res://gameobjects/audio/win_sound.tscn" id="19_264po"]
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_0tnpc")
@@ -40,9 +45,13 @@ can_zoom = true
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
+[node name="background_ui" parent="CanvasLayer" instance=ExtResource("11_ir15t")]
+z_index = -5
+
 [node name="game_ui" parent="CanvasLayer" instance=ExtResource("8_0tnpc")]
 light_mask = 2
 visibility_layer = 2
+z_index = 1
 
 [node name="pause_ui" parent="CanvasLayer" instance=ExtResource("9_0tnpc")]
 visible = false
@@ -53,6 +62,16 @@ hide_mcts_speed = true
 
 [node name="win_ui" parent="CanvasLayer" instance=ExtResource("12_dinhu")]
 visible = false
+
+[node name="ClickSound" parent="." instance=ExtResource("17_ssvqc")]
+
+[node name="GameMusic" parent="." instance=ExtResource("16_rysoc")]
+volume_db = -10.0
+autoplay = false
+
+[node name="BridgeSound" parent="." instance=ExtResource("18_ssvqc")]
+
+[node name="WinSound" parent="." instance=ExtResource("19_264po")]
 
 [connection signal="set_computers_bridge" from="." to="Spawner" method="_on_game_root_set_computers_bridge"]
 [connection signal="set_win_ui" from="." to="CanvasLayer/game_ui" method="_on_game_root_set_win_ui"]

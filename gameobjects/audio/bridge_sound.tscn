@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvw1ayvkb2ow2"]
+
+[ext_resource type="AudioStream" uid="uid://dcd0x81yan28w" path="res://assets/sounds/boulder_drop.ogg" id="1_ij38x"]
+[ext_resource type="Script" uid="uid://0hbihbt7f2eb" path="res://scripts/audio/bridge_sound.gd" id="2_we0mk"]
+
+[node name="BridgeSound" type="AudioStreamPlayer"]
+stream = ExtResource("1_ij38x")
+bus = &"Sound"
+script = ExtResource("2_we0mk")

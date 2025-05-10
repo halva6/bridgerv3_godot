@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://85sydaloh2gb"]
+
+[ext_resource type="AudioStream" uid="uid://do7mjgfho4lsf" path="res://assets/music/Beach_02.ogg" id="1_7rps7"]
+[ext_resource type="Script" uid="uid://5ynxcrwna7p7" path="res://scripts/audio/repeat_music.gd" id="2_lh8v2"]
+
+[node name="LobbyMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_7rps7")
+bus = &"Music"
+script = ExtResource("2_lh8v2")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtef501ibusxb"]
+
+[ext_resource type="AudioStream" uid="uid://cu8fqwqss8hi0" path="res://assets/sounds/win_sound.wav" id="1_vaqt7"]
+[ext_resource type="Script" uid="uid://b3dft3t3otvfy" path="res://scripts/audio/win_sound.gd" id="2_atclm"]
+
+[node name="WinSound" type="AudioStreamPlayer"]
+stream = ExtResource("1_vaqt7")
+bus = &"Sound"
+script = ExtResource("2_atclm")

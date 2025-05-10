@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyajx4nwhlghq"]
+
+[ext_resource type="AudioStream" uid="uid://djhh6ybcmab1n" path="res://assets/music/Beach_01.ogg" id="1_w3xq7"]
+[ext_resource type="Script" uid="uid://5ynxcrwna7p7" path="res://scripts/audio/repeat_music.gd" id="2_4rp35"]
+
+[node name="GameMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_w3xq7")
+bus = &"Music"
+script = ExtResource("2_4rp35")

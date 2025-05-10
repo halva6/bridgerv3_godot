@@ -2,6 +2,7 @@ extends Control
 
 
 func _on_pause_button_pressed() -> void:
+	GlobalAudio.emit_signal("play_click_sound") #Sound
 	visible = false
 	get_parent().get_node("pause_ui").visible = true
 	get_parent().layer = 1

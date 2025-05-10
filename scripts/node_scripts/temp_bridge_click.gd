@@ -34,4 +34,5 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
 		var util: ClickUtil = ClickUtil.new()
 		instantiate_bridge(util)
+		GlobalAudio.emit_signal("play_bridge_sound") #Sound
 		util.clear_temp_bridges(get_tree(),"tempbridge", GlobalGame.get_matrix())
