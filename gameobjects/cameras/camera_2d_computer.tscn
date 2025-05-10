@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://pe4iyutte16h"]
+
+[ext_resource type="Script" uid="uid://ctxlx6l24fmun" path="res://scripts/camera/camera_movement.gd" id="1_lgy4j"]
+
+[node name="Camera2DComputer" type="Camera2D"]
+script = ExtResource("1_lgy4j")
+zoomSpeed = null

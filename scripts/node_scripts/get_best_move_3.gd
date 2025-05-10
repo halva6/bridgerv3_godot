@@ -67,17 +67,24 @@ class Knot:
 		return best_node
 
 func check_win(matrix: Array, player: int) -> bool:
+	# Possible movement directions (4-way connectivity)
+	var directions: Array = [
+		Vector2(1, 0),   # Down
+		Vector2(0, 1),   # Right
+		Vector2(-1, 0),  # Up
+		Vector2(0, -1)   # Left
+	]
 	if player == 1:
 		# Player 1 (green) wins by connecting top to bottom
 		for start_col in range(len(matrix[0])):
 			if matrix[0][start_col] == player:
-				if dfs(matrix, 0, start_col, player, {}):
+				if dfs(matrix, 0, start_col, player, {}, directions):
 					return true
 	elif player == 2:
 		# Player 2 (red) wins by connecting left to right
 		for start_row in range(len(matrix)):
 			if matrix[start_row][0] == player:
-				if dfs(matrix, start_row, 0, player, {}):
+				if dfs(matrix, start_row, 0, player, {}, directions):
 					return true
 	return false
 
@@ -128,7 +135,7 @@ func check_win(matrix: Array, player: int) -> bool:
 #
 	#return false  # No winning path found
 
-func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary) -> bool:
+func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary, directions: Array) -> bool:
 	# Win conditions for each player
 	if player == 1 and row == ROWS - 1:  # Green reached bottom
 		return true
@@ -136,14 +143,6 @@ func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary) ->
 		return true
 
 	visited[Vector2(row, col)] = true  # Mark current position as visited
-
-	# Possible movement directions (4-way connectivity)
-	var directions: Array = [
-		Vector2(1, 0),   # Down
-		Vector2(0, 1),   # Right
-		Vector2(-1, 0),  # Up
-		Vector2(0, -1)   # Left
-	]
 
 	# Check all adjacent cells
 	for direction: Vector2 in directions:
@@ -155,7 +154,7 @@ func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary) ->
 			new_col >= 0 and new_col < COLS):
 			var new_pos: Vector2 = Vector2(new_row, new_col)
 			if not visited.has(new_pos) and matrix[new_row][new_col] == player:
-				if dfs(matrix, new_row, new_col, player, visited):
+				if dfs(matrix, new_row, new_col, player, visited, directions):
 					return true  # Found winning path
 
 	return false  # No winning path found from this position

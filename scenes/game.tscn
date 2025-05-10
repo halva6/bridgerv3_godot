@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://scgxsjpv21pd"]
+[gd_scene load_steps=15 format=3 uid="uid://scgxsjpv21pd"]
 
 [ext_resource type="Script" uid="uid://c5jjky3dnodd" path="res://scripts/node_scripts/game.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/bridges/green_bridge.tscn" id="2_u5sy4"]
@@ -7,8 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://dkwqx5sqoaoh2" path="res://gameobjects/bridges/red_bridge.tscn" id="4_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://cpe345fa3kxki" path="res://gameobjects/piers/red_pier.tscn" id="5_vtaks"]
 [ext_resource type="PackedScene" uid="uid://d21chmllupuu2" path="res://gameobjects/ui/game_ui.tscn" id="8_0tnpc"]
-[ext_resource type="Script" uid="uid://ctxlx6l24fmun" path="res://scripts/camera/camera_movement.gd" id="8_gee14"]
+[ext_resource type="PackedScene" uid="uid://pe4iyutte16h" path="res://gameobjects/cameras/camera_2d_computer.tscn" id="8_kvuet"]
 [ext_resource type="PackedScene" uid="uid://c47cxenchwann" path="res://gameobjects/ui/pause_ui.tscn" id="9_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://sqse3ldfd8n5" path="res://gameobjects/cameras/camera_2d_mobile.tscn" id="9_trtic"]
+[ext_resource type="Script" uid="uid://dynlhuu8m864x" path="res://scripts/camera/camera_mobile_movement.gd" id="10_trtic"]
 [ext_resource type="Script" uid="uid://ckwcspomuq1xs" path="res://scripts/node_scripts/spawn.gd" id="10_vtaks"]
 [ext_resource type="PackedScene" uid="uid://4atvarwgl0aa" path="res://gameobjects/ui/settings_ui.tscn" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://bem0f7ts41hp0" path="res://gameobjects/ui/win_ui.tscn" id="12_dinhu"]
@@ -24,9 +26,16 @@ red_pier_scene = ExtResource("5_vtaks")
 green_bridge_scene = ExtResource("2_u5sy4")
 red_bridge_scene = ExtResource("4_0tnpc")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2DComputer" parent="." instance=ExtResource("8_kvuet")]
 position = Vector2(200, 200)
-script = ExtResource("8_gee14")
+zoomSpeed = 10.0
+
+[node name="Camera2DMobile" parent="." instance=ExtResource("9_trtic")]
+position = Vector2(200, 200)
+script = ExtResource("10_trtic")
+pan_speed = 0.4
+can_pan = true
+can_zoom = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1

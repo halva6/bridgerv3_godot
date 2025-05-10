@@ -14,7 +14,18 @@ extends Node
 @export var tile_spacing: float = 32
 
 func _ready() -> void:
+	turn_off_camera()
 	generate_from_matrix()
+
+func turn_off_camera() -> void:
+	var os_name: String = OS.get_name()
+	
+	if os_name == "Android" or os_name == "iOS":
+		get_parent().get_node("Camera2DComputer").visible = false;
+		get_parent().get_node("Camera2DComputer").enabled = false
+		get_parent().get_node("Camera2DMobile").visible = true;
+		get_parent().get_node("Camera2DMobile").enabled = true;
+		
 
 # Generate the grid based on the matrix
 func generate_from_matrix() -> void:
