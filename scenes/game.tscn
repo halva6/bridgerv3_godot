@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://scgxsjpv21pd"]
+[gd_scene load_steps=22 format=3 uid="uid://scgxsjpv21pd"]
 
 [ext_resource type="Script" uid="uid://c5jjky3dnodd" path="res://scripts/node_scripts/game.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://4tgf3hmpuww2" path="res://gameobjects/bridges/green_bridge.tscn" id="2_u5sy4"]
@@ -15,7 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://digb6qc50hwuh" path="res://gameobjects/ui/background_ui.tscn" id="11_ir15t"]
 [ext_resource type="PackedScene" uid="uid://4atvarwgl0aa" path="res://gameobjects/ui/settings_ui.tscn" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://bem0f7ts41hp0" path="res://gameobjects/ui/win_ui.tscn" id="12_dinhu"]
+[ext_resource type="PackedScene" uid="uid://dapd552kx24or" path="res://gameobjects/ui/impressum.tscn" id="16_1kice"]
 [ext_resource type="PackedScene" uid="uid://dyajx4nwhlghq" path="res://gameobjects/audio/game_music.tscn" id="16_rysoc"]
+[ext_resource type="PackedScene" uid="uid://cfeveb3mliyap" path="res://gameobjects/ui/how_to_play_ui.tscn" id="17_5newe"]
 [ext_resource type="PackedScene" uid="uid://duvt3gkjm6ufj" path="res://gameobjects/audio/click_sound.tscn" id="17_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://cvw1ayvkb2ow2" path="res://gameobjects/audio/bridge_sound.tscn" id="18_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://dtef501ibusxb" path="res://gameobjects/audio/win_sound.tscn" id="19_264po"]
@@ -63,11 +65,16 @@ hide_mcts_speed = true
 [node name="win_ui" parent="CanvasLayer" instance=ExtResource("12_dinhu")]
 visible = false
 
+[node name="impressum_ui" parent="CanvasLayer" instance=ExtResource("16_1kice")]
+visible = false
+
+[node name="how_to_play_ui" parent="CanvasLayer" instance=ExtResource("17_5newe")]
+visible = false
+
 [node name="ClickSound" parent="." instance=ExtResource("17_ssvqc")]
 
 [node name="GameMusic" parent="." instance=ExtResource("16_rysoc")]
 volume_db = -10.0
-autoplay = false
 
 [node name="BridgeSound" parent="." instance=ExtResource("18_ssvqc")]
 

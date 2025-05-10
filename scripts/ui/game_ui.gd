@@ -1,5 +1,9 @@
 extends Control
 
+func _ready() -> void:
+	if GlobalGame.get_local_multiplayer():
+		$MarginContainer/VBoxContainer/VisitLabel.visible = false
+
 
 func _on_pause_button_pressed() -> void:
 	GlobalAudio.emit_signal("play_click_sound") #Sound

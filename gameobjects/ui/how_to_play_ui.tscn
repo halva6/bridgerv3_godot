@@ -1,0 +1,127 @@
+[gd_scene load_steps=8 format=3 uid="uid://cfeveb3mliyap"]
+
+[ext_resource type="Script" uid="uid://dav3y1u74a3t5" path="res://scripts/ui/how_to_play_ui.gd" id="1_0g0ew"]
+[ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="1_adocm"]
+[ext_resource type="Texture2D" uid="uid://c545ofvvc4qux" path="res://assets/ui/Left-Arrow.png" id="1_omy7r"]
+[ext_resource type="LabelSettings" uid="uid://btgpsese0pid2" path="res://gameobjects/ui/styles/info_label.tres" id="2_rrtvs"]
+[ext_resource type="Texture2D" uid="uid://ch075gic7qfvr" path="res://assets/ui/HowToPlay/Gameboard.png" id="3_dvddv"]
+[ext_resource type="Texture2D" uid="uid://grvyqqcsrdye" path="res://assets/ui/HowToPlay/BridgesPlaced.png" id="4_cq6kh"]
+[ext_resource type="Texture2D" uid="uid://bpjp45g8svhie" path="res://assets/ui/HowToPlay/TempBridgesSet.png" id="5_0g0ew"]
+
+[node name="how_to_play_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0g0ew")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HeadingLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "How to play ?
+"
+label_settings = ExtResource("1_adocm")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="SmallHeadingLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "How the Gameplay Works"
+label_settings = ExtResource("2_rrtvs")
+
+[node name="Paragraph1Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 1
+text = "The game board consists of piers. Each player, Red and Blue, has 42 piers each.
+"
+label_settings = ExtResource("2_rrtvs")
+autowrap_mode = 3
+
+[node name="GameBoardGrafic" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_dvddv")
+expand_mode = 5
+
+[node name="Paragraph2Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 1
+text = "
+Green controls the two outermost columns, while Red owns the two outermost rows of the matrix.
+The goal for Green is to connect the top and bottom columns in a straight line using bridges. Red, on the other hand, aims to create a continuous connection between the two outermost rows.
+
+Bridges can be placed on the space between the piers. These bridges are connected to the piers, forming a pathway. When one player's connection is complete, that player wins.
+"
+label_settings = ExtResource("2_rrtvs")
+autowrap_mode = 3
+
+[node name="BridgesSetGrafic" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_cq6kh")
+expand_mode = 5
+
+[node name="Paragraph3Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 1
+text = "
+You can place the bridges by clicking on the piers. Then you'll get a selection of all possible positions where you can place them. Now, click on one of these options, and the bridge will be placed.
+"
+label_settings = ExtResource("2_rrtvs")
+autowrap_mode = 3
+
+[node name="TempBridgesGrafic" type="TextureRect" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_0g0ew")
+expand_mode = 5
+
+[node name="Paragraph4Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_vertical = 1
+text = "
+With one finger, you can move the view, and with two fingers, you can zoom in and out."
+label_settings = ExtResource("2_rrtvs")
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = ExtResource("1_omy7r")
+flat = true
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]

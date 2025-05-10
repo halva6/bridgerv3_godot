@@ -19,10 +19,13 @@ func _on_back_button_pressed() -> void:
 
 func _on_impressum_button_pressed() -> void:
 	GlobalAudio.emit_signal("play_click_sound") #Sound
-	
+	visible = false
+	get_parent().get_node("impressum_ui").visible = true
 
 func _on_tutorial_button_pressed() -> void:
 	GlobalAudio.emit_signal("play_click_sound") #Sound.
+	visible = false
+	get_parent().get_node("how_to_play_ui").visible = true
 
 
 func _on_minutes_spin_box_value_changed(value: float) -> void:

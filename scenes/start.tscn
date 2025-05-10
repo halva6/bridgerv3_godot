@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://2ntaa6fu6286"]
+[gd_scene load_steps=8 format=3 uid="uid://2ntaa6fu6286"]
 
 [ext_resource type="PackedScene" uid="uid://digb6qc50hwuh" path="res://gameobjects/ui/background_ui.tscn" id="1_bodal"]
 [ext_resource type="PackedScene" uid="uid://ckg6j1nwmecv" path="res://gameobjects/ui/start_screen_ui.tscn" id="1_jaeev"]
 [ext_resource type="PackedScene" uid="uid://4atvarwgl0aa" path="res://gameobjects/ui/settings_ui.tscn" id="2_u80x2"]
 [ext_resource type="PackedScene" uid="uid://duvt3gkjm6ufj" path="res://gameobjects/audio/click_sound.tscn" id="4_kdmts"]
+[ext_resource type="PackedScene" uid="uid://dapd552kx24or" path="res://gameobjects/ui/impressum.tscn" id="4_y16t7"]
 [ext_resource type="PackedScene" uid="uid://85sydaloh2gb" path="res://gameobjects/audio/lobby_music.tscn" id="5_0auqf"]
+[ext_resource type="PackedScene" uid="uid://cfeveb3mliyap" path="res://gameobjects/ui/how_to_play_ui.tscn" id="5_4ge6i"]
 
 [node name="StartScreenRoot" type="Node"]
 
@@ -19,6 +21,12 @@ z_index = -1
 [node name="settings_ui" parent="CanvasLayer" instance=ExtResource("2_u80x2")]
 visible = false
 last_ui = "start_screen_ui"
+
+[node name="impressum_ui" parent="CanvasLayer" instance=ExtResource("4_y16t7")]
+visible = false
+
+[node name="how_to_play_ui" parent="CanvasLayer" instance=ExtResource("5_4ge6i")]
+visible = false
 
 [node name="ClickSound" parent="." instance=ExtResource("4_kdmts")]
 

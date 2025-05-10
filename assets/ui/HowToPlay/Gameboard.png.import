@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2gl3ta3fs2l8"
-path="res://.godot/imported/RedPierIcon192x192.png-588aeb61c4e330d166546a0083198b24.ctex"
+uid="uid://ch075gic7qfvr"
+path="res://.godot/imported/Gameboard.png-174a38ed756b3455759e28b712eadf38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/icons/RedPierIcon192x192.png"
-dest_files=["res://.godot/imported/RedPierIcon192x192.png-588aeb61c4e330d166546a0083198b24.ctex"]
+source_file="res://assets/ui/HowToPlay/Gameboard.png"
+dest_files=["res://.godot/imported/Gameboard.png-174a38ed756b3455759e28b712eadf38.ctex"]
 
 [params]
 

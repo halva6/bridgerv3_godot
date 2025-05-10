@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5woexqije4fo"
-path="res://.godot/imported/RedPierIcon432x432.png-4172de8333f49d3c00d8ae821f410737.ctex"
+uid="uid://bpjp45g8svhie"
+path="res://.godot/imported/TempBridgesSet.png-594b255e06f4351f054be726162a69da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/icons/RedPierIcon432x432.png"
-dest_files=["res://.godot/imported/RedPierIcon432x432.png-4172de8333f49d3c00d8ae821f410737.ctex"]
+source_file="res://assets/ui/HowToPlay/TempBridgesSet.png"
+dest_files=["res://.godot/imported/TempBridgesSet.png-594b255e06f4351f054be726162a69da.ctex"]
 
 [params]
 
