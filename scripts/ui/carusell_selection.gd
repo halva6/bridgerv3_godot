@@ -13,6 +13,8 @@ func _ready() -> void:
 	_collect_items()
 	if items.size() > 0:
 		target_index = clamp(GlobalSave.load_board_size(), 0, items.size() - 1)
+		
+		#Waiting two frames because the UI takes a little longer to be calculated - is a Godot property
 		await get_tree().process_frame
 		await get_tree().process_frame
 		await _tween_scroll_to_index(target_index)
@@ -77,6 +79,7 @@ func get_selected_value():
 	return items[target_index]
 
 func _on_previous_button_pressed() -> void:
+	GlobalAudio.emit_signal("play_click_sound") #Sound
 	if items.size() == 0:
 		return
 	target_index = (target_index - 1 + items.size()) % items.size()
@@ -85,6 +88,7 @@ func _on_previous_button_pressed() -> void:
 	_on_item_selected(target_index)
 
 func _on_next_button_pressed() -> void:
+	GlobalAudio.emit_signal("play_click_sound") #Sound
 	if items.size() == 0:
 		return
 	target_index = (target_index + 1) % items.size()

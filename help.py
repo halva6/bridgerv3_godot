@@ -1,5 +1,6 @@
 import os
 import re
+from PIL import Image
 
 def replace_spaces_in_files(directory):
     # Iterate through all files in the specified directory
@@ -109,14 +110,52 @@ def fix_assignment_spacing_in_gd_files(directory):
     
     print(f"\nDone. Modified {modified_files} files.")
 
+def resize_images(input_dir, output_dir, target_size, file_extensions=('jpg', 'jpeg', 'png', 'bmp', 'gif')):
+    """
+    Skaliert alle Bilder im Eingabeverzeichnis auf die Zielgröße und speichert sie im Ausgabeverzeichnis.
+    
+    :param input_dir: Pfad zum Eingabeverzeichnis mit den Bildern
+    :param output_dir: Pfad zum Ausgabeverzeichnis
+    :param target_size: Tupel mit der Zielgröße (width, height)
+    :param file_extensions: Tuple mit erlaubten Dateiendungen
+    """
+    # Erstelle Ausgabeverzeichnis, falls nicht vorhanden
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Liste aller Bilddateien im Eingabeverzeichnis
+    image_files = [f for f in os.listdir(input_dir) 
+                  if f.lower().endswith(file_extensions)]
+    image_files.sort()  # Sortiere die Dateien für konsistente Reihenfolge
+    
+    for i, image_file in enumerate(image_files, start=1):
+        try:
+            # Bild öffnen
+            img_path = os.path.join(input_dir, image_file)
+            img = Image.open(img_path)
+            
+            # Bild skalieren
+            img_resized = img.resize(target_size, Image.NEAREST)
+            
+            # Neuen Dateinamen erstellen (frame_0001, frame_0002, etc.)
+            new_filename = f"frame_{i:04d}{os.path.splitext(image_file)[1]}"
+            output_path = os.path.join(output_dir, new_filename)
+            
+            # Bild speichern
+            img_resized.save(output_path)
+            print(f"Gespeichert: {output_path}")
+            
+        except Exception as e:
+            print(f"Fehler bei {image_file}: {str(e)}")
+
 if __name__ == "__main__":
     # Prompt the user to enter the directory path   
 
     # User input for directory and search pattern
-    target_directory = "/home/jason/Workspaces/GameEngines/Godot/bridgerv3_godot/scripts" #input("Enter the directory to search in: ")
-    replace_spaces_in_files(target_directory)  
-    fix_assignment_spacing_in_gd_files(target_directory)
-
+    target_directory = "/home/jason/Workspaces/GameEngines/Godot/bridgerv3_godot/assets/ui/Loading" #input("Enter the directory to search in: ")
+    #replace_spaces_in_files(target_directory)  
+    #fix_assignment_spacing_in_gd_files(target_directory)
+    
+    resize_images(target_directory, target_directory, (128, 128))
 
     #search_query = input("Enter the text or regex pattern to search for: ")
     # Start the search
