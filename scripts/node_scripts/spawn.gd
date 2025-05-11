@@ -55,7 +55,7 @@ func spawn_object(scene: PackedScene, position: Vector2, rotaion: float, group_n
 		add_child(instance)
 		instance.position = position
 		instance.rotation = rotaion
-		instance.name = group_name + "_" + str(position.x)+str(position.y)
+		instance.name = group_name + "_" + str(int(position.x)) + "_" + str(int(position.y))
 		instance.add_to_group(group_name)
 
 func is_position_valid(matrix: Array, x: int, y: int, valid_number: int = 0) -> bool:

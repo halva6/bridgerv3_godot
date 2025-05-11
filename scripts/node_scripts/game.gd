@@ -16,12 +16,17 @@ var best_knot: Knots.Knot
 var visits: int = 0
 var knots: Knots = Knots.new()
 
+var game_stack: Array = []
+var player_stack: Array =  []
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalGame.set_current_player(start_player)
 	emit_signal("update_player_label", start_player)
 	
 	thread1 = Thread.new()
+	game_stack.append(GlobalGame.get_start_matrix())
+	player_stack.append(start_player)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -44,12 +49,27 @@ func _process(delta: float) -> void:
 				emit_signal("update_visit_label", str(visits))
 				player_n_move[1] = true
 				thread1.wait_to_finish()
-				
+	
+	if(GlobalGame.is_reset() and player_n_move[0] != "computer"):
+		GlobalGame.set_reset(false)
+		if is_multiplayer and !game_stack.is_empty():
+			game_stack.pop_back()
+			player_stack.pop_back()
+			player_n_move[0] = reset_move()
+			emit_signal("update_player_label", player_n_move[0])
+		elif !is_multiplayer and len(game_stack) > 1:
+			game_stack.pop_back()
+			player_stack.pop_back()
+			reset_move()
+			player_n_move[0] = reset_move()
+			emit_signal("update_player_label", player_n_move[0])
+		else:
+			print("[ERROR] cant reset to the last move(s)")
 
 	# Update global game state
 	GlobalGame.set_current_player(player_n_move[0])
 	GlobalGame.set_finish_turn(player_n_move[1])
-	
+		
 func async_computer_calculation(knots:Knots, mcts: Knots.Knot, simulation_time:int) -> void:
 	best_knot = knots.monte_carlo_tree_search(mcts, simulation_time)
 	visits = mcts.visits
@@ -62,7 +82,22 @@ func finde_diffrence(matrix1: Array, matrix2:Array) -> Vector2:
 			
 	print("[ERROR] no diffrences in matrixes")
 	return Vector2(-100,-100)
+
+func reset_move() -> String:
+	var pushed_matrix: Array = game_stack[-1]
+	var current_matrix: Array = GlobalGame.get_matrix()
 	
+	LocalDebug.print_matrix(pushed_matrix)
+	LocalDebug.print_matrix(current_matrix)
+	
+	var diffrence: Vector2 = finde_diffrence(pushed_matrix, current_matrix) * 32
+	var player_name: String = player_stack[-1]
+	
+	$Spawner.get_node(player_name + "bridge_" + str(int(diffrence.x)) +"_"+ str(int(diffrence.y))).queue_free()
+	
+	GlobalGame.set_matrix(pushed_matrix.duplicate(true))
+	
+	return player_name
 
 # Handles player switching logic
 # Parameters:
@@ -78,10 +113,14 @@ func _switch_player(player1: String, player2: String, current_player: String, fi
 				current_player = player2
 				emit_signal("update_player_label", current_player)
 				finish_turn = false
+				game_stack.append(GlobalGame.get_matrix().duplicate(true))
+				player_stack.append(current_player)
 			else:
 				current_player = player1
 				emit_signal("update_player_label", current_player)
 				finish_turn = false
+				game_stack.append(GlobalGame.get_matrix().duplicate(true))
+				player_stack.append(current_player)
 		else:
 			return["", false]  # Empty string indicates game over
 			

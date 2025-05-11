@@ -11,7 +11,7 @@ func instantiate_scene(parent: Sprite2D, instance: Sprite2D, new_pos: Vector2, o
 		parent.get_parent().add_child(instance)
 		instance.position = new_pos
 		instance.rotation = object_rotation
-		instance.name = object_name + "_" + str(new_pos.x) + str(new_pos.y)
+		instance.name = object_name + "_" + str(int(new_pos.x)) +"_"+ str(int(new_pos.y))
 		instance.add_to_group(group_name)
 
 func get_pos() -> Array:

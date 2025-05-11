@@ -24,3 +24,7 @@ func _on_game_root_set_win_ui(winner: String) -> void:
 
 func _on_game_root_update_visit_label(visits: String) -> void:
 	$MarginContainer/VBoxContainer/VisitLabel.text = "Visits: " + visits
+
+
+func _on_reset_move_button_pressed() -> void:
+	GlobalGame.set_reset(true)

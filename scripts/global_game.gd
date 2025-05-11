@@ -8,6 +8,9 @@ var _count_turn: int = 0
 
 var _smmiulation_time: int = 5
 
+var _do_reset: bool = false
+
+
 # game board matrix
 #	-1 ≙ not placeable space (e.g. walls/corners)
 #	 0 ≙ placeable space
@@ -71,6 +74,9 @@ func get_start_matrix() -> Array:
 
 func get_simulation_time() -> int:
 	return _smmiulation_time
+	
+func is_reset() -> bool:
+	return _do_reset
 
 
 # setter
@@ -91,3 +97,6 @@ func increase_count_turn() -> void:
 
 func set_simulation_time(time: int) -> void:
 	self._smmiulation_time = time
+	
+func set_reset(reset: bool) -> void:
+	_do_reset = reset

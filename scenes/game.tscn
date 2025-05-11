@@ -40,6 +40,7 @@ zoomSpeed = 10.0
 [node name="Camera2DMobile" parent="." instance=ExtResource("9_trtic")]
 position = Vector2(200, 200)
 script = ExtResource("10_trtic")
+zoom_speed = 0.06
 pan_speed = 0.4
 can_pan = true
 can_zoom = true
