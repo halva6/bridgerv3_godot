@@ -19,6 +19,8 @@ var knots: Knots = Knots.new()
 var game_stack: Array = []
 var player_stack: Array =  []
 
+@onready var game_board_size: int = GlobalGame.get_game_board_size() 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	GlobalGame.set_current_player(start_player)
@@ -54,7 +56,7 @@ func _process(delta: float) -> void:
 func manage_computer_ai(player_n_move: Array) -> void:
 	var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
 	if !thread1.is_started():
-		var mcts: Knots.Knot = knots.Knot.new(transform_matrix)
+		var mcts: Knots.Knot = knots.Knot.new(transform_matrix, game_board_size)
 		thread1.start(async_computer_calculation.bind(knots,mcts, GlobalGame.get_simulation_time()))
 	
 	if !thread1.is_alive():
@@ -79,7 +81,7 @@ func manage_reset(player_n_move: Array) -> void:
 			print("[ERROR] cant reset to the last move(s)")
 
 func async_computer_calculation(knots:Knots, mcts: Knots.Knot, simulation_time:int) -> void:
-	best_knot = knots.monte_carlo_tree_search(mcts, simulation_time)
+	best_knot = knots.monte_carlo_tree_search(mcts, simulation_time, game_board_size)
 	visits = mcts.visits
 
 func finde_diffrence(matrix1: Array, matrix2:Array) -> Vector2:
@@ -97,8 +99,8 @@ func reset_move() -> String:
 	var pushed_matrix: Array = game_stack[-1]
 	var current_matrix: Array = GlobalGame.get_matrix()
 	
-	LocalDebug.print_matrix(pushed_matrix)
-	LocalDebug.print_matrix(current_matrix)
+#	LocalDebug.print_matrix(pushed_matrix)
+#	LocalDebug.print_matrix(current_matrix)
 	
 	var diffrence: Vector2 = finde_diffrence(pushed_matrix, current_matrix) * 32
 	var player_name: String = player_stack[-1]
@@ -175,7 +177,7 @@ func check_winner(state: Array, player: int) -> bool:
 	var directions: Array[Vector2] = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, -1), Vector2(0, 1)]
 	
 	# Startpunkte setzen
-	var starts := range(13) if player == 1 else range(13)
+	var starts := range(game_board_size) if player == 1 else range(game_board_size)
 	for i: int in starts:
 		var r := 0 if player == 1 else i
 		var c := i if player == 1 else 0
@@ -192,9 +194,9 @@ func check_winner(state: Array, player: int) -> bool:
 			var cc: int = int(current.y)
 			
 			# Gewinnbedingungen prüfen
-			if player == 1 and cr == 13 - 1:
+			if player == 1 and cr == game_board_size - 1:
 				return true
-			if player == 2 and cc == 13 - 1:
+			if player == 2 and cc == game_board_size - 1:
 				return true
 			
 			# Nachbarn hinzufügen
@@ -202,7 +204,7 @@ func check_winner(state: Array, player: int) -> bool:
 				var nr: int = cr + int(direction.x)
 				var nc: int = cc + int(direction.y)
 				var neighbor: Vector2 = Vector2(nr, nc)
-				if nr >= 0 and nr < 13 and nc >= 0 and nc < 13 and not visited.has(neighbor):
+				if nr >= 0 and nr < game_board_size and nc >= 0 and nc < game_board_size and not visited.has(neighbor):
 					if state[nr][nc] == player:
 						stack.append(neighbor)
 	

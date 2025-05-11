@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckg6j1nwmecv"]
+[gd_scene load_steps=11 format=3 uid="uid://ckg6j1nwmecv"]
 
 [ext_resource type="Script" uid="uid://ba0q8v50nhrve" path="res://scripts/ui/start_screen_ui.gd" id="1_15ej8"]
 [ext_resource type="FontFile" uid="uid://dmmrlach1m52i" path="res://assets/fonts/Kenney Future.ttf" id="2_cki8d"]
@@ -6,7 +6,9 @@
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_15ej8"]
 [ext_resource type="StyleBox" uid="uid://bwscc4sfje2gs" path="res://gameobjects/ui/styles/button_style.tres" id="6_15ej8"]
 [ext_resource type="StyleBox" uid="uid://b1rbnh4llhdsp" path="res://gameobjects/ui/styles/button_style_hover.tres" id="6_lctjc"]
+[ext_resource type="PackedScene" uid="uid://7sihpja4f0b6" path="res://gameobjects/ui/carusell_selection.tscn" id="6_x2vcs"]
 [ext_resource type="StyleBox" uid="uid://boira5n6y07rn" path="res://gameobjects/ui/styles/button_style_press.tres" id="7_x2vcs"]
+[ext_resource type="Script" uid="uid://buwiq6bpba2um" path="res://scripts/node_scripts/generate_matrix.gd" id="10_akrdt"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_15ej8"]
 load_path = "res://.godot/imported/Gear.png-56b3c0c60d3bd121de6ebaec1e91ae13.ctex"
@@ -32,38 +34,49 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-layout_mode = 2
-theme_override_constants/separation = 100
+theme_override_constants/separation = 150
 alignment = 1
 
-[node name="Heading" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 350
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Heading" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Bridger"
 label_settings = ExtResource("3_qcay1")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 100
-
-[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Play"
 label_settings = ExtResource("4_15ej8")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CarusellSelection" parent="MarginContainer/VBoxContainer/MarginContainer2" instance=ExtResource("6_x2vcs")]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 300
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 theme_override_constants/separation = 200
 alignment = 1
 
-[node name="MultiplayerButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="MultiplayerButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Play vs other people"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -74,7 +87,7 @@ theme_override_styles/pressed = ExtResource("7_x2vcs")
 theme_override_styles/normal = ExtResource("6_15ej8")
 text = "👤 vs 👤"
 
-[node name="SingleplayerButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="SingleplayerButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Play vs the computer"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -92,6 +105,11 @@ size_flags_vertical = 0
 icon = SubResource("CompressedTexture2D_15ej8")
 flat = true
 
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
+[node name="GenerateMatrix" type="Node" parent="."]
+script = ExtResource("10_akrdt")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MultiplayerButton" to="GenerateMatrix" method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/SingleplayerButton" to="GenerateMatrix" method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="MarginContainer/Settings" to="." method="_on_settings_pressed"]

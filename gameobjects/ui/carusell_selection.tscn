@@ -1,0 +1,226 @@
+[gd_scene load_steps=13 format=3 uid="uid://7sihpja4f0b6"]
+
+[ext_resource type="Script" uid="uid://cabvnkhh6vv53" path="res://scripts/ui/carusell_selection.gd" id="1_cm684"]
+[ext_resource type="Texture2D" uid="uid://cq1jlfsucyvw2" path="res://assets/ui/Chevron-Arrow-Left.png" id="1_qrf1j"]
+[ext_resource type="LabelSettings" uid="uid://btgpsese0pid2" path="res://gameobjects/ui/styles/info_label.tres" id="3_dcdb0"]
+[ext_resource type="Texture2D" uid="uid://dww21t5tjlmdg" path="res://assets/ui/Chevron-Arrow-Right.png" id="3_gqd85"]
+[ext_resource type="Texture2D" uid="uid://cg3twntqbwbey" path="res://assets/ui/Carusell/15x15.png" id="4_dgfy4"]
+[ext_resource type="Texture2D" uid="uid://cae064hg11dr2" path="res://assets/ui/Carusell/17x17.png" id="5_dcdb0"]
+[ext_resource type="Texture2D" uid="uid://dfdhqjei4u660" path="res://assets/ui/Carusell/13x13.png" id="7_f212v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm684"]
+bg_color = Color(0.6, 0.6, 0.6, 0.796078)
+draw_center = false
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gyrv8"]
+load_path = "res://.godot/imported/5x5.png-1fc607687c3cc6e479757740abd5ef25.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sbtar"]
+load_path = "res://.godot/imported/7x7.png-2233a26978674dc9496c1a3ff163d171.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1hulx"]
+load_path = "res://.godot/imported/9x9.png-a1c00bc8f54b4a4ddf3376226783fad5.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1wrsy"]
+load_path = "res://.godot/imported/11x11.png-e1247c0f4151f6b19e7847f2f4ad53da.ctex"
+
+[node name="CarusellSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cm684")
+
+[node name="GameboardSelectionPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_cm684")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameboardSelectionPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameboardSelectionPanel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="PreviousButton" type="Button" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+icon = ExtResource("1_qrf1j")
+flat = true
+
+[node name="GameboardScrollContainer" type="ScrollContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="ObjectContainer" type="HBoxContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 100
+
+[node name="MarginContainer2" type="MarginContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+
+[node name="5x5VBox" type="VBoxContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Item1" type="TextureRect" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/5x5VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("CompressedTexture2D_gyrv8")
+
+[node name="Label" type="Label" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/5x5VBox"]
+layout_mode = 2
+text = "5⨯ 5"
+label_settings = ExtResource("3_dcdb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="7x7VBox" type="VBoxContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Item2" type="TextureRect" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/7x7VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("CompressedTexture2D_sbtar")
+
+[node name="Label" type="Label" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/7x7VBox"]
+layout_mode = 2
+text = "7⨯ 7"
+label_settings = ExtResource("3_dcdb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="9x9VBox" type="VBoxContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Item3" type="TextureRect" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/9x9VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("CompressedTexture2D_1hulx")
+
+[node name="Label" type="Label" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/9x9VBox"]
+layout_mode = 2
+text = "9 ⨯ 9"
+label_settings = ExtResource("3_dcdb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="11x11VBox" type="VBoxContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Item4" type="TextureRect" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/11x11VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("CompressedTexture2D_1wrsy")
+
+[node name="Label" type="Label" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/11x11VBox"]
+layout_mode = 2
+text = "11⨯ 11"
+label_settings = ExtResource("3_dcdb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="13x13VBox" type="VBoxContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Item5" type="TextureRect" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/13x13VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("7_f212v")
+
+[node name="Label" type="Label" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/13x13VBox"]
+layout_mode = 2
+text = "13⨯ 13"
+label_settings = ExtResource("3_dcdb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="15x15VBox" type="VBoxContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Item6" type="TextureRect" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/15x15VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_dgfy4")
+
+[node name="Label" type="Label" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/15x15VBox"]
+layout_mode = 2
+text = "15⨯ 15"
+label_settings = ExtResource("3_dcdb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="17x17VBox" type="VBoxContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Item7" type="TextureRect" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/17x17VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_dcdb0")
+
+[node name="Label" type="Label" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer/17x17VBox"]
+layout_mode = 2
+text = "17⨯ 17"
+label_settings = ExtResource("3_dcdb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer/GameboardScrollContainer/ObjectContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 50
+
+[node name="NextButton" type="Button" parent="GameboardSelectionPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+icon = ExtResource("3_gqd85")
+flat = true
+
+[node name="SelectionMarker" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="GameboardSelectionPanel/MarginContainer/HBoxContainer/PreviousButton" to="." method="_on_previous_button_pressed"]
+[connection signal="pressed" from="GameboardSelectionPanel/MarginContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]

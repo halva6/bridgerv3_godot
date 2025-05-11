@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GlobalGame="*res://scripts/global_game.gd"
 LocalDebug="*res://scripts/local_debug.gd"
 GlobalAudio="*res://scripts/global_audio.gd"
+GlobalSave="*res://scripts/global_save.gd"
 
 [debug]
 

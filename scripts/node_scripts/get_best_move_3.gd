@@ -4,8 +4,8 @@ class_name Knots
 
 const PLAYER_AI: int = 2
 const PLAYER_HUMAN: int = 1
-const ROWS: int = 13
-const COLS: int = 13
+var game_board_size: int = 13
+const ROWS = 13
 
 class Knot:
 	var state: Array
@@ -15,17 +15,19 @@ class Knot:
 	var wins: int = 0
 	var player: int
 	var untried_moves: Array[Vector2]
+	var game_board_size: int
 
-	func _init(state: Array, parent: Knot = null, player: int = PLAYER_AI) -> void:
+	func _init(state: Array, game_board_size: int, parent: Knot = null, player: int = PLAYER_AI) -> void:
 		self.state = state
 		self.parent = parent
 		self.player = player
+		self.game_board_size = game_board_size
 		self.untried_moves = get_legal_moves()
 
 	func get_legal_moves() -> Array[Vector2]:
 		var moves: Array[Vector2] = []
-		for r in range(ROWS):
-			for c in range(COLS):
+		for r in range(game_board_size):
+			for c in range(game_board_size):
 				if state[r][c] == 0:
 					moves.append(Vector2(r, c))
 		return moves
@@ -36,7 +38,7 @@ class Knot:
 		for row: Array in state:
 			new_state.append(row.duplicate(true))
 		new_state[move.x][move.y] = next_player()
-		var child_node: Knot = Knot.new(new_state, self, next_player())
+		var child_node: Knot = Knot.new(new_state,game_board_size, self, next_player())
 		children.append(child_node)
 		return child_node
 
@@ -137,9 +139,9 @@ func check_win(matrix: Array, player: int) -> bool:
 
 func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary, directions: Array) -> bool:
 	# Win conditions for each player
-	if player == 1 and row == ROWS - 1:  # Green reached bottom
+	if player == 1 and row == game_board_size - 1:  # Green reached bottom
 		return true
-	if player == 2 and col == COLS - 1:  # Red reached right edge
+	if player == 2 and col == game_board_size - 1:  # Red reached right edge
 		return true
 
 	visited[Vector2(row, col)] = true  # Mark current position as visited
@@ -150,8 +152,8 @@ func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary, di
 		var new_col: int = col + int(direction.y)
 		
 		# Check if new position is valid and unvisited
-		if (new_row >= 0 and new_row < ROWS and 
-			new_col >= 0 and new_col < COLS):
+		if (new_row >= 0 and new_row < game_board_size and 
+			new_col >= 0 and new_col < game_board_size):
 			var new_pos: Vector2 = Vector2(new_row, new_col)
 			if not visited.has(new_pos) and matrix[new_row][new_col] == player:
 				if dfs(matrix, new_row, new_col, player, visited, directions):
@@ -163,8 +165,8 @@ func simulate_random_game(state: Array, player: int) -> int:
 	var current_player: int = player
 	while true:
 		var moves: Array[Vector2] = []
-		for r in range(ROWS):
-			for c in range(COLS):
+		for r in range(game_board_size):
+			for c in range(game_board_size):
 				if state[r][c] == 0:
 					moves.append(Vector2(r, c))
 		if moves.is_empty():
@@ -191,7 +193,8 @@ func backpropagate(node: Knot, result: int) -> void:
 		node = node.parent
 
 		
-func monte_carlo_tree_search(root: Knot, simulation_time: int) -> Knot:
+func monte_carlo_tree_search(root: Knot, simulation_time: int, game_board_size: int) -> Knot:
+	self.game_board_size = game_board_size
 	var start_time: float = Time.get_unix_time_from_system()
 	#var mess = []
 	while Time.get_unix_time_from_system() - start_time < simulation_time:

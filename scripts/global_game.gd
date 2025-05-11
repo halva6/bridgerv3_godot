@@ -10,6 +10,9 @@ var _smmiulation_time: int = 5
 
 var _do_reset: bool = false
 
+var _game_board_size: int = 12
+const _game_size_dict: Dictionary = {0:5, 1:7, 2:9, 3:11, 4:13, 5:15, 6:17}
+
 
 # game board matrix
 #	-1 ≙ not placeable space (e.g. walls/corners)
@@ -19,22 +22,8 @@ var _do_reset: bool = false
 #	 3 ≙ green bridge
 #	 4 ≙ red bridge
 #	 5 ≙ temp bridge
-
-var _matrix: Array = [
-	[ -3,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -3 ], #12
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -3,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -3 ] 
-	]# 12
+var _matrix: Array
+var _start_matrix: Array
 
 # getter
 func get_matrix() -> Array:
@@ -56,28 +45,19 @@ func get_count_turn() -> int:
 	return _count_turn
 
 func get_start_matrix() -> Array:
-	return [
-	[ -3,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -3 ], #12
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -2,  1,  0,  1,  0,  1,  0,  1,  0,  1,  0,  1, -2 ],
-	[  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2,  0,  2 ],
-	[ -3,  1, -1,  1, -1,  1, -1,  1, -1,  1, -1,  1, -3 ] 
-	]
+	return _start_matrix
 
 func get_simulation_time() -> int:
 	return _smmiulation_time
 	
 func is_reset() -> bool:
 	return _do_reset
+	
+func get_game_board_size() -> int:
+	return _game_board_size
 
+func get_game_size_dict() -> Dictionary:
+	return _game_size_dict
 
 # setter
 func set_matrix(matrix: Array) -> void:
@@ -94,9 +74,15 @@ func set_current_player(current_player: String) -> void:
 
 func increase_count_turn() -> void:
 	_count_turn += 1
+	
+func set_start_matrix(start_matrix: Array) -> void:
+	_start_matrix = start_matrix
 
 func set_simulation_time(time: int) -> void:
 	self._smmiulation_time = time
 	
 func set_reset(reset: bool) -> void:
 	_do_reset = reset
+	
+func set_game_board_size(size: int)-> void:
+	_game_board_size = size

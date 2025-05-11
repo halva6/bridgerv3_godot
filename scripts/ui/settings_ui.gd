@@ -34,15 +34,15 @@ func _on_minutes_spin_box_value_changed(value: float) -> void:
 
 
 func save_settings() -> void:
-	var file: FileAccess = FileAccess.open(save_path, FileAccess.WRITE)
-	file.store_var($"MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox/MinutesSpinBox".value)
-	file.store_var($"MarginContainer/VBoxContainer/VBoxContainer/SoundBox/SoundSlider".value)
-	file.store_var($"MarginContainer/VBoxContainer/VBoxContainer/MusicVBox/MusicSlider".value)
-
+	var spin_box_value: float = $"MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox/MinutesSpinBox".value
+	var sound_slider_value: float = $"MarginContainer/VBoxContainer/VBoxContainer/SoundBox/SoundSlider".value
+	var music_slider_value: float = $"MarginContainer/VBoxContainer/VBoxContainer/MusicVBox/MusicSlider".value
+	
+	GlobalSave.save_settings(spin_box_value, sound_slider_value,music_slider_value)
+	
 func load_data():
-	if FileAccess.file_exists(save_path):
-		var file: FileAccess = FileAccess.open(save_path, FileAccess.READ)
-		$"MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox/MinutesSpinBox".value = file.get_var()
-		$"MarginContainer/VBoxContainer/VBoxContainer/SoundBox/SoundSlider".value = file.get_var()
-		$"MarginContainer/VBoxContainer/VBoxContainer/MusicVBox/MusicSlider".value = file.get_var()
+	var settings_array = GlobalSave.load_settings()
+	$"MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox/MinutesSpinBox".value = settings_array[0]
+	$"MarginContainer/VBoxContainer/VBoxContainer/SoundBox/SoundSlider".value = settings_array[1]
+	$"MarginContainer/VBoxContainer/VBoxContainer/MusicVBox/MusicSlider".value = settings_array[2]
 		
