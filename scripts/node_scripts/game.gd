@@ -23,6 +23,9 @@ var player_stack: Array =  []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if !is_multiplayer:
+		var start_array =  ["computer", "green"]
+		start_player = start_array[randi() % len(start_array)]
 	GlobalGame.set_current_player(start_player)
 	emit_signal("update_player_label", start_player)
 	

@@ -80,90 +80,83 @@ func check_win(matrix: Array, player: int) -> bool:
 		# Player 1 (green) wins by connecting top to bottom
 		for start_col in range(len(matrix[0])):
 			if matrix[0][start_col] == player:
-				if dfs(matrix, 0, start_col, player, {}, directions):
+				if iterative_dfs(matrix, 0, start_col, player, directions):
 					return true
 	elif player == 2:
 		# Player 2 (red) wins by connecting left to right
 		for start_row in range(len(matrix)):
 			if matrix[start_row][0] == player:
-				if dfs(matrix, start_row, 0, player, {}, directions):
+				if iterative_dfs(matrix, start_row, 0, player, directions):
 					return true
 	return false
 
-#func iterative_dfs(matrix: Array, start_row: int, start_col: int, player: int) -> bool:
-	#var stack: Dictionary = {}  # Stack for DFS as Dictionary
-	#var visited: Dictionary = {}  # Visited cells
-#
-	## Add the starting position to the stack
-	#stack[Vector2(start_row, start_col)] = true
-#
-	## Possible movement directions (4-way connectivity)
-	#var directions: Array[Vector2] = [
-		#Vector2(1, 0),   # Down
-		#Vector2(0, 1),   # Right
-		#Vector2(-1, 0),  # Up
-		#Vector2(0, -1)   # Left
-	#]
-#
-	#while stack.size() > 0:
-		## Retrieve and remove a position from the stack
-		#var current_pos: Vector2 = stack.keys()[0]
-		#stack.erase(current_pos)
-		#var row: int = int(current_pos.x)
-		#var col: int = int(current_pos.y)
-#
-		## Mark the current position as visited
-		#visited[current_pos] = true
-#
-		## Win conditions for each player
-		#if player == 1 and row == len(matrix) - 1:  # Green reached bottom
-			#return true
-		#if player == 2 and col == len(matrix[0]) - 1:  # Red reached right edge
-			#return true
-#
-		## Check all adjacent cells
-		#for direction in directions:
-			#var new_row: int = row + int(direction.x)
-			#var new_col: int = col + int(direction.y)
-			#var new_pos: Vector2 = Vector2(new_row, new_col)
-#
-			## Check if new position is valid, unvisited, and contains the player's marker
-			#if (new_row >= 0 and new_row < len(matrix) and 
-				#new_col >= 0 and new_col < len(matrix[0]) and
-				#not visited.has(new_pos) and 
-				#not stack.has(new_pos) and 
-				#matrix[new_row][new_col] == player):
-				#stack[new_pos] = true
-#
-	#return false  # No winning path found
+func iterative_dfs(matrix: Array, start_row: int, start_col: int, player: int, directions:Array) -> bool:
+	var stack: Dictionary = {}  # Stack for DFS as Dictionary
+	var visited: Dictionary = {}  # Visited cells
 
-func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary, directions: Array) -> bool:
-	# Win conditions for each player
-	if player == 1 and row == game_board_size - 1:  # Green reached bottom
-		return true
-	if player == 2 and col == game_board_size - 1:  # Red reached right edge
-		return true
+	# Add the starting position to the stack
+	stack[Vector2(start_row, start_col)] = true
 
-	visited[Vector2(row, col)] = true  # Mark current position as visited
+	while stack.size() > 0:
+		# Retrieve and remove a position from the stack
+		var current_pos: Vector2 = stack.keys()[0]
+		stack.erase(current_pos)
+		var row: int = int(current_pos.x)
+		var col: int = int(current_pos.y)
 
-	# Check all adjacent cells
-	for direction: Vector2 in directions:
-		var new_row: int = row + int(direction.x)
-		var new_col: int = col + int(direction.y)
-		
-		# Check if new position is valid and unvisited
-		if (new_row >= 0 and new_row < game_board_size and 
-			new_col >= 0 and new_col < game_board_size):
+		# Mark the current position as visited
+		visited[current_pos] = true
+
+		# Win conditions for each player
+		if player == 1 and row == len(matrix) - 1:  # Green reached bottom
+			return true
+		if player == 2 and col == len(matrix[0]) - 1:  # Red reached right edge
+			return true
+
+		# Check all adjacent cells
+		for direction in directions:
+			var new_row: int = row + int(direction.x)
+			var new_col: int = col + int(direction.y)
 			var new_pos: Vector2 = Vector2(new_row, new_col)
-			if not visited.has(new_pos) and matrix[new_row][new_col] == player:
-				if dfs(matrix, new_row, new_col, player, visited, directions):
-					return true  # Found winning path
 
-	return false  # No winning path found from this position
+			# Check if new position is valid, unvisited, and contains the player's marker
+			if (new_row >= 0 and new_row < len(matrix) and 
+				new_col >= 0 and new_col < len(matrix[0]) and
+				not visited.has(new_pos) and 
+				not stack.has(new_pos) and 
+				matrix[new_row][new_col] == player):
+				stack[new_pos] = true
+
+	return false  # No winning path found
+
+#func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary, directions: Array) -> bool:
+	## Win conditions for each player
+	#if player == 1 and row == game_board_size - 1:  # Green reached bottom
+		#return true
+	#if player == 2 and col == game_board_size - 1:  # Red reached right edge
+		#return true
+#
+	#visited[Vector2(row, col)] = true  # Mark current position as visited
+#
+	## Check all adjacent cells
+	#for direction: Vector2 in directions:
+		#var new_row: int = row + int(direction.x)
+		#var new_col: int = col + int(direction.y)
+		#
+		## Check if new position is valid and unvisited
+		#if (new_row >= 0 and new_row < game_board_size and 
+			#new_col >= 0 and new_col < game_board_size):
+			#var new_pos: Vector2 = Vector2(new_row, new_col)
+			#if not visited.has(new_pos) and matrix[new_row][new_col] == player:
+				#if dfs(matrix, new_row, new_col, player, visited, directions):
+					#return true  # Found winning path
+#
+	#return false  # No winning path found from this position
 	
 func simulate_random_game(state: Array, player: int) -> int:
 	var current_player: int = player
 	while true:
+		# Sammle alle möglichen Züge
 		var moves: Array[Vector2] = []
 		for r in range(game_board_size):
 			for c in range(game_board_size):
@@ -171,19 +164,20 @@ func simulate_random_game(state: Array, player: int) -> int:
 					moves.append(Vector2(r, c))
 		if moves.is_empty():
 			break
-		elif check_win(state, PLAYER_HUMAN):
-			return -1
-		elif check_win(state, PLAYER_AI):
-			return 1
+		
+		# Wähle einen zufälligen Zug
 		var move: Vector2 = moves[randi() % moves.size()]
 		state[move.x][move.y] = current_player
+		
+		# Überprüfe, ob der aktuelle Spieler gewonnen hat
+		if check_win(state, current_player):
+			return 1 if current_player == PLAYER_AI else -1
+		
+		# Wechsle den Spieler
 		current_player = PLAYER_HUMAN if current_player == PLAYER_AI else PLAYER_AI
 	
-	if check_win(state, PLAYER_AI):
-		return 1
-	elif check_win(state, PLAYER_HUMAN):
-		return -1
-	return 0
+	return 0  # Unentschieden
+
 
 func backpropagate(node: Knot, result: int) -> void:
 	while node != null:

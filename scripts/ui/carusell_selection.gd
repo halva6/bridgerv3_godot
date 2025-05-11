@@ -14,7 +14,8 @@ func _ready() -> void:
 	if items.size() > 0:
 		target_index = clamp(GlobalSave.load_board_size(), 0, items.size() - 1)
 		
-		#Waiting two frames because the UI takes a little longer to be calculated - is a Godot property
+		#Waiting 3 frames because the UI takes a little longer to be calculated - is a Godot property
+		await get_tree().process_frame
 		await get_tree().process_frame
 		await get_tree().process_frame
 		await _tween_scroll_to_index(target_index)

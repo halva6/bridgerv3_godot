@@ -24,6 +24,7 @@
 
 [node name="GameRoot" type="Node"]
 script = ExtResource("1_0tnpc")
+start_player = "red"
 
 [node name="Spawner" type="Node" parent="."]
 script = ExtResource("10_vtaks")
