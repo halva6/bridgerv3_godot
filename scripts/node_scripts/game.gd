@@ -25,7 +25,7 @@ func _ready() -> void:
 	emit_signal("update_player_label", start_player)
 	
 	thread1 = Thread.new()
-	game_stack.append(GlobalGame.get_start_matrix())
+	game_stack.append(GlobalGame.get_start_matrix().duplicate(true))
 	player_stack.append(start_player)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,38 +38,46 @@ func _process(delta: float) -> void:
 	else:
 		player_n_move = _switch_player("green", "computer", GlobalGame.get_current_player(), GlobalGame.get_finish_turn())
 		if(player_n_move[0] == "computer"):
-			var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
-			if !thread1.is_started():
-				var mcts: Knots.Knot = knots.Knot.new(transform_matrix)
-				thread1.start(async_computer_calculation.bind(knots,mcts, GlobalGame.get_simulation_time()))
-			
-			if !thread1.is_alive():
-				var matrix_position: Vector2 = finde_diffrence(transform_matrix,best_knot.state)
-				emit_signal("set_computers_bridge", matrix_position)
-				emit_signal("update_visit_label", str(visits))
-				player_n_move[1] = true
-				thread1.wait_to_finish()
+			#Since not the entire array is copied in this case, 
+			#but only the pointer to the array is passed, 
+			#you can change the array without returning it in the other function, 
+			#even though that is not the corresponding scope 
+			#a blessing and a curse at the same time
+			manage_computer_ai(player_n_move) 
+		
+	manage_reset(player_n_move)
 	
+	# Update global game state
+	GlobalGame.set_current_player(player_n_move[0])
+	GlobalGame.set_finish_turn(player_n_move[1])
+
+func manage_computer_ai(player_n_move: Array) -> void:
+	var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
+	if !thread1.is_started():
+		var mcts: Knots.Knot = knots.Knot.new(transform_matrix)
+		thread1.start(async_computer_calculation.bind(knots,mcts, GlobalGame.get_simulation_time()))
+	
+	if !thread1.is_alive():
+		var matrix_position: Vector2 = finde_diffrence(transform_matrix,best_knot.state)
+		emit_signal("set_computers_bridge", matrix_position)
+		emit_signal("update_visit_label", str(visits))
+		player_n_move[1] = true
+		thread1.wait_to_finish()
+
+
+func manage_reset(player_n_move: Array) -> void:
 	if(GlobalGame.is_reset() and player_n_move[0] != "computer"):
 		GlobalGame.set_reset(false)
 		if is_multiplayer and !game_stack.is_empty():
-			game_stack.pop_back()
-			player_stack.pop_back()
 			player_n_move[0] = reset_move()
 			emit_signal("update_player_label", player_n_move[0])
 		elif !is_multiplayer and len(game_stack) > 1:
-			game_stack.pop_back()
-			player_stack.pop_back()
 			reset_move()
 			player_n_move[0] = reset_move()
 			emit_signal("update_player_label", player_n_move[0])
 		else:
 			print("[ERROR] cant reset to the last move(s)")
 
-	# Update global game state
-	GlobalGame.set_current_player(player_n_move[0])
-	GlobalGame.set_finish_turn(player_n_move[1])
-		
 func async_computer_calculation(knots:Knots, mcts: Knots.Knot, simulation_time:int) -> void:
 	best_knot = knots.monte_carlo_tree_search(mcts, simulation_time)
 	visits = mcts.visits
@@ -84,6 +92,8 @@ func finde_diffrence(matrix1: Array, matrix2:Array) -> Vector2:
 	return Vector2(-100,-100)
 
 func reset_move() -> String:
+	game_stack.pop_back()
+	player_stack.pop_back()
 	var pushed_matrix: Array = game_stack[-1]
 	var current_matrix: Array = GlobalGame.get_matrix()
 	
