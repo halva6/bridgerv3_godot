@@ -11,6 +11,8 @@ var isDragging : bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	zoomTarget = zoom
+	var camera_pos: int = (16 * GlobalGame.get_game_board_size()) -16
+	position = Vector2(camera_pos,camera_pos)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

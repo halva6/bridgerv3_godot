@@ -13,4 +13,4 @@ func _on_exit_button_pressed() -> void:
 
 
 func _on_game_root_set_win_ui(winner: String) -> void:
-	$"MarginContainer/CenterContainer/VBoxContainer/WinLabel".text = winner + " wins!"
+	$"MarginContainer/VBoxContainer/WinLabel".text = winner + "\n wins!"

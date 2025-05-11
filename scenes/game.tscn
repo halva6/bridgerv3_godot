@@ -56,15 +56,17 @@ light_mask = 2
 visibility_layer = 2
 z_index = 1
 
+[node name="win_ui" parent="CanvasLayer" instance=ExtResource("12_dinhu")]
+visible = false
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="pause_ui" parent="CanvasLayer" instance=ExtResource("9_0tnpc")]
 visible = false
 
 [node name="settings_ui" parent="CanvasLayer" instance=ExtResource("11_kvpfn")]
 visible = false
 hide_mcts_speed = true
-
-[node name="win_ui" parent="CanvasLayer" instance=ExtResource("12_dinhu")]
-visible = false
 
 [node name="impressum_ui" parent="CanvasLayer" instance=ExtResource("16_1kice")]
 visible = false

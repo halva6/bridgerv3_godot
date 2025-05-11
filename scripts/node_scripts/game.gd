@@ -138,6 +138,11 @@ func _switch_player(player1: String, player2: String, current_player: String, fi
 			
 	return [current_player, finish_turn]
 
+func manage_game_over() -> void:
+	print("[DEBUG] " + GlobalGame.get_current_player() + "wins the game")
+	emit_signal("set_win_ui",GlobalGame.get_current_player())
+	GlobalAudio.emit_signal("stop_game_music")
+	GlobalAudio.emit_signal("play_win_sound")
 
 # Determines if the game has been won
 # Returns: bool - true if a player has won, false otherwise
@@ -146,16 +151,10 @@ func _game_over() -> bool:
 	var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
 	
 	# Check for both possible winners
-	if (check_winner(transform_matrix, 1)):  # Player 1 (green)
-		print("green wins")
-		emit_signal("set_win_ui",GlobalGame.get_current_player())
-		GlobalAudio.emit_signal("play_win_sound")
+	if check_winner(transform_matrix, 1) or check_winner(transform_matrix, 2):  # Player 1 (green)
+		manage_game_over()
 		return true
-	elif (check_winner(transform_matrix, 2)):  # Player 2 (red/computer)
-		print("red wins")
-		emit_signal("set_win_ui", GlobalGame.get_current_player())
-		GlobalAudio.emit_signal("play_win_sound")
-		return true
+		
 	return false
 
 # Normalizes the game matrix values for win checking
