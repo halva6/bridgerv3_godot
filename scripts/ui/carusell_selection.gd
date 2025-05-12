@@ -10,6 +10,9 @@ const SELECTED_SCALE = Vector2(1.3, 1.3)
 const UNSELECTED_SCALE = Vector2(1.0, 1.0)
 
 func _ready() -> void:
+	_initialze()
+
+func _initialze() -> void:
 	_collect_items()
 	if items.size() > 0:
 		target_index = clamp(GlobalSave.load_board_size(), 0, items.size() - 1)
@@ -29,7 +32,7 @@ func _collect_items():
 			items.append(child)
 
 func _set_selection():
-	await get_tree().create_timer(0.01).timeout
+	await get_tree().create_timer(0.03).timeout
 	_select_deselect_highlight()
 
 func _get_space_between() -> float:
@@ -107,3 +110,7 @@ func _get_texture_rect_from_vbox(vbox: VBoxContainer) -> TextureRect:
 func _on_item_selected(index: int) -> void:
 	GlobalSave.save_board_size(index)
 	GlobalGame.set_game_board_size(GlobalGame.get_game_size_dict()[index])
+
+
+func _on_start_screen_ui_visibility(is_visible: bool) -> void:
+	_initialze()

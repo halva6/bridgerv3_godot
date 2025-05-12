@@ -2,7 +2,7 @@ extends Node
 
 # Exported variables (editable in Godot editor)
 @onready var is_multiplayer: bool = GlobalGame.get_local_multiplayer()  # Toggle between multiplayer vs AI mode
-@export var start_player: String = "green"  # Which player starts the game
+@onready var start_player: String = GlobalGame.get_start_player()  # Which player starts the game
 
 #-------------- signals -------------------
 signal update_player_label(player: String)
@@ -23,9 +23,8 @@ var player_stack: Array =  []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if !is_multiplayer:
-		var start_array =  ["computer", "green"]
-		start_player = start_array[randi() % len(start_array)]
+	if !is_multiplayer and start_player == "red":
+		start_player = "computer"
 	GlobalGame.set_current_player(start_player)
 	emit_signal("update_player_label", start_player)
 	
@@ -108,7 +107,7 @@ func reset_move() -> String:
 	var diffrence: Vector2 = finde_diffrence(pushed_matrix, current_matrix) * 32
 	var player_name: String = player_stack[-1]
 	
-	$Spawner.get_node(player_name + "bridge_" + str(int(diffrence.x)) +"_"+ str(int(diffrence.y))).queue_free()
+	%Spawner.get_node(player_name + "bridge_" + str(int(diffrence.x)) +"_"+ str(int(diffrence.y))).queue_free()
 	
 	GlobalGame.set_matrix(pushed_matrix.duplicate(true))
 	

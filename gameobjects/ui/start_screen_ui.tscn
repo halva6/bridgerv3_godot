@@ -108,6 +108,7 @@ flat = true
 [node name="GenerateMatrix" type="Node" parent="."]
 script = ExtResource("10_akrdt")
 
+[connection signal="visibility" from="." to="MarginContainer/VBoxContainer/MarginContainer2/CarusellSelection" method="_on_start_screen_ui_visibility"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MultiplayerButton" to="GenerateMatrix" method="_on_multiplayer_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]

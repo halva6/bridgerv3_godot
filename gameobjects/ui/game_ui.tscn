@@ -56,6 +56,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="PlayerLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -63,6 +64,7 @@ text = "Player"
 label_settings = ExtResource("4_k4eh0")
 
 [node name="VisitLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Visits: 0"
 label_settings = SubResource("LabelSettings_686bk")

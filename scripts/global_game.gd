@@ -3,6 +3,7 @@ extends Node
 var _finish_turn: bool = false
 var _multiplayer: bool = true
 var _current_player: String = "green"
+var _start_player: String = "green"
 var _TILE_DICT: Dictionary = {"greenpier": 1, "redpier": 2, "greenbridge": 3, "redbridge": 4, "tempbridge": 5}
 var _count_turn: int = 0
 
@@ -38,6 +39,9 @@ func get_finish_turn() -> bool:
 func get_current_player() -> String:
 	return _current_player
 	
+func get_start_player() -> String:
+	return _start_player
+	
 func get_TILE_DICT()-> Dictionary:
 	return _TILE_DICT
 
@@ -71,6 +75,9 @@ func set_finish_turn(finish_turn: bool) -> void:
 
 func set_current_player(current_player: String) -> void:
 	self._current_player = current_player
+
+func set_start_player(start_player: String) -> void:
+	self._start_player = start_player
 
 func increase_count_turn() -> void:
 	_count_turn += 1

@@ -2,7 +2,7 @@ extends Control
 
 func _ready() -> void:
 	if GlobalGame.get_local_multiplayer():
-		$MarginContainer/VBoxContainer/VisitLabel.visible = false
+		%VisitLabel.visible = false
 
 
 func _on_pause_button_pressed() -> void:
@@ -13,7 +13,7 @@ func _on_pause_button_pressed() -> void:
 
 
 func _on_game_root_update_player_label(player: String) -> void:
-	$MarginContainer/VBoxContainer/PlayerLabel.text = player+"s turn"
+	%PlayerLabel.text = player+"s turn"
 
 
 func _on_game_root_set_win_ui(winner: String) -> void:
@@ -23,7 +23,7 @@ func _on_game_root_set_win_ui(winner: String) -> void:
 
 
 func _on_game_root_update_visit_label(visits: String) -> void:
-	$MarginContainer/VBoxContainer/VisitLabel.text = "Visits: " + visits
+	%VisitLabel.text = "Visits: " + visits
 
 
 func _on_reset_move_button_pressed() -> void:

@@ -37,6 +37,7 @@ theme_override_constants/separation = 200
 alignment = 1
 
 [node name="WinLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "you win"
 label_settings = ExtResource("2_rmb3o")
