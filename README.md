@@ -1,6 +1,15 @@
 # bridgerv3_godot
 A game in which you have to skillfully try to get from one side to the other by building bridges without being cut off by your opponent.
 
+## Rough summary of the game
+The game is a board game. The board is square-shaped. The goal of the game is to build a connection of bridges from one side to the opposite side. You do this by linking your so-called "piers" together until you have a complete, long connection. The piers are placed side by side and stacked in a square formation. The opponent’s piers are slightly offset—they must try to connect their own two sides of the square. Therefore, you must skillfully block the opponent and prevent them from linking their two sides while simultaneously working to connect your own.
+
+Depending on preference, there is a wide selection of different board sizes, allowing for quicker games as well.
+
+The game features a multiplayer mode where you can play against friends, for example, and a single-player mode where you play against the computer. The computer's algorithm is based on the MCTS (Monte Carlo Tree Search) algorithm. The current issue is that the computer still requires a fairly long computation time to play at a level comparable to a human. The difficulty can be adjusted via the MCTS time setting, which determines how long the computer should calculate—the longer it computes, the more precise the results. In other words, the more time the computer has to calculate, the harder it becomes for the human player.
+
+Since the calculation depends on time, results may vary from device to device and user to user. Some devices can perform more calculations in the same time, for example, due to having a better CPU. The number of calculations can be viewed in the game. At the bottom of the screen, you’ll see "Visits," which indicates how many possibilities the computer has calculated. The higher the number, the more challenging it becomes for the human player.
+
 ## How the Gameplay Works  
 The game board consists of piers. Each player, Red and Blue, has 42 piers each.  
 ![Approach2](https://github.com/user-attachments/assets/8e3091a1-dd24-409b-acaa-de1cf77c1ad8)  
