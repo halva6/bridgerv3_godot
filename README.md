@@ -41,114 +41,156 @@ This can also be represented as a matrix:
 
 ---
 
-# MatrixLogic: Code Explanation, the real algorithm behind all
+# Monte Carlo Tree Search (MCTS)
 
-## Overview
-
-This algorithm is like a logic-based AI for a grid-based game. The game involves two players aiming to achieve specific objectives by creating connections across a grid. The code features algorithms for determining the winner, implementing AI moves using the Minimax algorithm, and utilizing Monte Carlo Tree Search (MCTS) for decision-making.
-
-The code is written in Unity, leveraging Unity's built-in tools and C# features to simulate game logic, validate moves, and optimize AI behavior.
+This repository contains an implementation of the Monte Carlo Tree Search (MCTS) algorithm in GDScript for use in the Godot Engine. The MCTS algorithm is used to determine optimal moves for an AI player in a game where two players take turns placing pieces on a grid. This implementation is tailored for games where players aim to connect opposite sides of the board, but the algorithm can be adapted to other scenarios.
 
 ---
 
-## Key Components and Their Functionality
+## Introduction to MCTS
+Monte Carlo Tree Search is a heuristic search algorithm used in decision-making processes, particularly in games. It is suitable for games with large state spaces, as it uses random simulations to evaluate moves instead of exhaustively searching all possibilities.
 
-### **1. Winner Detection**
-The function `checkWinner(int[,] board, int player)` verifies if a player has achieved their objective.  
-- **Player Objectives:**
-  - Player 1 (Vertical): Connects the top row to the bottom row.
-  - Player 2 (Horizontal): Connects the left column to the right column.
-- **Algorithm:**  
-  Depth-First Search (DFS) is used to explore potential paths recursively. The `DFS` method checks connected cells, ensuring the connection rules are satisfied.
+The four key steps in MCTS are:
+1. **Selection**: Traversing the tree to find the most promising node.
+2. **Expansion**: Expanding the tree by adding a child node to the selected node.
+3. **Simulation**: Running random playouts from the new node to evaluate potential outcomes.
+4. **Backpropagation**: Propagating the results of the simulation back up the tree to update the nodes' statistics.
 
-```csharp
-private bool DFS(int[,] board, int row, int col, int player, HashSet<(int, int)> visited)
+---
+
+## How the Algorithm Works
+
+### 1. Selection
+The algorithm begins at the root node and iteratively selects child nodes based on the Upper Confidence Bounds for Trees (UCT) formula:
+
+```gdscript
+var uct_score = child.wins / float(child.visits) + sqrt(2 * log_N_parent / float(child.visits))
 ```
-- **Inputs:** Board state, current cell, player identifier, and visited cells to avoid loops.
-- **Outputs:** Returns `true` if the player has successfully completed their connection.
+The child node with the highest UCT score is selected. Nodes with fewer visits are prioritized until they are sufficiently explored.
 
----
+### 2. Expansion
 
-### **2. Minimax Algorithm**
-The `Minimax` method implements a game-tree search algorithm to evaluate moves:
-- **Purpose:** Decide the optimal move for the AI by simulating potential outcomes.
-- **Functionality:**
-  - Evaluates board states by recursively simulating moves for both players.
-  - Uses Alpha-Beta pruning to optimize performance by discarding unnecessary branches.
+If the selected node has untried moves, one of these moves is used to create a new child node. This represents adding a possible game state to the tree.
 
-```csharp
-public int Minimax(int[,] board, int depth, int alpha, int beta, bool maximizingPlayer)
+```gdscript
+func expand() -> Knot:
+    var move: Vector2 = untried_moves.pop_back()
+    var new_state: Array = []
+    for row: Array in state:
+        new_state.append(row.duplicate(true))
+    new_state[move.x][move.y] = next_player()
+    var child_node: Knot = Knot.new(new_state, game_board_size, self, next_player())
+    children.append(child_node)
+    return child_node
 ```
-- **Inputs:**  
-  Board state, search depth, alpha and beta values for pruning, and the current player's turn.
-- **Outputs:**  
-  A score representing the desirability of the move.
 
----
+### 3. Simulation
 
-### **3. Move Validation and Execution**
-Helper functions ensure moves are valid and simulate board updates:
-- `getValidMoves(int[,] board)` returns a list of unoccupied cells.
-- `makeMove(int[,] board, (int, int) move, int player)` creates a new board state by applying a move.
+From the newly expanded node, a random game is simulated until the game ends. The result of the game (win, loss, or draw) is recorded.
 
----
-
-### **4. Monte Carlo Tree Search (MCTS)**
-The `MCTS` class implements a more advanced decision-making process for the AI:
-- **Workflow:**
-  1. **Selection:** Traverse the tree by selecting the best child node using Upper Confidence Bound (UCB).
-  2. **Expansion:** Add a new child node by simulating an unexplored move.
-  3. **Simulation:** Perform a random playthrough from the new state.
-  4. **Backpropagation:** Update the win/loss statistics along the path.
-- **Advantages:**  
-  MCTS balances exploration (trying new moves) and exploitation (using moves with known good outcomes).
-
-Key methods in MCTS include:
-- `Select(MCTSNode node)`: Finds the most promising node for exploration.
-- `Expand(MCTSNode node)`: Adds new nodes to the tree.
-- `Simulate(MCTSNode node)`: Plays out a random game to estimate the outcome.
-- `Backpropagate(MCTSNode node, int result)`: Updates nodes with simulation results.
-
----
-
-## How It All Comes Together
-1. **Game Initialization:** The game board is represented as a 2D integer array (`int[,]`), where:
-   - `0`: Empty cell.
-   - `1`: Player 1's move.
-   - `2`: Player 2's move.
-2. **Player Moves:**  
-   Human players make moves, and the AI determines its moves using either Minimax or MCTS based on the configuration.
-3. **Win Condition:**  
-   After every move, the `checkWinner` function verifies if the game has been won.
-4. **AI Decision-Making:**  
-   - Minimax is used for deterministic decision-making.
-   - MCTS is employed for probabilistic exploration and complex scenarios.
-
----
-
-## Example Use Case
-### **Checking a Winner**
-```csharp
-MatrixLogic logic = new MatrixLogic();
-bool isPlayer1Winner = logic.checkWinner(board, 1);
+```gdscript
+func simulate_random_game(state: Array, player: int) -> int:
+    var current_player: int = player
+    while true:
+        var moves: Array[Vector2] = []
+        for r in range(game_board_size):
+            for c in range(game_board_size):
+                if state[r][c] == 0:
+                    moves.append(Vector2(r, c))
+        if moves.is_empty():
+            break
+        elif check_win(state, PLAYER_HUMAN):
+            return -1
+        elif check_win(state, PLAYER_AI):
+            return 1
+        var move: Vector2 = moves[randi() % moves.size()]
+        state[move.x][move.y] = current_player
+        current_player = PLAYER_HUMAN if current_player == PLAYER_AI else PLAYER_AI
+    if check_win(state, PLAYER_AI):
+        return 1
+    elif check_win(state, PLAYER_HUMAN):
+        return -1
+    return 0
 ```
-- Evaluates if Player 1 has achieved their objective.
 
-### **AI Move Using Minimax**
-```csharp
-(int, int) aiMove = logic.getBestMove(board, depth: 4);
-board = logic.makeMove(board, aiMove, 2);
-```
-- Finds the best move for Player 2 using Minimax and updates the board.
+### 4. Backpropagation
 
-### **AI Move Using MCTS**
-```csharp
-(int, int) aiMctsMove = await logic.getBestMCTSAsync(board, simulationsNumber: 1000);
-board = logic.makeMove(board, aiMctsMove, 2);
+The outcome of the simulation is backpropagated to update the statistics (wins and visits) of the nodes involved.
+
+```gdscript
+func backpropagate(node: Knot, result: int) -> void:
+    while node != null:
+        node.visits += 1
+        if (node.player == PLAYER_AI and result == 1) or (node.player == PLAYER_HUMAN and result == -1):
+            node.wins += 1
+        node = node.parent
 ```
-- Executes an asynchronous MCTS-based decision-making process.
+
+---
+## Mathematical Foundations of MCTS
+
+The key mathematical concepts underpinning MCTS involve probabilities, logarithms, and confidence bounds.
+
+### Upper Confidence Bound (UCB1)
+
+The UCT formula used in the selection phase is derived from the **Upper Confidence Bound 1 (UCB1)** algorithm. UCB1 is designed to solve the **multi-armed bandit problem**, where a player must decide between exploiting known rewards and exploring new options to maximize overall gain.
+
+#### Formula:
+
+$UCT(v) = \frac{w_i}{n_i} + C \cdot \sqrt{\frac{\ln N}{n_i}}$
+
+Where:
+
+* $w_i$: Number of wins for child node $i$.
+* $n_i$: Number of visits to child node $i$.
+* $N$: Total number of visits to the parent node.
+* $C$: Exploration constant (controls exploration vs. exploitation balance, typically $\sqrt{2}$).
+
+#### Key Components:
+
+1. **Exploitation ($\frac{w_i}{n_i}$)**:
+   Focuses on nodes with a high success rate.
+2. **Exploration ($C \cdot \sqrt{\frac{\ln N}{n_i}}$)**:
+   Encourages visiting less-explored nodes to gather more information.
+
+This balance ensures that the algorithm does not get stuck in local optima and remains flexible to discover better solutions.
+
+### Random Simulations
+
+During the simulation phase, random playouts are used to evaluate the potential of a node. The randomness introduces an element of statistical sampling, which provides approximate evaluations of moves without needing exhaustive computation.
+
+#### Law of Large Numbers
+
+As the number of simulations increases, the outcomes converge to the true probabilities of winning from a given state. This ensures that MCTS becomes increasingly accurate over time.
+
+### Logarithms in Exploration
+
+The use of $\ln N$ (natural logarithm of the total number of visits) ensures diminishing returns for revisiting already well-explored nodes. This logarithmic scaling naturally reduces exploration of suboptimal nodes as they are visited more often.
 
 ---
 
-## Conclusion
-The `MatrixLogic` class implements a robust framework for managing gameplay mechanics, winner detection, and AI decision-making in a turn-based strategy game. It demonstrates key programming principles such as recursion, graph traversal, and optimization techniques, making it well-suited for complex AI-driven games.
+## Advantages and Limitations of MCTS
+
+### Advantages
+
+* **Scalability**: MCTS can handle large state spaces without exhaustively exploring all possibilities.
+* **Flexibility**: Works well with different types of games and environments.
+* **Asymptotic Accuracy**: Given enough time, MCTS converges to the optimal strategy.
+
+### Limitations
+
+* **Computational Cost**: Simulations can be expensive, especially in games with complex rules.
+* **Early Game Uncertainty**: Limited initial exploration may lead to suboptimal moves early in the game.
+* **Heuristics Dependence**: Performance relies on efficient heuristics or rules for simulations.
+
+---
+
+## Code Overview
+
+The implementation is encapsulated in the `Knots` class. The main components are:
+
+* `Knot`: Represents a node in the MCTS tree. Contains the current game state, children, and statistics (wins and visits).
+* `monte_carlo_tree_search`: The main function driving the MCTS algorithm.
+* `simulate_random_game`: Performs random playouts from a given state.
+* `backpropagate`: Updates the tree with results from the simulations.
+* `check_win`: Determines if a player has won the game.
