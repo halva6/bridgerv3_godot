@@ -141,7 +141,7 @@ corner_detail = 5
 
 [sub_resource type="Theme" id="Theme_5h6fy"]
 default_font = ExtResource("6_lk2nf")
-default_font_size = 42
+default_font_size = 64
 OptionButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 OptionButton/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
 OptionButton/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
@@ -154,7 +154,7 @@ OptionButton/constants/h_separation = 40
 OptionButton/constants/line_spacing = 40
 OptionButton/constants/modulate_arrow = 1
 OptionButton/constants/outline_size = 0
-OptionButton/font_sizes/font_size = 42
+OptionButton/font_sizes/font_size = 64
 OptionButton/fonts/font = ExtResource("6_lk2nf")
 OptionButton/icons/arrow = ExtResource("7_fomxv")
 OptionButton/styles/disabled = SubResource("StyleBoxFlat_fomxv")
