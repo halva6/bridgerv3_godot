@@ -1,12 +1,13 @@
 #include "register_types.h"
 
-#include "BestMove.h"
-
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
 #include <godot_cpp/core/class_db.hpp>
+
+#include "Knot.hpp"
+#include "Knots.hpp"
 
 using namespace godot;
 
@@ -17,7 +18,8 @@ void initialize_example_module(ModuleInitializationLevel p_level)
         return;
     }
 
-    GDREGISTER_RUNTIME_CLASS(BestMove);
+    ClassDB::register_class<godot::Knot>();
+    ClassDB::register_class<godot::Knots>();
 }
 
 void uninitialize_example_module(ModuleInitializationLevel p_level)

@@ -18,6 +18,7 @@ mono_crash.*.json
 
 #csv files for efficiency messurement
 messurements/
+bin/
 
 cpp_code_extension/.vscode/
 cpp_code_extension/build/
