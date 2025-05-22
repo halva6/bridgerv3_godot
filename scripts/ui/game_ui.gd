@@ -17,10 +17,11 @@ func _on_game_root_update_player_label(player: String) -> void:
 
 
 func _on_game_root_set_win_ui(winner: String) -> void:
-	visible = false
-	get_parent().get_node("win_ui").visible = true
-	get_parent().layer = 1
-
+	%WinButton.visible = true
+	%PlayerLabel.text = winner + " wins!"
+	
+	%VisitLabel.visible = true
+	%VisitLabel.text = "Tap to exit"
 
 func _on_game_root_update_visit_label(visits: String) -> void:
 	%VisitLabel.text = "Visits: " + visits
@@ -28,3 +29,9 @@ func _on_game_root_update_visit_label(visits: String) -> void:
 
 func _on_reset_move_button_pressed() -> void:
 	GlobalGame.set_reset(true)
+
+
+func _on_win_button_pressed() -> void:
+	visible = false
+	get_parent().get_node("win_ui").visible = true
+	get_parent().layer = 1

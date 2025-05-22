@@ -68,7 +68,7 @@ class Knot:
 				best_node = child
 		return best_node
 
-func check_win(matrix: Array, player: int) -> bool:
+func check_win(matrix: Array, player: int, do_pre_search: bool) -> bool:
 	# Possible movement directions (4-way connectivity)
 	var directions: Array = [
 		Vector2(1, 0),   # Down
@@ -77,16 +77,18 @@ func check_win(matrix: Array, player: int) -> bool:
 		Vector2(0, -1)   # Left
 	]
 	if player == 1:
-		if !pre_check_win(matrix, player):
-			return false
+		if do_pre_search:
+			if !pre_check_win(matrix, player):
+				return false
 		# Player 1 (green) wins by connecting top to bottom
 		for start_col in range(len(matrix[0])):
 			if matrix[0][start_col] == player:
 				if dfs(matrix, 0, start_col, player, {}, directions):
 					return true
 	elif player == 2:
-		if !pre_check_win(matrix, player):
-			return false
+		if do_pre_search:
+			if !pre_check_win(matrix, player):
+				return false
 		# Player 2 (red) wins by connecting left to right
 		for start_row in range(len(matrix)):
 			if matrix[start_row][0] == player:
@@ -145,17 +147,17 @@ func simulate_random_game(state: Array, player: int) -> int:
 					moves.append(Vector2(r, c))
 		if moves.is_empty():
 			break
-		elif check_win(state, PLAYER_HUMAN):
+		elif check_win(state, PLAYER_HUMAN, true):
 			return -1
-		elif check_win(state, PLAYER_AI):
+		elif check_win(state, PLAYER_AI, true):
 			return 1
 		var move: Vector2 = moves[randi() % moves.size()]
 		state[move.x][move.y] = current_player
 		current_player = PLAYER_HUMAN if current_player == PLAYER_AI else PLAYER_AI
 	
-	if check_win(state, PLAYER_AI):
+	if check_win(state, PLAYER_AI, false):
 		return 1
-	elif check_win(state, PLAYER_HUMAN):
+	elif check_win(state, PLAYER_HUMAN, false):
 		return -1
 	return 0
 
@@ -170,9 +172,7 @@ func backpropagate(node: Knot, result: int) -> void:
 func monte_carlo_tree_search(root: Knot, simulation_time: int, game_board_size: int) -> Knot:
 	self.game_board_size = game_board_size
 	var start_time: float = Time.get_unix_time_from_system()
-	#var mess = []
 	while Time.get_unix_time_from_system() - start_time < simulation_time:
-	#for i in range(2000):
 		var node: Knot = root
 
 		while node.fully_expanded() and not node.children.is_empty():
@@ -181,12 +181,7 @@ func monte_carlo_tree_search(root: Knot, simulation_time: int, game_board_size: 
 			node = node.expand()
 
 		var result: int = simulate_random_game(node.state.duplicate(true), node.player)
-		#var mes: float = Time.get_unix_time_from_system()
 		backpropagate(node, result)
-		#mess.append(str(Time.get_unix_time_from_system()-mes) + "," + str(loop))
-	#write_to_csv("res://messurements/uct.csv", mess)
-	#write_to_csv("res://messurements/simulate.csv", mess)
-	#write_to_csv("res://messurements/backpropagate.csv", mess)
 	print("[DEBUG] Visits: " + str(root.visits))
 	return root.best_child()
 
