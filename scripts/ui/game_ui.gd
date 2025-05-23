@@ -22,6 +22,8 @@ func _on_game_root_set_win_ui(winner: String) -> void:
 	
 	%VisitLabel.visible = true
 	%VisitLabel.text = "Tap to exit"
+	
+	%ResetMoveButton.disabled = true
 
 func _on_game_root_update_visit_label(visits: String) -> void:
 	%VisitLabel.text = "Visits: " + visits

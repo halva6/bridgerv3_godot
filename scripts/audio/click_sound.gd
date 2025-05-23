@@ -8,4 +8,5 @@ func _ready() -> void:
 
 func _on_play_click_sound() -> void:
 	if not self.playing:
+		self.pitch_scale = randf_range(0.88,1.1)
 		self.play()
