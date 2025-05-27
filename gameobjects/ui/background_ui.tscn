@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://digb6qc50hwuh"]
 
-[ext_resource type="Texture2D" uid="uid://clqy1whg17vsd" path="res://assets/ui/waterbackground.png" id="1_48cyh"]
+[ext_resource type="Texture2D" uid="uid://mr7e6odt7w3p" path="res://assets/ui/background.png" id="1_48cyh"]
 
 [node name="background_ui" type="Control"]
 layout_mode = 3
