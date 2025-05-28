@@ -1,8 +1,8 @@
 extends Node
 class_name Knots
 
-const PLAYER_AI: int = 2
 const PLAYER_HUMAN: int = 1
+const PLAYER_AI: int = 2
 var game_board_size: int = 13
 
 class Knot:
@@ -15,7 +15,7 @@ class Knot:
 	var untried_moves: Array[Vector2]
 	var game_board_size: int
 
-	func _init(state: Array, game_board_size: int, parent: Knot = null, player: int = PLAYER_AI) -> void:
+	func _init(state: Array, game_board_size: int, parent: Knot = null, player: int = PLAYER_HUMAN) -> void:
 		self.state = state
 		self.parent = parent
 		self.player = player
@@ -41,7 +41,7 @@ class Knot:
 		return child_node
 
 	func next_player() -> int:
-		return PLAYER_HUMAN if player == PLAYER_AI else PLAYER_AI
+		return PLAYER_AI if player == PLAYER_HUMAN else PLAYER_HUMAN
 
 	func fully_expanded() -> bool:
 		return untried_moves.size() == 0
@@ -79,22 +79,25 @@ func delete_tree(node: Knot) -> void:
 	# Das Objekt wird dann vom Garbage Collector entfernt
 
 func check_win(matrix: Array, player: int, do_pre_search: bool) -> bool:
+	# Possible movement directions (4-way connectivity)
 	var directions: Array = [
-		Vector2(1, 0),
-		Vector2(0, 1),
-		Vector2(-1, 0),
-		Vector2(0, -1)
-	]
+			Vector2(1, 0),   # Down
+			Vector2(0, 1),   # Right
+			Vector2(-1, 0),  # Up
+			Vector2(0, -1)   # Left
+		]
 	if player == 1:
-		if do_pre_search and !pre_check_win(matrix, player):
-			return false
+		if do_pre_search:
+			if !pre_check_win(matrix, player):
+				return false
 		for start_col in range(len(matrix[0])):
 			if matrix[0][start_col] == player:
 				if dfs(matrix, 0, start_col, player, {}, directions):
 					return true
 	elif player == 2:
-		if do_pre_search and !pre_check_win(matrix, player):
-			return false
+		if do_pre_search:
+			if !pre_check_win(matrix, player):
+				return false
 		for start_row in range(len(matrix)):
 			if matrix[start_row][0] == player:
 				if dfs(matrix, start_row, 0, player, {}, directions):
@@ -145,24 +148,24 @@ func simulate_random_game(state: Array, player: int) -> int:
 					moves.append(Vector2(r, c))
 		if moves.is_empty():
 			break
-		elif check_win(state, PLAYER_HUMAN, true):
-			return -1
 		elif check_win(state, PLAYER_AI, true):
+			return -1
+		elif check_win(state, PLAYER_HUMAN, true):
 			return 1
 		var move: Vector2 = moves[randi() % moves.size()]
 		state[move.x][move.y] = current_player
-		current_player = PLAYER_HUMAN if current_player == PLAYER_AI else PLAYER_AI
+		current_player = PLAYER_AI if current_player == PLAYER_HUMAN else PLAYER_HUMAN
 
-	if check_win(state, PLAYER_AI, false):
+	if check_win(state, PLAYER_HUMAN, false):
 		return 1
-	elif check_win(state, PLAYER_HUMAN, false):
+	elif check_win(state, PLAYER_AI, false):
 		return -1
 	return 0
 
 func backpropagate(node: Knot, result: int) -> void:
 	while node != null:
 		node.visits += 1
-		if (node.player == PLAYER_AI and result == 1) or (node.player == PLAYER_HUMAN and result == -1):
+		if (node.player == PLAYER_HUMAN and result == 1) or (node.player == PLAYER_AI and result == -1):
 			node.wins += 1
 		node = node.parent
 
@@ -184,17 +187,19 @@ func monte_carlo_tree_search(root_state: Array, simulation_time: int, board_size
 	
 	var best_child: Knot = root.best_child()
 	# Finde den Zug, der zum besten Kind führt
-	var move: Vector2 = find_move(root.state, best_child.state)
+	var move: Vector2 = find_move(root.state.duplicate(true), best_child.state.duplicate(true))
 	# Lösche den gesamten Baum, um Speicher freizugeben
 	delete_tree(root)
 	return [move, visits]
 
 func find_move(parent_state: Array, child_state: Array) -> Vector2:
-	for r in range(game_board_size):
-		for c in range(game_board_size):
-			if parent_state[r][c] != child_state[r][c]:
-				return Vector2(r, c)
-	return Vector2(-1, -1)
+	for i in range(len(parent_state)):
+		for j in range(len(parent_state[i])):
+			if child_state[j][i] != parent_state[j][i]:
+				return Vector2(i,j)
+			
+	print("[ERROR] no diffrences in matrixes")
+	return Vector2(-1,-1)
 
 
 func write_to_csv(file_path: String, data: Array[String]) -> void:

@@ -13,7 +13,6 @@ signal set_win_ui(winner: String)
 #-------------- for computer ai ------------------
 var thread1: Thread
 var best_knot_properties: Array
-var knots: Knots = Knots.new()
 
 var game_stack: Array = []
 var player_stack: Array =  []
@@ -55,8 +54,8 @@ func _process(delta: float) -> void:
 	GlobalGame.set_finish_turn(player_n_move[1])
 
 func manage_computer_ai(player_n_move: Array) -> void:
-	var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
 	if !thread1.is_started():
+		var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
 		thread1.start(async_computer_calculation.bind(transform_matrix, GlobalGame.get_simulation_time()))	
 		
 	if !thread1.is_alive():
@@ -80,6 +79,8 @@ func manage_reset(player_n_move: Array) -> void:
 			print("[ERROR] cant reset to the last move(s)")
 
 func async_computer_calculation(matrix: Array, simulation_time:int) -> void:
+	var knots: Knots = Knots.new()
+	LocalDebug.print_matrix(matrix, "Input-Matrix")
 	best_knot_properties = knots.monte_carlo_tree_search(matrix, simulation_time, game_board_size)
 
 func finde_diffrence(matrix1: Array, matrix2:Array) -> Vector2:
