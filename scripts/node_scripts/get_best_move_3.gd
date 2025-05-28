@@ -1,11 +1,9 @@
 extends Node
-
 class_name Knots
 
 const PLAYER_AI: int = 2
 const PLAYER_HUMAN: int = 1
 var game_board_size: int = 13
-const ROWS = 13
 
 class Knot:
 	var state: Array
@@ -38,7 +36,7 @@ class Knot:
 		for row: Array in state:
 			new_state.append(row.duplicate(true))
 		new_state[move.x][move.y] = next_player()
-		var child_node: Knot = Knot.new(new_state,game_board_size, self, next_player())
+		var child_node: Knot = Knot.new(new_state, game_board_size, self, next_player())
 		children.append(child_node)
 		return child_node
 
@@ -68,28 +66,35 @@ class Knot:
 				best_node = child
 		return best_node
 
+# Hilfsfunktion zum rekursiven Löschen des Baums
+func delete_tree(node: Knot) -> void:
+	if node == null:
+		return
+	for child in node.children:
+		delete_tree(child)
+	# Entferne Referenzen
+	node.parent = null
+	node.children.clear()
+	# In GDScript gibt es keinen Destruktor, also reicht das Löschen der Referenzen
+	# Das Objekt wird dann vom Garbage Collector entfernt
+
 func check_win(matrix: Array, player: int, do_pre_search: bool) -> bool:
-	# Possible movement directions (4-way connectivity)
 	var directions: Array = [
-		Vector2(1, 0),   # Down
-		Vector2(0, 1),   # Right
-		Vector2(-1, 0),  # Up
-		Vector2(0, -1)   # Left
+		Vector2(1, 0),
+		Vector2(0, 1),
+		Vector2(-1, 0),
+		Vector2(0, -1)
 	]
 	if player == 1:
-		if do_pre_search:
-			if !pre_check_win(matrix, player):
-				return false
-		# Player 1 (green) wins by connecting top to bottom
+		if do_pre_search and !pre_check_win(matrix, player):
+			return false
 		for start_col in range(len(matrix[0])):
 			if matrix[0][start_col] == player:
 				if dfs(matrix, 0, start_col, player, {}, directions):
 					return true
 	elif player == 2:
-		if do_pre_search:
-			if !pre_check_win(matrix, player):
-				return false
-		# Player 2 (red) wins by connecting left to right
+		if do_pre_search and !pre_check_win(matrix, player):
+			return false
 		for start_row in range(len(matrix)):
 			if matrix[start_row][0] == player:
 				if dfs(matrix, start_row, 0, player, {}, directions):
@@ -103,40 +108,33 @@ func pre_check_win(matrix: Array, player: int) -> bool:
 				return false
 	elif player == 2:
 		var num_cols = matrix[0].size()
-		for col in range(1, num_cols, 2):  # Beginne bei 1, dann 3, 5, ...
+		for col in range(1, num_cols, 2):
 			var found_two = false
 			for row in matrix:
 				if row[col] == 2:
 					found_two = true
 					break
 			if not found_two:
-				return false 
+				return false
 	return true
 
 func dfs(matrix: Array, row: int, col: int, player: int, visited: Dictionary, directions: Array) -> bool:
-	# Win conditions for each player
-	if player == 1 and row == game_board_size - 1:  # Green reached bottom
+	if player == 1 and row == game_board_size - 1:
 		return true
-	if player == 2 and col == game_board_size - 1:  # Red reached right edge
+	if player == 2 and col == game_board_size - 1:
 		return true
 
-	visited[Vector2(row, col)] = true  # Mark current position as visited
-
-	# Check all adjacent cells
+	visited[Vector2(row, col)] = true
 	for direction: Vector2 in directions:
 		var new_row: int = row + int(direction.x)
 		var new_col: int = col + int(direction.y)
-		
-		# Check if new position is valid and unvisited
-		if (new_row >= 0 and new_row < game_board_size and 
-			new_col >= 0 and new_col < game_board_size):
+		if (new_row >= 0 and new_row < game_board_size and new_col >= 0 and new_col < game_board_size):
 			var new_pos: Vector2 = Vector2(new_row, new_col)
 			if not visited.has(new_pos) and matrix[new_row][new_col] == player:
 				if dfs(matrix, new_row, new_col, player, visited, directions):
-					return true  # Found winning path
+					return true
+	return false
 
-	return false  # No winning path found from this position
-	
 func simulate_random_game(state: Array, player: int) -> int:
 	var current_player: int = player
 	while true:
@@ -154,7 +152,7 @@ func simulate_random_game(state: Array, player: int) -> int:
 		var move: Vector2 = moves[randi() % moves.size()]
 		state[move.x][move.y] = current_player
 		current_player = PLAYER_HUMAN if current_player == PLAYER_AI else PLAYER_AI
-	
+
 	if check_win(state, PLAYER_AI, false):
 		return 1
 	elif check_win(state, PLAYER_HUMAN, false):
@@ -168,22 +166,36 @@ func backpropagate(node: Knot, result: int) -> void:
 			node.wins += 1
 		node = node.parent
 
-		
-func monte_carlo_tree_search(root: Knot, simulation_time: int, game_board_size: int) -> Knot:
-	self.game_board_size = game_board_size
+func monte_carlo_tree_search(root_state: Array, simulation_time: int, board_size: int) -> Array:
+	self.game_board_size = board_size
+	var root: Knot = Knot.new(root_state, board_size)
 	var start_time: float = Time.get_unix_time_from_system()
 	while Time.get_unix_time_from_system() - start_time < simulation_time:
 		var node: Knot = root
-
 		while node.fully_expanded() and not node.children.is_empty():
 			node = node.best_uct()
 		if not node.untried_moves.is_empty():
 			node = node.expand()
-
 		var result: int = simulate_random_game(node.state.duplicate(true), node.player)
 		backpropagate(node, result)
-	print("[DEBUG] Visits: " + str(root.visits))
-	return root.best_child()
+	
+	var visits: int = root.visits
+	print("[DEBUG] Visits: " + str(visits))
+	
+	var best_child: Knot = root.best_child()
+	# Finde den Zug, der zum besten Kind führt
+	var move: Vector2 = find_move(root.state, best_child.state)
+	# Lösche den gesamten Baum, um Speicher freizugeben
+	delete_tree(root)
+	return [move, visits]
+
+func find_move(parent_state: Array, child_state: Array) -> Vector2:
+	for r in range(game_board_size):
+		for c in range(game_board_size):
+			if parent_state[r][c] != child_state[r][c]:
+				return Vector2(r, c)
+	return Vector2(-1, -1)
+
 
 func write_to_csv(file_path: String, data: Array[String]) -> void:
 	var file:FileAccess = FileAccess.open(file_path, FileAccess.WRITE_READ)

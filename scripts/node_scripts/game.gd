@@ -12,8 +12,7 @@ signal set_win_ui(winner: String)
 
 #-------------- for computer ai ------------------
 var thread1: Thread
-var best_knot: Knots.Knot
-var visits: int = 0
+var best_knot_properties: Array
 var knots: Knots = Knots.new()
 
 var game_stack: Array = []
@@ -58,13 +57,11 @@ func _process(delta: float) -> void:
 func manage_computer_ai(player_n_move: Array) -> void:
 	var transform_matrix: Array = _transform_matrix(GlobalGame.get_matrix().duplicate(true))
 	if !thread1.is_started():
-		var mcts: Knots.Knot = knots.Knot.new(transform_matrix, game_board_size)
-		thread1.start(async_computer_calculation.bind(knots,mcts, GlobalGame.get_simulation_time()))	
+		thread1.start(async_computer_calculation.bind(transform_matrix, GlobalGame.get_simulation_time()))	
 		
 	if !thread1.is_alive():
-		var matrix_position: Vector2 = finde_diffrence(transform_matrix,best_knot.state)		
-		emit_signal("set_computers_bridge", matrix_position)
-		emit_signal("update_visit_label", str(visits))
+		emit_signal("set_computers_bridge", best_knot_properties[0])
+		emit_signal("update_visit_label", str(best_knot_properties[1]))
 		player_n_move[1] = true
 		thread1.wait_to_finish()
 
@@ -82,9 +79,8 @@ func manage_reset(player_n_move: Array) -> void:
 		else:
 			print("[ERROR] cant reset to the last move(s)")
 
-func async_computer_calculation(knots:Knots, mcts: Knots.Knot, simulation_time:int) -> void:
-	best_knot = knots.monte_carlo_tree_search(mcts, simulation_time, game_board_size)
-	visits = mcts.visits
+func async_computer_calculation(matrix: Array, simulation_time:int) -> void:
+	best_knot_properties = knots.monte_carlo_tree_search(matrix, simulation_time, game_board_size)
 
 func finde_diffrence(matrix1: Array, matrix2:Array) -> Vector2:
 	for i in range(len(matrix1)):
