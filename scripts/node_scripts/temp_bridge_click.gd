@@ -23,7 +23,7 @@ func instantiate_bridge(util: ClickUtil) -> void:
 		matrix[util.get_pos()[3]][util.get_pos()[2]] = GlobalGame.get_TILE_DICT()[current_player+"bridge"]
 		GlobalGame.set_matrix(matrix)
 		GlobalGame.increase_count_turn()
-		print("Placing: " + group_name + "; Turn: " +  str(GlobalGame.get_count_turn()))
+		#print("[DEBUG] Placing: " + group_name + "; Turn: " +  str(GlobalGame.get_count_turn()))
 		#LocalDebug.print_matrix(matrix, "----- matrix -----")
 		#LocalDebug.print_count_numbers(matrix)
 		
@@ -31,7 +31,8 @@ func instantiate_bridge(util: ClickUtil) -> void:
 		
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event.is_action_pressed("click"):
+	if event.is_action_pressed("click") and !event.is_canceled():
+		event.set_canceled(true)
 		var util: ClickUtil = ClickUtil.new()
 		instantiate_bridge(util)
 		GlobalAudio.emit_signal("play_bridge_sound") #Sound

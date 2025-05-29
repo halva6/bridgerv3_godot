@@ -26,7 +26,7 @@ func print_count_numbers(matrix: Array, numbers: Array = [-1,0,1,2,3,4]) -> void
 	# Process each number in the numbers array
 	for number:int in numbers:
 		# Print formatted count result for current number
-		print("Count of number " + str(number) + " in matrix: " + 
+		print("[DEBUG] Count of number " + str(number) + " in matrix: " + 
 			  str(count_numbers_in_matrix(matrix, number)))
 
 
@@ -40,7 +40,7 @@ func print_count_numbers(matrix: Array, numbers: Array = [-1,0,1,2,3,4]) -> void
 func print_matrix(matrix: Array, header: String = "") -> void:
 	# Print optional header if provided
 	if header != "":
-		print_rich(header)
+		print_rich("[DEBUG] " + header)
 	
 	# Early return if the matrix is empty
 	if matrix.is_empty():

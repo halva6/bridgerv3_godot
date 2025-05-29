@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bkwmvcbj73bwg" path="res://gameobjects/bridges/temp_bridge.tscn" id="2_12mve"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tibs2"]
+size = Vector2(25, 25)
 
 [node name="PierCollision" type="Area2D"]
 script = ExtResource("1_tkvoi")

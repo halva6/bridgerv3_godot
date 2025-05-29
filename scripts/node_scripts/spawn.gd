@@ -68,7 +68,7 @@ func calculate_computer_bridge_rotation(matrix: Array, x: int, y: int) -> float:
 	return deg_to_rad(0)
 
 func _on_game_root_set_computers_bridge(matrix_position: Vector2) -> void:
-	print(matrix_position)
+	#print("[DEBUG] matrix position: " + str(matrix_position))
 	var position: Vector2 = matrix_position * tile_spacing
 	var matrix: Array = GlobalGame.get_matrix()
 	LocalDebug.print_matrix(matrix)

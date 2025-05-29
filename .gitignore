@@ -24,3 +24,6 @@ cpp_code_extension/.vscode/
 cpp_code_extension/build/
 cpp_code_extension/godot-cpp/
 cpp_code_extension/demo/
+
+#so that the file is not checked in to github every time the parameters are changed
+help.py
