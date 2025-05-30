@@ -1,12 +1,13 @@
 extends Label
 
-var base_text = "computers turn"
-var max_dots = 3
-var current_dots = 0
-var time_accum = 0.0
-var interval = 0.5 # Sekunden zwischen den Animationen
+@export var base_text: String = "computers turn"
+@export var max_dots: int = 3
+@export var current_dots: int = 0
+@export var time_accum: float = 0.0
+@export var interval: float = 0.5 # Sekunden zwischen den Animationen
 
-func _process(delta):
+func _process(delta: float) -> void:
+	# a kind of animation that counts a certain number of points to symbolize thinking
 	if "computers" in text:
 		time_accum += delta
 		if time_accum >= interval:

@@ -1,21 +1,23 @@
 extends Node
 
 func _on_multiplayer_button_pressed() -> void:
-	var generated_matrix: Array = generate_matrix(GlobalGame.get_game_board_size())
+	var generated_matrix: Array = _generate_matrix(GlobalGame.get_game_board_size())
 	GlobalGame.set_matrix(generated_matrix.duplicate(true))
 	GlobalGame.set_start_matrix(generated_matrix.duplicate(true))
 
 
 func _on_singleplayer_button_pressed() -> void:
-	var generated_matrix: Array = generate_matrix(GlobalGame.get_game_board_size())
+	var generated_matrix: Array = _generate_matrix(GlobalGame.get_game_board_size())
 	GlobalGame.set_matrix(generated_matrix.duplicate(true))
 	GlobalGame.set_start_matrix(generated_matrix.duplicate(true))
 	
-func generate_matrix(size):
+# generates the corresponding game matrix from the given game size - the whole game is based on this 
+# so %Spawner also knows what has to be spawned
+func _generate_matrix(size: int) -> Array:
 	var col_array: Array = []
 	var row_array: Array = []
 	for i in range(size):
-		if i == 0 or i == size-1:
+		if i == 0 or i == size - 1:
 			for j in range(size):
 				if j % 2 == 0:
 					row_array.append(-1)

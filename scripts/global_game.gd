@@ -1,3 +1,4 @@
+# providing global critical data
 extends Node
 
 var _finish_turn: bool = false
@@ -12,7 +13,7 @@ var _smmiulation_time: int = 5
 var _do_reset: bool = false
 
 var _game_board_size: int = 12
-const _game_size_dict: Dictionary = {0:5, 1:7, 2:9, 3:11, 4:13, 5:15, 6:17}
+const _game_size_dict: Dictionary = {0: 5, 1: 7, 2: 9, 3: 11, 4: 13, 5: 15, 6: 17}
 
 
 # game board matrix
@@ -42,7 +43,7 @@ func get_current_player() -> String:
 func get_start_player() -> String:
 	return _start_player
 	
-func get_TILE_DICT()-> Dictionary:
+func get_TILE_DICT() -> Dictionary:
 	return _TILE_DICT
 
 func get_count_turn() -> int:
@@ -91,5 +92,5 @@ func set_simulation_time(time: int) -> void:
 func set_reset(reset: bool) -> void:
 	_do_reset = reset
 	
-func set_game_board_size(size: int)-> void:
+func set_game_board_size(size: int) -> void:
 	_game_board_size = size

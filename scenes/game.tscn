@@ -68,12 +68,13 @@ layer = -1
 z_index = -5
 
 [node name="Camera2DComputer" parent="." instance=ExtResource("8_kvuet")]
+unique_name_in_owner = true
 position = Vector2(200, 200)
 limit_smoothed = true
-zoomSpeed = 10.0
 zoom_max = 4.0
 
 [node name="Camera2DMobile" parent="." instance=ExtResource("9_trtic")]
+unique_name_in_owner = true
 position = Vector2(200, 200)
 script = ExtResource("10_trtic")
 zoom_speed = 0.06

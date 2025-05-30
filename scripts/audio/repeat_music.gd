@@ -1,9 +1,8 @@
 extends AudioStreamPlayer
 
-var isStopped: bool = false
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+var _is_stopped: bool = false
 func _process(delta: float) -> void:
-	if not self.playing and not isStopped:
+	if not self.playing and not _is_stopped:
 		self.play()
 
 func _ready() -> void:
@@ -11,4 +10,4 @@ func _ready() -> void:
 
 func _on_stop_game_music() -> void:
 	self.stop()
-	isStopped = true
+	_is_stopped = true

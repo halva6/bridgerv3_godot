@@ -1,10 +1,7 @@
 extends Control
 
-@export var last_ui:String = "pause_ui"
+@export var last_ui: String = "pause_ui"
 @export var hide_mcts_speed: bool = false
-
-var save_path: String = "user://settings.save"
-
 
 func _ready() -> void:
 	if hide_mcts_speed:
@@ -19,40 +16,40 @@ func _ready() -> void:
 	spin_box_line_edit.focus_mode = Control.FOCUS_NONE
 
 func _on_back_button_pressed() -> void:
-	GlobalAudio.emit_signal("play_click_sound") #Sound
-	save_settings()
+	GlobalAudio.emit_signal("play_click_sound") # Sound
+	_save_settings()
 	visible = false
 	get_parent().get_node(last_ui).visible = true
 
 
 func _on_impressum_button_pressed() -> void:
-	GlobalAudio.emit_signal("play_click_sound") #Sound
+	GlobalAudio.emit_signal("play_click_sound") # Sound
 	visible = false
 	get_parent().get_node("impressum_ui").visible = true
 
 func _on_tutorial_button_pressed() -> void:
-	GlobalAudio.emit_signal("play_click_sound") #Sound.
+	GlobalAudio.emit_signal("play_click_sound") # Sound.
 	visible = false
 	get_parent().get_node("how_to_play_ui").visible = true
 
 
 func _on_minutes_spin_box_value_changed(value: float) -> void:
-	GlobalAudio.emit_signal("play_click_sound") #Sound
+	GlobalAudio.emit_signal("play_click_sound") # Sound
 	GlobalGame.set_simulation_time(int(value))
 
 func _on_player_button_item_selected(index: int) -> void:
-	GlobalAudio.emit_signal("play_click_sound") #Sound
+	GlobalAudio.emit_signal("play_click_sound") # Sound
 	GlobalGame.set_start_player(%PlayerButton.get_item_text(index))
 
-func save_settings() -> void:
+func _save_settings() -> void:
 	var spin_box_value: float = %MinutesSpinBox.value
 	var sound_slider_value: float = %SoundSlider.value
 	var music_slider_value: float = %MusicSlider.value
 	var player_button_index: int = %PlayerButton.get_selected_id()
-	GlobalSave.save_settings(spin_box_value, sound_slider_value,music_slider_value, player_button_index)
+	GlobalSave.save_settings(spin_box_value, sound_slider_value, music_slider_value, player_button_index)
 	
-func load_data():
-	var settings_array = GlobalSave.load_settings()
+func load_data() -> void:
+	var settings_array: Array = GlobalSave.load_settings()
 	%MinutesSpinBox.value = settings_array[0]
 	%SoundSlider.value = settings_array[1]
 	%MusicSlider.value = settings_array[2]
