@@ -69,14 +69,18 @@ layout_mode = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 300
+theme_override_constants/margin_bottom = 200
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 200
 alignment = 1
 
-[node name="MultiplayerButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+[node name="MultiplayerButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Play vs other people"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -87,7 +91,7 @@ theme_override_styles/pressed = ExtResource("7_x2vcs")
 theme_override_styles/normal = ExtResource("6_15ej8")
 text = "👤 vs 👤"
 
-[node name="SingleplayerButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+[node name="SingleplayerButton" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Play vs the computer"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -97,6 +101,19 @@ theme_override_styles/hover = ExtResource("6_lctjc")
 theme_override_styles/pressed = ExtResource("7_x2vcs")
 theme_override_styles/normal = ExtResource("6_15ej8")
 text = "👤 vs 🤖"
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Play in the LAN vs friends"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_cki8d")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/hover = ExtResource("6_lctjc")
+theme_override_styles/pressed = ExtResource("7_x2vcs")
+theme_override_styles/normal = ExtResource("6_15ej8")
+text = "👤 vs🛜"
 
 [node name="Settings" type="Button" parent="MarginContainer"]
 layout_mode = 2
@@ -109,8 +126,8 @@ flat = true
 script = ExtResource("10_akrdt")
 
 [connection signal="visibility" from="." to="MarginContainer/VBoxContainer/MarginContainer2/CarusellSelection" method="_on_start_screen_ui_visibility"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/MultiplayerButton" to="GenerateMatrix" method="_on_multiplayer_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/HBoxContainer/SingleplayerButton" to="GenerateMatrix" method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer/MultiplayerButton" to="GenerateMatrix" method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer/HBoxContainer/SingleplayerButton" to="GenerateMatrix" method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="MarginContainer/Settings" to="." method="_on_settings_pressed"]

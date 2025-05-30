@@ -151,14 +151,14 @@ if __name__ == "__main__":
     # Prompt the user to enter the directory path   
 
     # User input for directory and search pattern
-    target_directory = "/home/jason/Workspaces/GameEngines/Godot/bridgerv3_godot/assets/ui/Loading" #input("Enter the directory to search in: ")
+    target_directory = "/home/jason/Workspaces/GameEngines/Godot/bridgerv3_godot/scripts" #input("Enter the directory to search in: ")
     #replace_spaces_in_files(target_directory)  
     #fix_assignment_spacing_in_gd_files(target_directory)
     
-    resize_images(target_directory, target_directory, (128, 128))
+    #resize_images(target_directory, target_directory, (128, 128))
 
-    #search_query = input("Enter the text or regex pattern to search for: ")
+    search_query = input("Enter the text or regex pattern to search for: ")
     # Start the search
-    #print(f"\nSearching for '{search_query}' in .gd files under '{target_directory}'...\n")
-    #search_in_gd_files(target_directory, search_query)
+    print(f"\nSearching for '{search_query}' in .gd files under '{target_directory}'...\n")
+    search_in_gd_files(target_directory, search_query)
 
