@@ -4,6 +4,9 @@ extends Camera2D
 @export var pan_speed: float = 1.0
 @export var rotation_speed: float = 1.0
 
+@export var zoom_min: float = 0.5
+@export var zoom_max: float = 5
+
 @export var can_pan: bool
 @export var can_zoom: bool
 @export var can_rotate: bool
@@ -56,14 +59,14 @@ func handle_drag(event: InputEventScreenDrag):
 		limit_zoom(zoom)
 
 func limit_zoom(new_zoom):
-	if new_zoom.x < 0.1:
-		zoom.x = 0.1
-	if new_zoom.y < 0.1:
-		zoom.y = 0.1
-	if new_zoom.x > 10:
-		zoom.x = 10
-	if new_zoom.y > 10:
-		zoom.y = 10
+	if new_zoom.x < zoom_min:
+		zoom.x = zoom_min
+	if new_zoom.y < zoom_min:
+		zoom.y = zoom_min
+	if new_zoom.x > zoom_max:
+		zoom.x = zoom_max
+	if new_zoom.y > zoom_max:
+		zoom.y = zoom_max
 	
 
 func get_angle(p1, p2):

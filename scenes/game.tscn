@@ -34,38 +34,23 @@ red_pier_scene = ExtResource("5_vtaks")
 green_bridge_scene = ExtResource("2_u5sy4")
 red_bridge_scene = ExtResource("4_0tnpc")
 
-[node name="Camera2DComputer" parent="." instance=ExtResource("8_kvuet")]
-position = Vector2(200, 200)
-zoomSpeed = 10.0
-
-[node name="Camera2DMobile" parent="." instance=ExtResource("9_trtic")]
-position = Vector2(200, 200)
-script = ExtResource("10_trtic")
-zoom_speed = 0.06
-pan_speed = 0.4
-can_pan = true
-can_zoom = true
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="background_ui" parent="CanvasLayer" instance=ExtResource("11_ir15t")]
-z_index = -5
 
 [node name="game_ui" parent="CanvasLayer" instance=ExtResource("8_0tnpc")]
-light_mask = 2
-visibility_layer = 2
 z_index = 1
 
 [node name="win_ui" parent="CanvasLayer" instance=ExtResource("12_dinhu")]
+unique_name_in_owner = true
 visible = false
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="pause_ui" parent="CanvasLayer" instance=ExtResource("9_0tnpc")]
+unique_name_in_owner = true
 visible = false
 
 [node name="settings_ui" parent="CanvasLayer" instance=ExtResource("11_kvpfn")]
+unique_name_in_owner = true
 visible = false
 hide_mcts_speed = true
 
@@ -74,6 +59,27 @@ visible = false
 
 [node name="how_to_play_ui" parent="CanvasLayer" instance=ExtResource("17_5newe")]
 visible = false
+
+[node name="CanvasLayerBackground" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = -1
+
+[node name="background_ui" parent="CanvasLayerBackground" instance=ExtResource("11_ir15t")]
+z_index = -5
+
+[node name="Camera2DComputer" parent="." instance=ExtResource("8_kvuet")]
+position = Vector2(200, 200)
+limit_smoothed = true
+zoomSpeed = 10.0
+zoom_max = 4.0
+
+[node name="Camera2DMobile" parent="." instance=ExtResource("9_trtic")]
+position = Vector2(200, 200)
+script = ExtResource("10_trtic")
+zoom_speed = 0.06
+pan_speed = 0.4
+can_pan = true
+can_zoom = true
 
 [node name="ClickSound" parent="." instance=ExtResource("17_ssvqc")]
 

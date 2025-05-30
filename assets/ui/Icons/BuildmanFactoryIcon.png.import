@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5woexqije4fo"
-path="res://.godot/imported/RedPierIcon432x432.png-83ad4174e31ad2140d493d9891ed38cf.ctex"
+uid="uid://dcdeuib2pksin"
+path="res://.godot/imported/BuildmanFactoryIcon.png-b686a094e0a44e384160572312638eeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/Icons/RedPierIcon432x432.png"
-dest_files=["res://.godot/imported/RedPierIcon432x432.png-83ad4174e31ad2140d493d9891ed38cf.ctex"]
+source_file="res://assets/ui/Icons/BuildmanFactoryIcon.png"
+dest_files=["res://.godot/imported/BuildmanFactoryIcon.png-b686a094e0a44e384160572312638eeb.ctex"]
 
 [params]
 

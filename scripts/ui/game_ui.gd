@@ -8,10 +8,9 @@ func _ready() -> void:
 func _on_pause_button_pressed() -> void:
 	GlobalAudio.emit_signal("play_click_sound") #Sound
 	visible = false
-	get_parent().get_node("pause_ui").visible = true
-	get_parent().layer = 1
-
-
+	%pause_ui.visible = true
+	%CanvasLayerBackground.layer = 0
+	
 func _on_game_root_update_player_label(player: String) -> void:
 	%PlayerLabel.text = player+"s turn"
 
@@ -35,5 +34,5 @@ func _on_reset_move_button_pressed() -> void:
 
 func _on_win_button_pressed() -> void:
 	visible = false
-	get_parent().get_node("win_ui").visible = true
-	get_parent().layer = 1
+	%win_ui.visible = true
+	%CanvasLayerBackground.layer = 0

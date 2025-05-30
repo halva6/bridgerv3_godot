@@ -13,6 +13,10 @@ func _ready() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	load_data()
+	
+	#This means that the spinbox can only be edited with the arrows and not with the keyboard
+	var spin_box_line_edit: LineEdit = %MinutesSpinBox.get_line_edit()
+	spin_box_line_edit.focus_mode = Control.FOCUS_NONE
 
 func _on_back_button_pressed() -> void:
 	GlobalAudio.emit_signal("play_click_sound") #Sound

@@ -10,10 +10,13 @@ config_version=5
 
 [application]
 
-config/name="bridgerv3_godot"
+config/name="Bridger"
 run/main_scene="uid://2ntaa6fu6286"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/fullsize=false
+boot_splash/image="uid://dcdeuib2pksin"
+config/icon="uid://btrfp7jqxxab5"
 
 [autoload]
 
