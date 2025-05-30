@@ -3,6 +3,10 @@ extends Control
 func _ready() -> void:
 	if GlobalGame.get_local_multiplayer():
 		%VisitLabel.visible = false
+	
+	if GlobalGame.get_level_mode():
+		%LevelDescriptionLabel.visible = true
+		%LevelDescriptionLabel.text = GlobalGame.get_level_description()
 
 
 func _on_pause_button_pressed() -> void:

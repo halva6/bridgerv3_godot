@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://doekpmb2o2xbk"]
+
+[ext_resource type="Texture2D" uid="uid://c545ofvvc4qux" path="res://assets/ui/Left-Arrow.png" id="1_f3fyk"]
+[ext_resource type="Script" uid="uid://d15efu4d7r13y" path="res://scripts/ui/back_buttton.gd" id="2_f3roh"]
+
+[node name="BackButtton" type="Button"]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = ExtResource("1_f3fyk")
+flat = true
+script = ExtResource("2_f3roh")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

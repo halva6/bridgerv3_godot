@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://d21chmllupuu2"]
+[gd_scene load_steps=9 format=3 uid="uid://d21chmllupuu2"]
 
 [ext_resource type="Script" uid="uid://b0v2r16h541re" path="res://scripts/ui/game_ui.gd" id="1_tqpfq"]
+[ext_resource type="LabelSettings" uid="uid://btgpsese0pid2" path="res://gameobjects/ui/styles/info_label.tres" id="2_686bk"]
 [ext_resource type="Texture2D" uid="uid://copv3f0oifu35" path="res://assets/ui/Redo_180.png" id="2_k4eh0"]
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="4_k4eh0"]
-[ext_resource type="Script" uid="uid://4pxo0v2iqa2v" path="res://scripts/ui/player_label_computer_text_animation.gd" id="4_rswll"]
+[ext_resource type="Script" path="res://scripts/ui/player_label_computer_text_animation.gd" id="4_rswll"]
 [ext_resource type="FontFile" uid="uid://dmmrlach1m52i" path="res://assets/fonts/Kenney Future.ttf" id="5_rswll"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2hodu"]
@@ -35,6 +36,19 @@ theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 100
+
+[node name="LevelDescriptionMarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 200
+
+[node name="LevelDescriptionLabel" type="Label" parent="MarginContainer/LevelDescriptionMarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+text = "Level X"
+label_settings = ExtResource("2_686bk")
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2

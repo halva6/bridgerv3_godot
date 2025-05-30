@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfeveb3mliyap"]
+[gd_scene load_steps=7 format=3 uid="uid://cfeveb3mliyap"]
 
-[ext_resource type="Script" uid="uid://dav3y1u74a3t5" path="res://scripts/ui/how_to_play_ui.gd" id="1_0g0ew"]
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="1_adocm"]
-[ext_resource type="Texture2D" uid="uid://c545ofvvc4qux" path="res://assets/ui/Left-Arrow.png" id="1_omy7r"]
 [ext_resource type="LabelSettings" uid="uid://btgpsese0pid2" path="res://gameobjects/ui/styles/info_label.tres" id="2_rrtvs"]
 [ext_resource type="Texture2D" uid="uid://ch075gic7qfvr" path="res://assets/ui/HowToPlay/Gameboard.png" id="3_dvddv"]
 [ext_resource type="Texture2D" uid="uid://grvyqqcsrdye" path="res://assets/ui/HowToPlay/BridgesPlaced.png" id="4_cq6kh"]
 [ext_resource type="Texture2D" uid="uid://bpjp45g8svhie" path="res://assets/ui/HowToPlay/TempBridgesSet.png" id="5_0g0ew"]
+[ext_resource type="PackedScene" uid="uid://doekpmb2o2xbk" path="res://gameobjects/ui/back_buttton.tscn" id="6_cq6kh"]
 
 [node name="how_to_play_ui" type="Control"]
 layout_mode = 3
@@ -15,7 +14,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_0g0ew")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -117,11 +115,6 @@ With one finger, you can move the view, and with two fingers, you can zoom in an
 label_settings = ExtResource("2_rrtvs")
 autowrap_mode = 3
 
-[node name="Button" type="Button" parent="MarginContainer"]
+[node name="BackButtton" parent="MarginContainer" node_paths=PackedStringArray("current_controll") instance=ExtResource("6_cq6kh")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-icon = ExtResource("1_omy7r")
-flat = true
-
-[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_button_pressed"]
+current_controll = NodePath("../..")

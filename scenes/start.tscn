@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://2ntaa6fu6286"]
+[gd_scene load_steps=10 format=3 uid="uid://2ntaa6fu6286"]
 
 [ext_resource type="PackedScene" uid="uid://digb6qc50hwuh" path="res://gameobjects/ui/background_ui.tscn" id="1_bodal"]
 [ext_resource type="PackedScene" uid="uid://ckg6j1nwmecv" path="res://gameobjects/ui/start_screen_ui.tscn" id="1_jaeev"]
@@ -7,6 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://dapd552kx24or" path="res://gameobjects/ui/impressum.tscn" id="4_y16t7"]
 [ext_resource type="PackedScene" uid="uid://85sydaloh2gb" path="res://gameobjects/audio/lobby_music.tscn" id="5_0auqf"]
 [ext_resource type="PackedScene" uid="uid://cfeveb3mliyap" path="res://gameobjects/ui/how_to_play_ui.tscn" id="5_4ge6i"]
+[ext_resource type="PackedScene" uid="uid://d051g34v1pie0" path="res://gameobjects/ui/level_selection_ui.tscn" id="6_8itgj"]
+
+[sub_resource type="GDScript" id="GDScript_4ge6i"]
+script/source = "extends Control
+
+
+func _on_button_pressed() -> void:
+	GlobalAudio.emit_signal(\"play_click_sound\") #Sound
+	visible = false
+	get_parent().get_node(\"settings_ui\").visible = true
+"
 
 [node name="StartScreenRoot" type="Node"]
 
@@ -26,6 +37,10 @@ last_ui = "start_screen_ui"
 visible = false
 
 [node name="how_to_play_ui" parent="CanvasLayer" instance=ExtResource("5_4ge6i")]
+visible = false
+script = SubResource("GDScript_4ge6i")
+
+[node name="level_selection_ui" parent="CanvasLayer" instance=ExtResource("6_8itgj")]
 visible = false
 
 [node name="ClickSound" parent="." instance=ExtResource("4_kdmts")]

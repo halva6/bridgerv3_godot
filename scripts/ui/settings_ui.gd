@@ -3,6 +3,8 @@ extends Control
 @export var last_ui: String = "pause_ui"
 @export var hide_mcts_speed: bool = false
 
+var _is_spinbox_programmatic_change: bool = false
+
 func _ready() -> void:
 	if hide_mcts_speed:
 		%MCTSSpeedBox.visible = false
@@ -34,8 +36,9 @@ func _on_tutorial_button_pressed() -> void:
 
 
 func _on_minutes_spin_box_value_changed(value: float) -> void:
-	GlobalAudio.emit_signal("play_click_sound") # Sound
-	GlobalGame.set_simulation_time(int(value))
+	if !_is_spinbox_programmatic_change:
+		GlobalAudio.emit_signal("play_click_sound") # Sound
+		GlobalGame.set_simulation_time(int(value))
 
 func _on_player_button_item_selected(index: int) -> void:
 	GlobalAudio.emit_signal("play_click_sound") # Sound
@@ -49,9 +52,11 @@ func _save_settings() -> void:
 	GlobalSave.save_settings(spin_box_value, sound_slider_value, music_slider_value, player_button_index)
 	
 func load_data() -> void:
+	_is_spinbox_programmatic_change = true
 	var settings_array: Array = GlobalSave.load_settings()
 	%MinutesSpinBox.value = settings_array[0]
 	%SoundSlider.value = settings_array[1]
 	%MusicSlider.value = settings_array[2]
 	%PlayerButton.select(settings_array[3])
 	GlobalGame.set_start_player(%PlayerButton.get_item_text(settings_array[3]))
+	_is_spinbox_programmatic_change = false

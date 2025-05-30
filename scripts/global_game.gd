@@ -3,6 +3,7 @@ extends Node
 
 var _finish_turn: bool = false
 var _multiplayer: bool = true
+var _level_mode: bool = false
 var _current_player: String = "green"
 var _start_player: String = "green"
 var _TILE_DICT: Dictionary = {"greenpier": 1, "redpier": 2, "greenbridge": 3, "redbridge": 4, "tempbridge": 5}
@@ -14,6 +15,8 @@ var _do_reset: bool = false
 
 var _game_board_size: int = 12
 const _game_size_dict: Dictionary = {0: 5, 1: 7, 2: 9, 3: 11, 4: 13, 5: 15, 6: 17}
+
+var _level_description: String = ""
 
 
 # game board matrix
@@ -33,6 +36,9 @@ func get_matrix() -> Array:
 	
 func get_local_multiplayer() -> bool:
 	return _multiplayer
+
+func get_level_mode() -> bool:
+	return _level_mode
 
 func get_finish_turn() -> bool:
 	return self._finish_turn
@@ -63,6 +69,9 @@ func get_game_board_size() -> int:
 
 func get_game_size_dict() -> Dictionary:
 	return _game_size_dict
+	
+func get_level_description() -> String:
+	return _level_description
 
 # setter
 func set_matrix(matrix: Array) -> void:
@@ -70,6 +79,9 @@ func set_matrix(matrix: Array) -> void:
 	
 func set_local_multiplayer(mulitplayer: bool) -> void:
 	self._multiplayer = mulitplayer
+	
+func set_level_mode(levelmode: bool) -> void:
+	self._level_mode = levelmode
 
 func set_finish_turn(finish_turn: bool) -> void:
 	self._finish_turn = finish_turn
@@ -94,3 +106,6 @@ func set_reset(reset: bool) -> void:
 	
 func set_game_board_size(size: int) -> void:
 	_game_board_size = size
+	
+func set_level_description(level_description: String) -> void:
+	self._level_description = level_description

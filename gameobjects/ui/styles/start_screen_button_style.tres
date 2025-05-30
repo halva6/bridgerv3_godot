@@ -1,0 +1,16 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b70ar6h45clh4"]
+
+[ext_resource type="FontFile" uid="uid://dmmrlach1m52i" path="res://assets/fonts/Kenney Future.ttf" id="1_m2tic"]
+[ext_resource type="StyleBox" uid="uid://b1rbnh4llhdsp" path="res://gameobjects/ui/styles/button_style_hover.tres" id="2_8ltad"]
+[ext_resource type="StyleBox" uid="uid://bwscc4sfje2gs" path="res://gameobjects/ui/styles/button_style.tres" id="3_1o7uc"]
+[ext_resource type="StyleBox" uid="uid://boira5n6y07rn" path="res://gameobjects/ui/styles/button_style_press.tres" id="4_0edmx"]
+
+[resource]
+default_font = ExtResource("1_m2tic")
+default_font_size = 80
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 80
+Button/fonts/font = ExtResource("1_m2tic")
+Button/styles/hover = ExtResource("2_8ltad")
+Button/styles/normal = ExtResource("3_1o7uc")
+Button/styles/pressed = ExtResource("4_0edmx")

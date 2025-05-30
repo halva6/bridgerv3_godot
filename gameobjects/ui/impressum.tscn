@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dapd552kx24or"]
+[gd_scene load_steps=5 format=3 uid="uid://dapd552kx24or"]
 
-[ext_resource type="Script" uid="uid://dw81lfhdxrhv4" path="res://scripts/ui/impressum_ui.gd" id="1_3hxxl"]
-[ext_resource type="Texture2D" uid="uid://c545ofvvc4qux" path="res://assets/ui/Left-Arrow.png" id="1_51ear"]
 [ext_resource type="FontFile" uid="uid://dmmrlach1m52i" path="res://assets/fonts/Kenney Future.ttf" id="2_cg807"]
 [ext_resource type="LabelSettings" uid="uid://dycbb06y7r77p" path="res://gameobjects/ui/styles/label_text.tres" id="2_i2m07"]
 [ext_resource type="LabelSettings" uid="uid://btgpsese0pid2" path="res://gameobjects/ui/styles/info_label.tres" id="3_m7sip"]
+[ext_resource type="PackedScene" uid="uid://doekpmb2o2xbk" path="res://gameobjects/ui/back_buttton.tscn" id="5_3hxxl"]
 
 [node name="impressum_ui" type="Control"]
 layout_mode = 3
@@ -13,7 +12,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_3hxxl")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -67,11 +65,6 @@ theme_override_font_sizes/font_size = 32
 text = "Github"
 uri = "https://github.com/halva6/bridgerv3_godot"
 
-[node name="Back" type="Button" parent="MarginContainer"]
+[node name="BackButtton" parent="MarginContainer" node_paths=PackedStringArray("current_controll") instance=ExtResource("5_3hxxl")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-icon = ExtResource("1_51ear")
-flat = true
-
-[connection signal="pressed" from="MarginContainer/Back" to="." method="_on_back_pressed"]
+current_controll = NodePath("../..")
