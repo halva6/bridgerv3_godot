@@ -59,14 +59,14 @@ Since English is not my native language, I apologize for any mistakes, but this 
   - works parallel → the human can't do anithing and loading animation
   - should work fast (max. 10 sek)
   - with human at eye level → multiple computer levels (beginner, advanced, pro, ultra pro)
-- **resets moves**
+- ~~**resets moves**~~
   - moves are stored in a stack
 	- saves the position from the last set bridge
   - click on reset button
 	- pops the last entry/position from the stack
 	- removes on this position the game object
 ---
-- **UI and decorations**
+- ~~**UI and decorations**~~
   - start ui
 	- choice between multiplayer and single player
 	  - choice the begining color

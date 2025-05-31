@@ -44,9 +44,9 @@ func _generate_from_matrix() -> void:
 				2:
 					spawn_object(red_pier_scene, position, 0, "redpier")
 				3:
-					spawn_object(green_bridge_scene, position, 0, "greenbridge")
+					spawn_object(green_bridge_scene, position, _calculate_bridge_rotation(_matrix, x, y, 1), "greenbridge")
 				4:
-					spawn_object(red_bridge_scene, position, 0, "redbridge")
+					spawn_object(red_bridge_scene, position, _calculate_bridge_rotation(_matrix, x, y, 2), "redbridge")
 
 # Spawn an object at a specific position and assign it to a group
 func spawn_object(scene: PackedScene, position: Vector2, rotaion: float, group_name: String) -> void:
@@ -61,8 +61,8 @@ func spawn_object(scene: PackedScene, position: Vector2, rotaion: float, group_n
 func _is_position_valid(matrix: Array, x: int, y: int, valid_number: int = 0) -> bool:
 	return y >= 0 and x >= 0 and y < len(matrix) and x < len(matrix[y]) and matrix[y][x] == valid_number
 
-func _calculate_computer_bridge_rotation(matrix: Array, x: int, y: int) -> float:
-	if _is_position_valid(matrix, x, y + 1, 2) or _is_position_valid(matrix, x, y - 1, 2):
+func _calculate_bridge_rotation(matrix: Array, x: int, y: int, valid_number: int) -> float:
+	if _is_position_valid(matrix, x, y + 1, valid_number) or _is_position_valid(matrix, x, y - 1, valid_number):
 			return deg_to_rad(90)
 	return deg_to_rad(0)
 
@@ -71,6 +71,6 @@ func _on_game_root_set_computers_bridge(matrix_position: Vector2) -> void:
 	var position: Vector2 = matrix_position * tile_spacing
 	var matrix: Array = GlobalGame.get_matrix()
 	LocalDebug.print_matrix(matrix)
-	var rotation: float = _calculate_computer_bridge_rotation(matrix, matrix_position.x, matrix_position.y)
+	var rotation: float = _calculate_bridge_rotation(matrix, matrix_position.x, matrix_position.y, 2)
 	spawn_object(red_bridge_scene, position, rotation, "computerbridge")
 	matrix[matrix_position.y][matrix_position.x] = 4

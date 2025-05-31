@@ -68,7 +68,6 @@ theme = ExtResource("2_332gc")
 text = " 4 "
 
 [node name="HBoxLevel5_8" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
