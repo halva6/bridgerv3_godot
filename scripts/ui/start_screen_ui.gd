@@ -25,6 +25,7 @@ func _on_level_button_pressed() -> void:
 	GlobalAudio.emit_signal("play_click_sound")
 	visible = false
 	get_parent().get_node("level_selection_ui").visible = true
+	_manage_visibilty()
 
 func _manage_visibilty() -> void:
 	emit_signal("visibility", false)
