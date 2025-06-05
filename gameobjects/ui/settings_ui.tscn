@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://4atvarwgl0aa"]
+[gd_scene load_steps=26 format=3 uid="uid://4atvarwgl0aa"]
 
 [ext_resource type="Script" uid="uid://br5uv0qtt4f07" path="res://scripts/ui/settings_ui.gd" id="1_5h6fy"]
 [ext_resource type="LabelSettings" uid="uid://dxgcp15t7dwp1" path="res://gameobjects/ui/styles/heading_text.tres" id="2_p0ha5"]
@@ -17,6 +17,10 @@ load_path = "res://.godot/imported/Music-0.png-7ae548fcd6826fe5455dd42d331bcace.
 [sub_resource type="LabelSettings" id="LabelSettings_h1tr1"]
 font = ExtResource("6_lk2nf")
 font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_fomxv"]
+font = ExtResource("6_lk2nf")
+font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_14fav"]
 font = ExtResource("6_lk2nf")
@@ -261,18 +265,22 @@ step = 0.001
 script = ExtResource("3_tnk7c")
 audio_bus_name = "Music"
 
-[node name="MCTSSpeedBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="MCTSSpeedBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 13
+
+[node name="MCTSSpeedHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="MCTSSpeedLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox"]
+[node name="MCTSSpeedLabel" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox/MCTSSpeedHBox"]
 layout_mode = 2
 text = "MCTS Speed in sec:"
 label_settings = SubResource("LabelSettings_h1tr1")
 
-[node name="MinutesSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox"]
+[node name="MinutesSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox/MCTSSpeedHBox"]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(0, 150)
@@ -284,6 +292,14 @@ max_value = 60.0
 value = 5.0
 rounded = true
 alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox"]
+layout_mode = 2
+text = "indicates how long the computer thinks 
+the longer it thinks, the more difficult it becomes"
+label_settings = SubResource("LabelSettings_fomxv")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="StartPlayerBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -332,7 +348,7 @@ size_flags_vertical = 0
 icon = SubResource("CompressedTexture2D_8xema")
 flat = true
 
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox/MinutesSpinBox" to="." method="_on_minutes_spin_box_value_changed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer/MCTSSpeedBox/MCTSSpeedHBox/MinutesSpinBox" to="." method="_on_minutes_spin_box_value_changed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/VBoxContainer/StartPlayerBox/PlayerButton" to="." method="_on_player_button_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/ImpressumButton" to="." method="_on_impressum_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
